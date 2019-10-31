@@ -3,7 +3,7 @@
 
 print("Codigo antes:\n")
 filepath = 'arquivo.txt'
-with open(filepath, "r+") as fp:
+with open(filepath) as fp:
    for cnt, line in enumerate(fp):
        print( line)
 
