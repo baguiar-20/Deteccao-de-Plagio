@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+int main(void) { /* Simples programa em C */
+int var;
+for (var=0; var<5; var++) {
+     printf(" %d∖n ", var ); /* outro exemplo */
+     }
+ return 0;
+}
