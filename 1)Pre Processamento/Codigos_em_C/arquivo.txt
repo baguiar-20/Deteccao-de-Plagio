@@ -5,5 +5,5 @@ int var;
 for (var=0; var<5; var++) {
      printf(" %d∖n ", var ); /* outro exemplo */
      }
- return 0;
+ return 0; 
 }
