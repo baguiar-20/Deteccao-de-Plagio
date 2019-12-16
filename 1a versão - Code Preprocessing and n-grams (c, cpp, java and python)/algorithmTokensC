@@ -1,0 +1,150 @@
+import glob, os
+from os.path import isfile
+import errno
+import re
+from re import sub
+
+def contARCHIVES(): #contador de arquivos
+    cont = 0
+    os.chdir(r"C:\Users\simon\algorithmC")
+    for file in glob.glob("*.txt"):
+#         print(file)
+        cont += 1
+    return cont
+
+def removeEMPTYLINES(s):
+    filtered = filter(lambda x: not re.match(r'^\s*$', x), s)
+    frases = []
+    for i in filtered:
+        frases.append(i)
+    return frases
+
+def prePROCESSAM(texto):
+    texto = texto.replace(" ", " AB ")
+    texto = sub('".*?"', '" "',texto)
+    texto = sub("'.*?'", "''",texto)
+    texto = re.sub(r'//.*', '//',texto)#comments in cpp
+    return texto
+
+def functionTOKENS(text):
+    tableTOKENSSIMBOLS = [#table com todos os tokens
+        'aa','ab', 'de', 'fe', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj', 'ak', 'al', 'ap',
+        'am', 'an', 'ao', 'ap', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'az', 'am', 'an'       
+        'ga','gb','gc','gd', 'ge','gf','gg','gh','gi','gj','gk','gl','gm','gn','go',
+        'gp','gq','gr','gs','gt','gu','gv','gx','gw','gz','ha','hb','hc','hd',
+        'he','hf','hg','hh','hi','hj','hk','hl','hm','hn','ho','hp','hq','hr','hs',
+        'ht','hu','hv','jg','jh','ji','jj','jl','jm','jn',
+        'jo','jp','jq','jr','js','hx','hw','hz','ia','ib','ic','id','ie','if','ig',
+        'ih','ii','ij','ik','il','im','in','io','ja', 'jb', 'jc', 'jd', 'je', 'jf',
+        'ip', 'iq', 'ir', 'is', 'jt', 'it', 'iu',]
+   
+    #replace os símbolos pelos seus respectivos tokens
+    text = text.replace("::", " ir ")
+    text = text.replace("<<", " js ")
+    text = text.replace("/*", " ir ")
+    text = text.replace("*/", " is ")
+    text = text.replace("//", " jt ")
+    text = text.replace("++", " it ")
+    text = text.replace("--", " iu ")
+    text = text.replace("&&", " ob ")
+    text = text.replace("||", " oc ")
+    
+    text = text.replace(":", " aa ")
+    text = text.replace(";", " ip ")
+    text = text.replace("&", " iq ")
+    text = text.replace("(", " ad ")
+    text = text.replace(")", " ae ")
+    text = text.replace("[", " af ")
+    text = text.replace("]", " ag ")
+    text = text.replace('"', " ah ")
+    text = text.replace("'", " ai ")
+    text = text.replace("*", " aj ")
+    text = text.replace("-", " ak ")
+    text = text.replace("+", " al ")
+    text = text.replace("%", " am ")
+    text = text.replace("!", " an ")
+    text = text.replace(".", " ao ")
+    text = text.replace("/", " ap ")
+    text = text.replace("#", " aq ")
+    text = text.replace("=", " ar ")
+    text = text.replace(">", " as ")
+    text = text.replace("<", " at ")
+    text = text.replace(",", " au ")
+    text = text.replace("}", " aw ")
+    text = text.replace("{", " az ")
+   
+    stringSPLIT = text.lower() #mantém os tokens minúsculos
+    stringSPLIT = stringSPLIT.split()#divide o code em palavras em lista
+       
+    tableTOKENS = {#words reservadas e seus respec tokens
+        'auto': 'ga','break': 'gb','case':'gc','char':'gd','const': 'ge',
+        'continue':'gf','default':'gg','double':'gh','do':'gi','else':'gj',
+        'enum':'gk','extern':'gl','float':'gm','for':'gn','goto':'go',
+        'if':'gp','int':'gq','long':'gr','register':'gs','return':'gt',
+        'short':'gu','signed':'gv','sizeof':'gx','static':'gw','struct':'gz','switch':'ha',
+        'typedef':'hb','union':'hc','unsigned':'hd',
+        'void':'he','volatile':'hf','while':'hg','isalnum':'hh',
+        'isalpha':'hi','isdigit':'hj','isspace':'hk',
+
+        'ceil':'hl','exp':'hm','floor':'hn','log10':'ho','log':'hp',
+        'pow':'hq','sqrt':'hr','fclose':'hs','feof':'ht','getc':'hu','gets':'hv',
+        'fgetc':'jg','fgets':'jh','fopen':'ji','fprintf':'jj',
+        'sprintf':'jl','fputc':'jm','getchar':'jn','printf':'jo',
+        'puts':'jp','sscanf':'jq','scanf':'jr','atof':'hx','atoi':'hw','atol':'hz',
+        'exit':'ia','getenv':'ib','free':'ic','malloc':'id',
+        'rand':'ie','strchr':'if','strcmp':'ig',
+        'strcpy':'ih','strlen':'ii','strncmp':'ij','strstr':'ik',
+        'strtok':'il','scandir':'im','sizeof':'in','typeof':'io',
+
+        'locale': 'ja', 'math': 'jb', 'stdio': 'jc', 'stdlib': 'jd', 
+        'string': 'je', 'time': 'jf', 'main':'od', 'getch':'oe', 'conio':'of', 'clrscr':'og'
+        }
+    for n, i in enumerate(stringSPLIT): #busca o token da palavra reservada
+        for x, y in tableTOKENS.items():
+            if i == x:
+                stringSPLIT[n] = y
+    for n, i in enumerate(stringSPLIT): #remove itens q ñ possuem tokens(clean)
+        if i not in tableTOKENSSIMBOLS:
+#             print("não está: ", i)
+            stringSPLIT.remove(i)
+
+    return stringSPLIT
+
+def calcNgram(listapalavras, n):
+    ngrams = []
+    for i in range(len(listapalavras)-(n-1)):
+        ngrams.append(listapalavras[i:i+n])
+    print(len(ngrams))
+    return ngrams
+       
+
+# -------------MAIN---------------
+arquivos = []
+qtdeArqu = 0
+qtdeARCHIVES = contARCHIVES()
+print('total de arquivos: ', qtdeARCHIVES)
+
+
+for file in glob.glob("*.txt"):
+    qtdeArqu += 1
+    print("-----------CÓDIGO C", qtdeArqu, "--------")
+    fp = open(file, "r", -1, 'utf-8')
+    codeTEXT = fp.readlines()
+    texto = removeEMPTYLINES(codeTEXT)
+    print("----> PRE PROCESSING <----")
+    stringTEXT = "".join(str(x) for x in texto)
+    stringTEXT = re.sub('(?<=\/\*)[\s\S]*?(?=\*\/)', '', stringTEXT)
+    stringTEXT = prePROCESSAM(stringTEXT)
+    print(stringTEXT)
+    print()
+    print("----> TOKENIZE <----")
+    stringTEXT = functionTOKENS(stringTEXT)
+    print("Tokenização pronta: ", stringTEXT)
+    print("Total tokens gerados: ", len(stringTEXT))
+    print()
+    print("----> N-GRAMS <----")
+    stringTEXT = calcNgram(stringTEXT, 4)
+    for n, i in enumerate(stringTEXT):
+        print(n, "->", i)
+    arquivos.append(stringTEXT)
+    print()
