@@ -1,0 +1,175 @@
+import glob, os
+from os.path import isfile
+import errno
+import re
+from re import sub
+
+def contARCHIVES(): #contador de arquivos
+    cont = 0
+    os.chdir(r"C:\Users\simon\algorithmJAVA")
+    for file in glob.glob("*.txt"):
+        cont += 1
+    return cont
+
+def namesARCHIVES(): #cria dict c/ name arquivos
+    listNames = []
+    archivesNames = {}
+    os.chdir(r"C:\Users\simon\algorithmJAVA")
+    for file in glob.glob("*.txt"):
+        listNames.append(file)
+    for i in listNames:
+        archivesNames[i] = None
+    return archivesNames
+
+def removeEMPTYLINES(s): #remove linhas vazias do código
+    filtered = filter(lambda x: not re.match(r'^\s*$', x), s)
+    frases = []
+    for i in filtered:
+        frases.append(i)
+    return frases
+
+def prePROCESSAM(texto):
+    texto = texto.replace(" ", " AB ")
+    texto = sub('".*?"', '" "',texto)
+    texto = sub("'.*?'", "''",texto)
+    texto = re.sub(r'//.*', '//',texto)#comments in cpp
+    return texto
+
+def functionTOKENS(text):
+    tableTOKENSSIMBOLS = [#table com todos os tokens
+        'ab', 'de', 'fe','aa', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj', 'ak', 'al', 'ap',
+        'am', 'an', 'ao', 'ap', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'az', 'am', 'an', 'ir',
+        'ip'
+       
+        'pa', 'pb', 'pc', 'pd', 'pe', 'pf','pg','ph', 'pi', 'pj',
+        'pk','pl','pm', 'pn', 'po','pp','pq','pr','ps', 'pt',
+        'pz','qa','qb','qc','qd','pu','pv','px',
+        
+        'qe','qf','qg','gh','qi', 'gj', 'qk' ,'ql', 'qm', 'qn',
+        'qo', 'qp','qq','qr','qs','qt', 'qu', 'qv', 'qx', 'qz',
+        
+        'ra','rb','rc','rd','re', 'rf', 'rg','rh','ri',
+        'rj', 'rk', 'rl', 'rm','rn', 'ro', 'rp', 'rq',
+        'rr' ,'rs','rt','ru','rv','rx','rz',
+        
+        'sa','sb', 'sc','sd','se', 'sf', 'sg', 'sh', 'si',
+        'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sq' ,'sr', 'ss',
+        'st', 'su', 'sv', 'sx', 'sw', 'sz', 'ta', 'tb', 'tc', 'td','te',  'tf'
+       ]
+    #replace os símbolos pelos seus respectivos tokens
+    text = text.replace("::", " tg ")
+    text = text.replace(";", " ip ")
+    text = text.replace("&&", " ob ")
+    text = text.replace("||", " oc ")
+    text = text.replace("<<", " js ")
+    text = text.replace("/*", " ir ")
+    text = text.replace("*/", " is ")
+    text = text.replace("//", " jt ")
+    text = text.replace("++", " it ")
+    text = text.replace("--", " iu ")
+    text = text.replace(":", " aa ")
+    text = text.replace("&", " iq ")
+    text = text.replace("(", " ad ")
+    text = text.replace(")", " ae ")
+    text = text.replace("[", " af ")
+    text = text.replace("]", " ag ")
+    text = text.replace('"', " ah ")
+    text = text.replace("'", " ai ")
+    text = text.replace("*", " aj ")
+    text = text.replace("-", " ak ")
+    text = text.replace("+", " al ")
+    text = text.replace("%", " am ")
+    text = text.replace("!", " an ")
+    text = text.replace(".", " ao ")
+    text = text.replace("/", " ap ")
+    text = text.replace("#", " aq ")
+    text = text.replace("=", " ar ")
+    text = text.replace(">", " as ")
+    text = text.replace("<", " at ")
+    text = text.replace(",", " au ")
+    text = text.replace("}", " aw ")
+    text = text.replace("{", " az ")
+   
+    stringSPLIT = text.lower() #mantém os tokens minúsculos
+    stringSPLIT = stringSPLIT.split()#divide o code em palavras em lista
+       
+    tableTOKENS = {#words reservadas e seus respec tokens
+        'io': 'pa','swing': 'pb','math': 'pc','abstract': 'pd','assert': 'pe',
+        'boolean': 'pf','break':'pg','byte':'ph', 'case':'pi', 'catch':'pj',
+        'char':'pk','class':'pl','const':'pm',
+        'continue':'pn','default': 'po','do':'pp',
+        'double':'pq','else':'pr','enum':'ps','extends':'pt',
+        'float':'pz','for':'qa','goto':'qb','if':'qc','implements':'qd',
+        'false':'pu','final':'pv','finally':'px',
+        
+        'import': 'qe','instanceof': 'qf','int':'qg','interface':'gh',
+        'long':'qi', 'native':'gj', 'new':'qk' ,'null':'ql', 'package':'qm', 'private':'qn',
+        'protected':'qo', 'public':'qp' ,'return': 'qq','short':'qr','static': 'qs',
+        'strictfp': 'qt', 'super':'qu', 'switch':'qv', 'synchronized':'qx', 'this':'qz',
+        
+        'throw':'ra','throws':'rb','transient':'rc','true':'rd',
+        'try':'re', 'void':'rf', 'volatile':'rg','whileisDigit':'rh','isLetter':'ri',
+        'toLowerCase':'rj', 'toUpperCase':'rk', 'trim':'rl', 'replace': 'rm',
+        'split': 'rn','valueOf': 'ro','random': 'rp','println': 'rq',
+        'System':'rr' ,'out': 'rs','pow':'rt','exp':'ru','log':'rv','sqrt':'rx','max': 'rz',
+        
+        'min':'sa','floor':'sb', 'ceil':'sc','round':'sd',
+        'nextLine':'se', 'nextInt':'sf', 'nextDouble':'sg', 'hasNext':'sh', 'hasNextLine':'si',
+        'hasNextInt':'sj', 'hasNextDouble':'sk', 'close':'sl', 'Random':'sm', 'compareTo':'sn',
+        'length':'so', 'equals':'sq' ,'equalsIgnoreCase': 'sr', 'startsWith':'ss',
+        'contains': 'st', 'indexOf':'su', 'lastIndexOf':'sv','charAt':'sx', 
+        'substring':'sw', 'awt':'sz', 'args':'ta', 'String': 'tb', 'Main':'tc', 'main':'td',
+        'Scanner': 'te', 'util': 'tf'}
+    
+    for n, i in enumerate(stringSPLIT): #busca o token da palavra reservada
+        for x, y in tableTOKENS.items():
+            if i == x:
+                stringSPLIT[n] = y
+    for n, i in enumerate(stringSPLIT): #remove itens q ñ possuem tokens(clean)
+        if i not in tableTOKENSSIMBOLS:
+            stringSPLIT.remove(i)
+    return stringSPLIT
+
+def calcNgram(listapalavras, n):#calcula as n-gramas dos tokens gerados
+    ngrams = []
+    for i in range(len(listapalavras)-(n-1)):
+        ngrams.append(listapalavras[i:i+n])
+    print(len(ngrams))
+    return ngrams
+
+
+# -------------MAIN---------------
+arquivos = []
+qtdeArqu = 0
+qtdeARQUIVES = contARCHIVES()
+dictARCHIVES = namesARCHIVES()
+print(dictARCHIVES)
+print()
+print("---START PROGRAM---")
+print()
+for file in glob.glob("*.txt"):
+    qtdeArqu += 1
+    print("-----------CÓDIGO JAVA", qtdeArqu, "--------")
+    fp = open(file, "r", -1, 'utf-8')
+    codeTEXT = fp.readlines()
+    texto = removeEMPTYLINES(codeTEXT)
+    print("----> PRE PROCESSING <----")
+    stringTEXT = "".join(str(x) for x in texto)
+    stringTEXT = re.sub('(?<=\/\*)[\s\S]*?(?=\*\/)', '', stringTEXT)
+    stringTEXT = prePROCESSAM(stringTEXT)
+    print(stringTEXT)
+    print()
+    print("----> TOKENIZE <----")
+    stringTEXT = functionTOKENS(stringTEXT)
+    print("Tokenização pronta: ", stringTEXT)
+    print("Total tokens gerados: ", len(stringTEXT))
+    print()
+    print("----> N-GRAMS <----")
+    stringTEXT = calcNgram(stringTEXT, 4)
+    for n, i in enumerate(stringTEXT):
+        print(n, "->", i)
+    arquivos.append(stringTEXT)
+    print()
+   
+print()
+print(qtdeARQUIVES)
