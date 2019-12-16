@@ -1,0 +1,152 @@
+import re
+from re import sub
+
+def imprimeTABLETOKENS(table):
+    for x, y in table.items():
+        print(x, "->", y)
+
+def imprimeTEXT(text):
+    for i in text:
+        print(i)
+
+def removeEMPTYLINES(s):
+    filtered = filter(lambda x: not re.match(r'^\s*$', x), s)
+    frases = []
+    for i in filtered:
+        frases.append(i)
+    return frases
+
+def prePROCESSAM(texto):
+    texto = texto.replace(" ", " AB ")
+    texto = sub('".*?"', '" "',texto)
+    texto = sub("'.*?'", "''",texto)
+    texto = re.sub(r'//.*', '//',texto)#comments in cpp
+    return texto
+
+
+def functionTOKENS(text):
+    tableTOKENSSIMBOLS = [#table com todos os tokens
+        'ab', 'de', 'fe','aa', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj', 'ak', 'al', 'ap', 
+        'am', 'an', 'ao', 'ap', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'az', 'am', 'an'
+        
+       'ka','kb','kc','kd','ke','kf', 'kg','kh','ki','kj','kk','kl', 'km','kn','ko',
+       'kp', 'kq','kr','ks','kt','ku','kv','kx', 'kw','kz','la','lb',
+
+       'lc','ld', 'le','lg','lh', 'li', 'lj','ll','lm','ln',
+       'lo','lp','lq','lr','ls','lt','lu','lv', 'lx', 'lw','lz',
+
+       'ma','mb','mf','mg', 'mh', 'mj','mj','mk','ml','mm', 'mn','mo',
+       'mp','mq','mr','ms', 'mt','mu','mv','mx','mw','mz', 'mc','md','me',
+
+       'na','nb','nc','nd','ne', 'nf','ng','nh','ni','nj',
+       'nk','nl','nm','nn','no' ,'np',"nq",'nr','ns'
+
+        'nt', 'nu', 'nv', 'nx', 'nw', 'nz', 'iv', 'ip', 'ir', 'iq', 
+        'js', 'ir', 'is', 'jt', 'it', 'iu', 'jd', 'nt', 'oa']
+   
+    #replace os símbolos pelos seus respectivos tokens
+    text = text.replace("::", " ir ")
+    text = text.replace(";", " ip ")
+    text = text.replace("&", " iq ")
+    text = text.replace("<<", " js ")
+    text = text.replace("/*", " ir ")
+    text = text.replace("*/", " is ")
+    text = text.replace("//", " jt ")
+    text = text.replace("++", " it ")
+    text = text.replace("--", " iu ")
+    text = text.replace(":", " aa ")
+    text = text.replace("(", " ad ")
+    text = text.replace(")", " ae ")
+    text = text.replace("[", " af ")
+    text = text.replace("]", " ag ")
+    text = text.replace('"', " ah ")
+    text = text.replace("'", " ai ")
+    text = text.replace("*", " aj ")
+    text = text.replace("-", " ak ")
+    text = text.replace("+", " al ")
+    text = text.replace("%", " am ")
+    text = text.replace("!", " an ")
+    text = text.replace(".", " ao ")
+    text = text.replace("/", " ap ")
+    text = text.replace("#", " aq ")
+    text = text.replace("=", " ar ")
+    text = text.replace(">", " as ")
+    text = text.replace("<", " at ")
+    text = text.replace(",", " au ")
+    text = text.replace("}", " aw ")
+    text = text.replace("{", " az ")
+    
+    stringSPLIT = text.lower() #mantém os tokens minúsculos
+    stringSPLIT = stringSPLIT.split()#divide o code em palavras em lista
+       
+    tableTOKENS = {#words reservadas e seus respec tokens
+        'alignas':'ka', 'alignof':'kb', 'and':'kc', 'and_eq':'kd', 
+            'asm':'ke', 'auto':'kf', 'bitand':'kg', 'bitor':'kh', 'bool':'ki',
+            'break':'kj', 'case':'kk', 'catch':'kl', 'char':'km',
+            'char16_t':'kn','char32_t':'ko', 'class':'kp', 'compl':'kq',
+            'const':'kr','constexpr':'ks', 'continue':'kt','decltype':'ku', 
+            'default':'kv','delete':'kx', 'do':'kw','double':'kz',
+                   
+            'dynamic_cast':'la', 'else':'lb', 'enum':'lc',
+            'explicit':'ld', 'export':'le', 'extern':'lg', 'false':'lh',
+            'float':'li', 'for':'lj', 'friend':'ll', 'goto':'lm', 'if':'ln',
+            'inline':'lo', 'long':'lq', 'mutable':'lr', 'namespace':'ls',
+            'new':'lt', 'noexcept':'lu','not':'lv', 'not_eq':'lx',
+            'nullptr':'lw', 'operator':'lz', 'or':'ma', 'or_eq':'mb', 'private':'mc',
+            'protected':'md', 'public':'me',
+                   
+           'register':'mf', 'return':'mg', 'short':'mh', 'signed':'mj',
+           'sizeof':'mj', 'static':'mk', 'static_assert':'ml', 'static_cast':'mm',
+           'struct':'mn', 'switch':'mo', 'template':'mp', 'this':'mq', 'throw':'mr',
+           'true':'ms', 'try':'mt', 'typedef':'mu', 'typeid':'mv',
+           'typename':'mx', 'union':'mw', 'unsigned':'mz',
+                   
+           'using':'na', 'virtual':'nb', 'void':'nc', 'volatile':'nd', 'wchar_t':'ne',
+           'while':'nf', 'xor':'ng', 'xor_eqstring':'nh','include':'ni','iostream':'nj',
+           'main':'nk', 'int':'nl', 'cout':'nm', 'cin':'nn', 'cerr':'no', 'open':'np',
+           'ofstream':"nq", 'close':'nr', 'ios':'ns',
+
+            'std':'nt', 'vector':'nu', 'string':'nv', 'algorithm':'nx', 'map':'nw', 
+            'getline':'nz', 'endl':'iv', 'stdlib': 'jd', 'system':'oa', 
+        }
+    
+    for n, i in enumerate(stringSPLIT): #busca o token da palavra reservada
+        for x, y in tableTOKENS.items():
+            if i == x:
+                stringSPLIT[n] = y
+    for n, i in enumerate(stringSPLIT): #remove itens q ñ possuem tokens(clean)
+        if i not in tableTOKENSSIMBOLS:
+#             print("não está: ", i)
+            stringSPLIT.remove(i)
+
+    return stringSPLIT
+
+def calcNgram(listapalavras, n):
+    ngrams = []
+    for i in range(len(listapalavras)-(n-1)):
+        ngrams.append(listapalavras[i:i+n])
+    print(len(ngrams))
+    return ngrams
+       
+#--------MAIN------------        
+fp = open("code4.txt", "r", -1, 'utf-8')
+codeTEXT = fp.readlines()
+print("--START CODE CPP--")
+print()
+print(codeTEXT)
+print("---- PRE PROCESSING ----")
+texto = removeEMPTYLINES(codeTEXT)
+stringTEXT = "".join(str(x) for x in texto)
+stringTEXT = re.sub('(?<=\/\*)[\s\S]*?(?=\*\/)', '', stringTEXT)
+print()
+stringTEXT = prePROCESSAM(stringTEXT)
+print("----TOKENIZE----")
+stringTEXT = functionTOKENS(stringTEXT)
+print("Tokenização pronta: ", stringTEXT)
+print("Total tokens gerados: ", len(stringTEXT))
+print()
+print("----N-GRAMS----")
+stringTEXT = calcNgram(stringTEXT, 4)
+for n, i in enumerate(stringTEXT):
+    print(n, "->", i)
+fp.close()
