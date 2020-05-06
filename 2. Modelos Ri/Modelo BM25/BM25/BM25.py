@@ -50,7 +50,7 @@ def OkapiBM251(docs_colecao,cont_termos, avg_doclen, qtdDocs,termosConsulta, tam
         for consulta in docs_colecao:
             for term, num in cont_termos.items():
                 if (term in busca[1]) and (term in consulta[1]):
-                    idf = mt.log(1+((qtdDocs-num + 0.5) / (num +0.5)))
+                    idf = mt.log((qtdDocs-num + 0.5) / (num +0.5))
                     for x in termosConsulta:
                         if (termosConsulta[x][0] == busca[0] and termosConsulta[x][0] == consulta[0] and termosConsulta[x][2] == term):
                             a = termosConsulta[x][3]
