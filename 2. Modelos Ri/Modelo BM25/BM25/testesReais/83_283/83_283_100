@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+int main() {
+
+	int vetor[1000], num, dimensao, cont;
+	
+	cont = 0;
+
+	scanf ("%d", &dimensao);
+
+	for (int i==0; i<dimensao; i++) {
+		scanf ("%d", &vetor[i]);
+	}
+
+	scanf ("%d", &num);
+
+	for (int i==0; i<dimensao; i++) {
+		if (vetor[i]==num) {
+			cont++;
+		}
+	}
+
+	if (cont==0) printf ("NAO");
+	else printf ("SIM");	
+
+	return 0;
+}

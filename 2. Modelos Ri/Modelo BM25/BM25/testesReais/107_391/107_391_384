@@ -1,0 +1,52 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+    int valor;
+    struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+    struct tipoNo *topo;
+} tipoPilha;
+
+void imprimePilha(tipoPilha *prim){
+    tipoNo *no = prim->topo;
+    while (no) {
+        printf("%d ",no->valor);
+        no = no->prox;
+    }
+    
+}
+
+int main(int argc, const char * argv[])
+{
+
+    tipoPilha prim;
+    tipoNo *no = NULL;
+    int valor;
+    
+    prim.topo = NULL;
+    
+    while (1){
+        scanf("%d", &valor);
+        if (valor<=-1) {
+            break;
+        }else if (valor==0){
+            no = prim.topo;
+            prim.topo = prim.topo->prox;
+        }else{
+            no = (tipoNo*)malloc(sizeof(tipoNo));
+            no->valor = valor;
+            no->prox = prim.topo;
+            prim.topo = no;
+        }
+    }
+    
+    imprimePilha(&prim);
+    
+    return 0;
+}
+

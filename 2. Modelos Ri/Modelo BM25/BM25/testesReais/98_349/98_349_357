@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[]){
+
+  FILE *fp = fopen(argv[1], "rb"); // Abre arquivo
+
+        int vetor, i;
+        char c;
+
+         i = fread(&vetor, sizeof(int), 1,fp);
+  while (i>0) {
+        printf("%d\n", vetor);
+        i = fread(&vetor, sizeof(int), 1,fp);
+    }
+
+  fclose(fp);
+  return 0;
+}
+
+
+

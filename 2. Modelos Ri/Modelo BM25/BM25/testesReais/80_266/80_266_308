@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<string.h>
+
+#define N 10
+
+int main() {
+
+	int i, tam;
+	char cadeia[N], aux;
+
+	scanf("%s", cadeia);
+
+	tam=strlen(cadeia)/2;
+
+	for(i=0; i<tam; i++)
+	 {
+	   aux=cadeia[strlen(cadeia)-(i+1)];
+	   cadeia[strlen(cadeia)-(i+1)]=cadeia[i];
+	   cadeia[i]=aux;
+	 }
+
+	printf("%s", cadeia);
+}

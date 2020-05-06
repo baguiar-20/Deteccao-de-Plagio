@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<string.h>
+
+main()
+{
+char PIRANHA[200];
+int i,n;
+
+	scanf("%s",PIRANHA);	
+	n=strlen(PIRANHA);
+	for(i=n-1;i>=0;i--)
+	{
+		printf("%c", PIRANHA[i]);			
+	}
+}
+

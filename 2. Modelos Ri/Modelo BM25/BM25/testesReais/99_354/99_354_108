@@ -1,0 +1,111 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int FIM =0;
+
+typedef struct tipoNo{
+	char str[100];
+	struct tipoNo *prox;
+}tipoNo;
+
+typedef struct tipoPilha{
+	struct tipoNo *topo;
+}tipoPilha;
+
+tipoPilha *iniPilha(){
+	tipoPilha *novo;
+	novo=(tipoPilha *)malloc(sizeof(tipoPilha));
+	novo->topo=NULL;
+	return novo;
+}
+
+void verifPilha(char *str){
+	if(FIM!=0) return;
+	
+	int a=0,u=0,f=0;
+	int i=0, j;
+	int t=strlen(str);
+	
+	while(str[i]!='\0'){
+		
+		j=i+1;
+		
+		while(str[i]!='('&&str[i]!=')'&&str[i]!='['&&str[i]!=']'&&str[i]!='\0'&&i<=t)  i++;
+		
+	 	j=i+1;
+		
+	 	while(str[j]!='('&&str[j]!=')'&&str[j]!='['&&str[j]!=']'&&str[j]!='\0'&&j<=t+1) j++;
+
+		if(str[i]!='\0'){
+			
+			if(str[j]=='\0'){
+				if(str[i]=='('||str[i]=='[') a++;
+				if(str[i]==')'||str[i]==']') f++;
+			}
+			
+			else{
+				if(str[i]=='('&&str[j]=='('||
+				   str[i]=='['&&str[j]=='['||
+				   str[i]=='('&&str[j]=='['||
+				   str[i]=='['&&str[j]=='('
+				   )
+				                a++;
+				                
+				else if(str[i]==')'&&str[j]==')'||
+				       str[i]==']'&&str[j]==']'||
+				       str[i]==')'&&str[j]==']'||
+				       str[i]==']'&&str[j]==')'||
+					   str[i]==')'&&str[j]=='['||
+					   str[i]==']'&&str[j]=='('
+					   )
+				               f++;
+				               
+				else if(str[i]=='('&&str[j]==')'||
+				        str[i]=='['&&str[j]==']'){
+				        	if(j-i!=1)  i=j;
+				        	else        i++;
+				        	u+=2;
+				        }
+				        
+			}
+
+		}
+	  i++;
+	}
+	i=0;
+	int tot=0;
+	  while(str[i]!='\0'){
+	  	if(str[i]=='('||str[i]==')'||str[i]=='['||str[i]==']') tot++;
+	  	i++;
+	  }
+  //  printf("a:%i u:%i f:%i tot:%i\n", a,u,f,tot);
+    if(a+u+f==tot&&a==f) printf("SIM\n");
+    else                 printf("NAO\n");
+  
+}
+
+void empPilha(tipoPilha *p){
+	tipoNo *no;
+	no=(tipoNo*)malloc(sizeof(tipoNo));
+	
+	scanf("%s", no->str);
+	no->prox=p->topo;
+	p->topo=no;
+	
+	if(strcmp(no->str,"END")==0) FIM=1;
+	
+	verifPilha(no->str);
+	
+}
+
+
+void main(){
+	tipoPilha *p;
+	p=iniPilha();
+	
+	while(FIM==0)
+	   empPilha(p);
+	
+	free(p);
+}

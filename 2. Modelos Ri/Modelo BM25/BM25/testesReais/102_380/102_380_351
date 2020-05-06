@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+
+int main () {
+
+    char nome[100];
+    int i=0,tam,aux;
+
+    printf("Nome: ");
+    fgets(nome,100,stdin);
+
+    tam = strlen(nome) - 2;
+
+    for ( i=0; i<=tam/2;i++ )
+    {
+       aux = nome[i];
+       nome[i]= nome[tam-i];
+       nome[tam-i] = aux;
+
+    }
+    printf("Inverso: %s\n",nome);
+
+}

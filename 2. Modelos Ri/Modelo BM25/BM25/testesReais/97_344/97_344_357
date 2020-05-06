@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]){
+
+    FILE*arq = fopen(argv[1], "rb");
+    int  result, dado;
+
+        while(fread(&dado, sizeof(int),1, arq) >= 1){
+        printf("%d\n", dado);
+}
+    fclose(arq);
+    return 0;
+
+}

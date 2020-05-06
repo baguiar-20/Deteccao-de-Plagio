@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+void troca_por_valor(int a, int b){
+	int c;
+	c = a;
+	a = b;
+	b = c;
+}
+
+void troca_por_referencia(int* a, int* b){
+	int c;
+	c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void main (char *argsv[]) {
+	
+	int a,b;
+	
+	scanf("%d",&a);
+	scanf("%d",&b);
+	
+	troca_por_valor(a,b);
+	
+	printf("%d %d ",a,b);
+	
+	troca_por_referencia(&a,&b);
+	
+	printf("%d %d ",a,b);
+
+}

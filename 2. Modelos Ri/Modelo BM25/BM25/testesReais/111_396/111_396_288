@@ -1,0 +1,112 @@
+//lab-04 - Questao_01 30/06 Bruno Athaide
+//lista duplamente encadeada
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prox;
+	struct tipoNo *ant;
+}tipoNo;
+
+typedef struct tipoLista{
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+}tipoLista;
+
+tipoLista *criarLista(){
+	tipoLista *L = (tipoLista*) malloc(sizeof(tipoLista));
+	L->ini = NULL;
+	L->fim = NULL;
+	return L;
+}
+
+void insererirLista(tipoLista *L, int valor){
+	tipoNo *novo = (tipoNo *) malloc(sizeof(tipoNo));
+	novo->valor = valor;
+	novo->prox = NULL;
+	novo->ant = NULL;
+
+	if(L->ini == NULL){
+		L->ini = novo;
+		L->fim = novo;
+	}else{
+		L->fim->prox = novo;
+		novo->ant = L->fim;
+		L->fim = novo;
+	}
+}
+
+void imprimirLista(tipoLista *L){
+	tipoNo *caminha = L->ini;
+	while(caminha){
+		printf("%d ",caminha->valor);
+		caminha = caminha->prox;
+	}
+	printf("\n");
+}
+
+void InvertLista(tipoLista *L){
+	tipoNo *caminha = L->fim, *aux;
+	while(caminha){
+		aux = caminha;
+		aux->prox = aux->ant;
+		caminha = caminha->ant;
+	}
+	aux = L->ini;
+	L->ini = L->fim;
+	L->fim = aux;
+}
+ 
+void removerNoLista(tipoLista *L, int valor){ //corrigir o remover pra quando for remover no inicio
+	tipoNo *caminha = L->ini;
+	tipoNo *aux;
+	if(caminha->valor == valor){
+		L->ini = caminha->prox;
+		L->ini->ant = NULL;
+		//free(caminha);
+	}else{
+		while(caminha && caminha->valor != valor){
+			caminha = caminha->prox;
+		}
+		aux = caminha->ant;
+		aux->prox = caminha->prox;
+		//free(caminha);
+	} 
+	free(caminha);
+}
+
+void insertionSorteLista(tipoLista *L){
+	tipoNo *i = L->ini, *j;
+	int backup;
+	while(i){
+		backup = i->valor;
+		j = i->ant;
+		while(j && j->valor > backup){
+			j->prox->valor = j->valor;
+			j = j->ant;
+		}
+		if(j == NULL){
+			L->ini->valor = backup;
+		}else{
+			j->prox->valor = backup;
+		}
+		i = i->prox;
+	}
+}
+
+int main(){
+	int valor;
+	tipoLista *L = criarLista();
+
+	scanf("%d",&valor);
+	while(valor != -1){
+		insererirLista(L,valor);
+		scanf("%d",&valor);
+	}
+	insertionSorteLista(L);
+	imprimirLista(L);
+
+	return 0;
+}

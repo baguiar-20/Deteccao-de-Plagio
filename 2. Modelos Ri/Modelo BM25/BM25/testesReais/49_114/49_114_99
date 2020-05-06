@@ -1,0 +1,74 @@
+#include<stdio.h>
+#include<math.h>
+ 
+int main()
+{
+	//int numero;
+
+	//printf("Informe um numero..:");
+	//scanf("%d", &numero);
+
+	if (semi_primo(15)==0) {
+		printf("semiprimo \n");
+	}
+	else{
+		printf("naosemiprimo \n");
+	}	
+
+	return 0;	
+}
+	
+int semi_primo(int num)
+{
+	int i, j, k, cont, aux; 
+	int num1, num2;
+	int vet[50];
+
+	num1=0;
+	num2=0;
+	
+	k=1;	
+	
+	cont=0;
+
+	/*****************Capturando os numeros primos entre 1 ate NUM*********************/	
+
+	for(i=1; i<=num; i++)
+	{
+		for (j=1; j<=i; j++)
+		{
+			if ((i%j) == 0){
+				cont++;			
+			}		
+		}
+		
+		if (cont == 2){
+		   	vet[k]=i;
+			k++;		
+		}
+	
+		cont=0;
+	}
+
+	/*****************************Capturando os dois Fatores*************************/
+
+	for(i=1; i<=(k-1); i++)
+	{
+		aux=vet[i];
+		for (j=(i+1); j<=(k-1); j++)
+		{
+			if ((aux*vet[j]) == num){
+			   num1=aux;
+			   num2=vet[j];			
+			}	
+		}
+	}
+	
+	if ((num1==0) && (num2==0)){
+		return 1;
+	}
+	else{
+		return 0;		
+	}
+
+}

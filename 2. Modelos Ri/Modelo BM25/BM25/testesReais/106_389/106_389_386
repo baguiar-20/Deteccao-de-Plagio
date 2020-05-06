@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+	int TamVet;
+	int Procurado;
+	int i;
+	int resp = -1;
+	
+	scanf("%d/n", &TamVet);
+	int vetor[TamVet];
+	
+	
+	for(i=0; i < TamVet; i++){
+		scanf("%d/n", &vetor[i]);
+	}
+	
+	
+	int ini = 0;
+	int fim = TamVet-1;
+	int mei = (ini+fim)/2;
+	
+	scanf("%d", &Procurado);
+	
+	while(ini != mei && fim != mei){
+		if(Procurado == vetor[mei]){
+			resp = mei;
+			break;
+		}
+		else if(Procurado < vetor[mei]){
+			fim = mei;
+			mei = (ini+fim)/2;
+		}
+		else if(Procurado > vetor[mei]){
+			ini = mei;
+			mei = (ini+fim)/2;
+		}
+			
+		}
+	printf("%d", resp);
+	return 0;
+	}
+

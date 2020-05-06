@@ -1,0 +1,60 @@
+//Trabalho de AED I 
+// Professor: José Francisco de Magalhães Netto
+// Autor: Romeu Rezende
+// ler e escrever a posição do cavalo no tabuleiro de xadrez
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main(){
+	int i=0, j=0, linha=0, coluna=0;
+	char tabuleiro[8][8];
+
+	for(i=0; i<8; i++){
+		for(j=0; j<8; j++){
+			tabuleiro[i][j] = '*';
+		}
+	}
+
+	scanf("%d %d", &linha, &coluna);
+	tabuleiro[linha][coluna] = 'C';
+
+	if (linha-1>=0 && coluna-2>=0){
+		tabuleiro[linha-1][coluna-2] = 'X';
+	}
+
+	if (linha-2>=0 && coluna-1>=0){
+		tabuleiro[linha-2][coluna-1] = 'X';
+	}
+
+	if (linha-2>=0 && coluna+1<8){
+		tabuleiro[linha-2][coluna+1] = 'X';
+	}
+
+	if (linha-1>=0 && coluna+2<8){	
+		tabuleiro[linha-1][coluna+2] = 'X';
+	}
+
+	if (linha+1<8 && coluna+2<8){
+		tabuleiro[linha+1][coluna+2] = 'X';
+	}
+
+	if (linha+2<8 && coluna+1<8){
+		tabuleiro[linha+2][coluna+1] = 'X';	
+	}
+	
+	if (linha+2<8 && coluna-1>=0){
+		tabuleiro[linha+2][coluna-1] = 'X';	
+	}
+
+	if (linha+1<8 && coluna-2>=0){
+		tabuleiro[linha+1][coluna-2] = 'X';	
+	}
+	for(i=0; i<8; i++){
+		for(j=0; j<8; j++){
+			printf("%c", tabuleiro[i][j]);
+		}	
+		printf("\n");
+	}
+}

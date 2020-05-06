@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int buscaBinaria (int n, int *vetor, int valor) {
+   int ini = 0;
+   int mei;
+   int fim = n-1;
+   
+   while (ini<=fim) {
+      mei = (ini+fim)/2;
+      if (vetor[mei]==valor) return mei;
+      else if (vetor[mei]<valor) ini = mei+1;
+      else fim = mei-1;
+   }
+   
+   return -1;
+}
+
+int main (){
+	int n, i, pos, valor;
+	scanf("%d", &n);
+	int vetor[n];
+
+	for(i=0; i<n; i++){
+		scanf("%d", &vetor[i]);
+	}
+	
+	scanf("%d", &valor);
+	pos = buscaBinaria(n, vetor, valor);
+	printf("%d", pos); 
+
+}

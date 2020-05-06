@@ -1,0 +1,139 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct tipoPilha {
+	struct tipoNo *topo;
+} tipoPilha;
+
+typedef struct tipoNo {
+	char C;
+	struct tipoNo *prox;
+} tipoNo;
+
+
+tipoPilha *criaPilha();
+tipoNo *empilhaPilha(tipoPilha *, char *s);
+void desempilhaPilha(tipoPilha *);
+int vaziaPilha(tipoPilha *);
+void imprimePilha(tipoPilha *);
+
+int main(void) {
+
+	tipoPilha *pilha;
+	int i, TAM, count = 1, resultado, x, desempilha1;
+	char s[100], y, *aux;
+
+	pilha = criaPilha();
+
+	scanf ("%s", s);
+	count = strcmp(s,"END");
+		
+	if (count == 0) {
+		return 0;	
+	}
+
+	while (count != 0) {
+
+		TAM = strlen(s);
+		int flag = 0;
+
+		for (i = 0; i <= TAM; i++) {
+			if (s[i]=='(' || s[i]=='[') {
+				y = s[i];
+				aux = &y;
+				pilha->topo = empilhaPilha(pilha, aux);	
+			}
+
+			if (s[i]==')' || s[i]==']') {
+				resultado = vaziaPilha(pilha);
+
+				if (resultado == 0) {
+					
+					tipoNo *aux1;
+					aux1 = pilha->topo;
+					flag = 1;								   					
+					
+					if (aux1->C=='[' && s[i]==']') { 						
+						desempilhaPilha(pilha);
+					}
+
+					if (aux1->C=='(' && s[i]==')') {
+						desempilhaPilha(pilha);
+					}										
+				}
+
+				if (resultado == 1) flag=0;
+			}
+		}
+
+		x = vaziaPilha(pilha);
+		if ((flag == 1) && (x == 1)) printf ("SIM\n");
+		else {
+			desempilha1 = 0;			
+			while (desempilha1 != 1) {
+				desempilhaPilha(pilha);
+				desempilha1 = vaziaPilha(pilha);
+			}
+
+			printf ("NAO\n"); 									
+
+		}
+		
+		scanf ("%s", s);
+		count = strcmp(s,"END");
+		
+		if (count == 0)	return 0;	
+	}
+   
+	return 0;
+}
+
+
+tipoPilha *criaPilha () {
+
+	tipoPilha* p;
+	p = (tipoPilha *) malloc(sizeof(tipoPilha));
+	p->topo = NULL;
+	return p;  
+}
+
+tipoNo *empilhaPilha(tipoPilha *p, char *s) {
+
+	tipoNo *no;
+	no = (tipoNo *) malloc (sizeof(tipoNo));
+
+	no->C=*s;	  
+	no->prox = p->topo;
+	return no;
+}
+
+void desempilhaPilha(tipoPilha *p) {
+
+	tipoNo *no; int rec;
+	rec = vaziaPilha(p);
+
+	if (rec == 0) { 
+		no = p->topo;
+		p->topo = no->prox;
+		free(no);
+	}
+}
+
+int vaziaPilha(tipoPilha *p) {
+
+	if (p->topo) return 0;
+	return 1;
+}
+
+void imprimePilha(tipoPilha *p) {
+
+	tipoNo *aux;   
+	aux = p->topo;
+	printf("Pilha: ");
+	while (aux) {
+		printf("%c ",aux->C);
+		aux = aux->prox;
+	}
+	printf ("\n");
+}

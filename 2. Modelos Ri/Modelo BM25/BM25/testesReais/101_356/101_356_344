@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<string.h>
+
+void contador(char *operacao);
+
+int TAM = 100;
+
+int main(void)  {
+	
+	char s[TAM];
+
+	scanf("%s", s);
+	
+	while (strcmp(s, "END") != 0) {
+		contador(s);
+		scanf("%s", s);
+	}
+	
+	return 0;
+}
+
+void contador(char *s) {
+		
+	int i, countVariavel = 0, countOperacao = 0;
+	TAM = strlen(s);
+		
+	for(i = 0; i < TAM; i++) {
+		if (s[i]=='+' || s[i]=='-' || s[i]=='*' ||s[i]=='/') {
+			countOperacao++;
+		}
+		
+		else {
+			countVariavel++;
+		}
+	}
+	
+	if (countVariavel - countOperacao == 1) {
+		printf ("SIM\n");	
+	}
+	else {
+		printf("NAO\n");
+	}	
+		
+}

@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+
+#define N 30
+
+int main(){
+
+	int i,j, cont;
+	char palavra1[N],palavra2[N];
+
+	scanf("%s", palavra1);
+	scanf("%s", palavra2);
+
+	if(strlen(palavra1) != strlen(palavra2))
+	 {
+	   printf("NAO");
+	 }else
+	 {
+	   int V[strlen(palavra1)];
+	   
+	   cont=0;
+
+	   for (i=0; i<strlen(palavra1); i++)
+	    {
+	      V[i]=0;
+	    }
+
+	   for (i=0; i<strlen(palavra1); i++)
+	    {	
+	      for (j=0; j<strlen(palavra2); j++)
+	 	{
+		  if(palavra1[i] == palavra2[j])
+		   {	
+		     V[i]=palavra1[i];
+		   }
+		}
+	    }
+
+	   for (i=0; i<strlen(palavra1); i++)
+	    {	
+	      if(V[i] != 0)
+		{
+		  cont++;
+		}
+	    }
+
+	   if(cont==strlen(palavra1))
+	    {	
+		printf("SIM");
+	    }else
+	    {
+		printf("NAO");
+	    }
+	 }
+}
+	

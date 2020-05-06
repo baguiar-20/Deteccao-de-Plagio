@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prev;
+	struct tipoNo *prox;
+}tipoNo;
+
+typedef struct tipoLista{
+	tipoNo *ini;
+	tipoNo *fim;
+	int tamanho;
+}tipoLista;
+
+////////////////////////////////////////////
+
+tipoLista *inicializa();
+void insereLista(tipoLista *l, int valor);
+void imprimeLista(tipoLista *l);
+void insertionLista (tipoLista *l);
+////////////////////////////////////////////
+
+int main(){
+	tipoLista *l;
+	l=inicializa();
+	
+	int valor;
+	scanf("%d", &valor);
+	
+	while(valor != -1){
+		insereLista(l,valor);
+		scanf("%d", &valor);
+	}
+	
+	//imprimeLista(l);
+	insertionLista(l);
+	imprimeLista(l);
+
+return 0;
+
+}
+
+tipoLista *inicializa(){
+	tipoLista *l;
+	l = (tipoLista *) malloc(sizeof(tipoLista));
+	l->ini = NULL;
+	l->fim = NULL;
+	l->tamanho = 0;
+	return l;
+}
+
+void insereLista(tipoLista *l, int valor){
+	tipoNo *no;
+	no = (tipoNo *) malloc (sizeof(tipoNo));
+	
+	no->valor=valor;
+	no->prev=NULL;
+	no->prox=NULL;
+
+	if(l->ini == NULL){
+		l->ini=no;
+		l->fim = no;
+	}else{
+		l->fim->prox = no;
+		no->prev=l->fim;
+		l->fim=no;
+	}
+	
+	l->tamanho++;
+}
+
+void imprimeLista(tipoLista *l){
+	tipoNo *aux;
+	aux = l->ini;
+	
+	while (aux != NULL){
+		printf ("%d ", aux->valor);
+		aux = aux->prox;
+	}
+	printf ("\n");
+}
+
+void insertionLista(tipoLista *l){
+	tipoNo *aux, *caminha, *backup;
+	
+	aux=malloc(sizeof(tipoNo));
+	caminha=malloc(sizeof(tipoNo));
+	backup=malloc(sizeof(tipoNo));
+	
+	int flag=0;
+	
+	backup=l->ini;
+	
+	while(backup){
+		if(!flag) backup=backup->prox;
+		
+		flag=0;
+		aux=backup;
+		
+		if(aux){
+			if( (aux->valor)  < (aux->prev->valor) ){
+				caminha=aux;				
+				while( (caminha->valor < aux->prev->valor)  && (aux != NULL) ){
+					aux=aux->prev;
+					if(!aux->prev) break;
+				}
+				
+				backup=caminha->prox;
+				flag=1;
+				if(caminha->prox) caminha->prox->prev = caminha->prev;
+				
+				caminha->prev->prox = caminha->prox;
+				
+				if(!aux->prev) caminha->prev=NULL;
+				else aux->prev->prox = caminha;
+				
+				if(aux->prev) caminha->prev = aux->prev;
+				
+				caminha->prox=aux;
+				aux->prev=caminha;
+				
+				if(!caminha->prev) l->ini=caminha;
+			
+			}
+		}
+	}
+}

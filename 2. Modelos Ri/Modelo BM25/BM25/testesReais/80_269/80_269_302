@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <string.h>
+
+main()
+{
+      char string[50], letra;
+      int i,cont=0;
+      
+      gets(string);
+      scanf("%c",&letra);
+      
+      for(i=0;i<strlen(string);i++)
+      {
+          if (string[i] == letra)
+             cont++;
+      }
+      printf("%d",cont);
+}
+      

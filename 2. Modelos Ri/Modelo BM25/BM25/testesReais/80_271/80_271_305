@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<math.h>
+typedef struct Pontos{
+	float x;
+    float y;
+}coordenadas;
+int main(){
+    float d, c;
+	coordenadas p[2];
+	scanf("%f",&p[0].x);
+	scanf("%f",&p[0].y);
+
+	scanf("%f",&p[1].x);
+	scanf("%f",&p[1].y);
+
+    c = pow( (p[1].x - p[0].x ) ,2) + pow( (p[1].y - p[0].y ) ,2);
+    d = pow( c,0.5);
+    printf("%.1f",d);
+}

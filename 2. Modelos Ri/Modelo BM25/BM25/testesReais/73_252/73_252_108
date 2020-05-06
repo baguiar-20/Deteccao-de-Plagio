@@ -1,0 +1,18 @@
+#include<stdio.h>
+int soma(x){
+ int i, soma=0, s=1;
+for(i=1; i<=x; i++){ 
+ if(i%2!=0)
+ soma+=s;
+ else
+ soma-=s;
+ s+=2;}
+return soma;
+}
+
+int main(){
+int n;
+scanf("%i", &n);
+int rsp=soma(n);
+printf("%i", rsp);
+}

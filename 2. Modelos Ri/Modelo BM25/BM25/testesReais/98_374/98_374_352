@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main () {
+
+	int linha, coluna, matrix[100][100], num, menor;
+	int i, j, posii, posij;
+	
+	scanf("%d %d", &linha, &coluna);
+	
+	for(i = 0; i < linha; i++){
+		
+		for(j = 0; j < coluna; j++){
+			
+			scanf("%d", &matrix[i][j]);
+				
+			
+		}
+	}
+	
+	menor = matrix[0][0];
+	
+	for(i = 0; i < linha; i++){
+		
+		for(j = 0; j < coluna; j++){
+		
+			if(matrix[i][j] < menor) {
+                            
+				
+				menor = matrix[i][j];
+				posii = i;
+				posij = j;
+				
+			}
+		}
+	}
+	printf("%d %d %d\n", posii, posij, menor);
+	
+
+
+return 0;
+}

@@ -1,0 +1,61 @@
+/*				LABORATORIO DE PROGRAMAÇÃO A -
+		- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula: 21351819 -
+				Atividade de 03 de setembro de 2013
+	  #################################################################################################################
+	Leia um valor inteiro positivo N (entre 1 e dez mil) e imprima SIM se for primo e NAO caso contrário. Implemente através de uma função que receba o 	valor e retorne 1 se for primo e 0 se não for primo.
+			Dicas:
+					Entrada
+					29
+					Saída
+					SIM
+
+					Entrada
+					259
+					Saída
+					NAO 
+	  #################################################################################################################	
+*/
+#include <stdio.h>
+int primo(n)
+{
+	int i, sair;
+ 	sair=1;
+	i=2;
+	if((n==1)||(n == 2)||(n==3)||(n==5)||(n==7))
+	{
+		sair=1;
+	}
+	else 		
+	{
+		while((sair!=0)&&(i<=7))
+		{
+			sair=n%i;
+			i++;
+		}
+	}
+	if (sair==0)	
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+int main()
+{
+		int valor, N;
+		scanf("%d", &N);
+	if (N>=1 && N<=10000)
+	{
+		valor=primo(N);
+		if (valor==1)	
+		{
+			printf ("SIM");
+		}
+		else
+		{
+			printf ("NAO");
+		}
+	}
+}

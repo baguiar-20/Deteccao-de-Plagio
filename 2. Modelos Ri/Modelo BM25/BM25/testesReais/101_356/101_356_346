@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int main(void){
+
+	char carac[200];
+	int i, operador, operando;
+	
+	scanf("%s", carac);
+	
+	do{
+		operando = 0;
+		operador = 0;
+		for(i=0;i<strlen(carac);i++){
+		
+			if (carac[i] == '+' || carac[i] == '-' || carac[i] == '*' || carac[i] == '/')
+				operador++;
+			else if (carac[i] == '(' || carac[i] == ')' || carac[i] == '[' || carac[i] == ']')
+				continue;
+			else
+				operando++;
+		}
+		
+		if(operando == operador+1)
+			printf("SIM\n");
+		else
+			printf("NAO\n");
+	
+		scanf("%s", carac);
+	}while(strcmp(carac, "END"));
+
+
+
+	return 0;
+}

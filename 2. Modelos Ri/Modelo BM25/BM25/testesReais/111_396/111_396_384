@@ -1,0 +1,144 @@
+//
+//  main.c
+//  Q1
+//
+//  Created by Leandro Okimoto on 6/30/14.
+//  Copyright (c) 2014 icomp. All rights reserved.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+    int valor;
+    struct tipoNo *prox;
+    struct tipoNo *prev;
+}tipoNo;
+
+typedef struct tipoLista{
+    struct tipoNo *pri;
+    struct tipoNo *ult;
+}tipoLista;
+
+
+tipoLista iniciaLista (){
+    tipoLista l;
+    l.pri = NULL;
+    l.ult = NULL;
+    return l;
+}
+
+void insereValor(tipoLista *l){
+    tipoNo *auxAnt, *aux1;
+    int valor;
+    auxAnt = l->ult;
+    scanf("%d",&valor);
+    while (valor>=0) {
+        if (l->pri && l->ult) {
+            aux1 = (tipoNo*)malloc(sizeof(tipoNo));
+            aux1->valor = valor;
+            aux1->prev = auxAnt;
+            aux1->prox = NULL;
+            auxAnt->prox = aux1;
+            l->ult = aux1;
+            auxAnt = aux1;
+            
+        }else{
+            aux1 = (tipoNo*)malloc(sizeof(tipoNo));
+            aux1->valor = valor;
+            aux1->prev=l->pri;
+            aux1->prox=l->ult;
+            auxAnt= aux1;
+            l->pri = aux1;
+            l->ult = aux1;
+        }
+        scanf("%d",&valor);
+    }
+    
+}
+
+void inverteLista(tipoLista *l){
+    tipoNo *auxInv, *aux1;
+    
+    auxInv = l->pri;
+    
+    while (auxInv) {
+        aux1 = auxInv->prox;
+        auxInv->prox = auxInv->prev;
+        auxInv->prev = aux1;
+        auxInv = auxInv->prev;
+    }
+    
+    aux1 = l->pri;
+    l->pri = l->ult;
+    l->ult = aux1;
+    
+}
+
+void insertionSort (tipoLista *l){
+   /* void Inserction(int n, int vetor[]){
+        int j,i,key;
+        for(j = 1; j < n; j++){
+            key = vetor[j];
+            i = j - 1;
+            while(i >= 0 && vetor[i] > key){
+                vetor[i + 1] = vetor[i];
+                i = i - 1;
+            }
+            vetor[i + 1] = key;
+        }
+    }*/
+    tipoNo *i,*j,*aux = NULL;
+    int key;
+    j = l->pri;
+    
+    j=j->prox;
+    
+    while (j) {
+        key = j->valor;
+        i = j->prev;
+        while ( i && (i->valor > key)) {
+            aux = i->prox;
+            aux->valor = i->valor;
+            if (!i->prev) {
+                aux = i;
+            }
+            i = i->prev;
+        }
+        if(i){
+         aux = i->prox;
+        }
+        aux->valor = key;
+        
+        j = j->prox;
+    }
+    
+    
+}
+
+void imprimeLista(tipoLista *l){
+    tipoNo *aux;
+    
+    aux = l->pri;
+    
+    while (aux) {
+        printf("%d ", aux->valor);
+        aux = aux->prox;
+    }
+    
+    
+}
+
+int main(int argc, const char * argv[])
+{
+    tipoLista l;
+    l = iniciaLista();
+    insereValor(&l);
+   // inverteLista(&l);
+    insertionSort(&l);
+    imprimeLista(&l);
+    
+
+    return 0;
+}
+

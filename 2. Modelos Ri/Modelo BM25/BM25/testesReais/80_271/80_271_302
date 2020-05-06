@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+struct ponto {
+float a1;
+float a2;
+float b1;
+float b2;
+};
+
+int main() 
+{
+float D;
+struct ponto dist;
+scanf ("%f",&dist.a1);
+scanf ("%f",&dist.a2);
+scanf ("%f",&dist.b1);
+scanf ("%f",&dist.b2);
+D = sqrt( pow (dist.a2 - dist.a1, 2) + pow (dist.b2 - dist.b1, 2));;
+printf("%1.f",D);
+}

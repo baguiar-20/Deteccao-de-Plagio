@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<math.h>
+
+struct ponto {
+      float x;
+      float y;
+   };
+
+void main()
+{
+    struct ponto a;
+    struct ponto b;
+    float dx;
+    float dy;
+    float d;
+
+
+    scanf("%f",&a.x);
+    scanf("%f",&a.y);
+    scanf("%f",&b.x);
+    scanf("%f",&b.y);
+
+
+    dx=b.x-a.x;
+    dy=b.y-a.y;
+
+
+    d = dx*dx+dy*dy;
+
+    d = sqrt( d );
+    printf("%.1f",d);
+}

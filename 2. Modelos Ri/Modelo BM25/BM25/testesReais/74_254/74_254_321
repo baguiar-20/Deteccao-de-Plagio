@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int primo(int x){
+    int a=2;
+    if(x>=2){       //0 e 1 por convenção não sao primos; função só precisa verificar caso maior que 1 ;
+        while(x%a!=0){
+               a++;  //verifica se o numero so pode ser dividido por ele mesmo
+               }
+               if(a==x){
+               return 0;
+               }
+               }
+    else           
+    return 1;
+}
+
+int main(){
+int m,n,i;
+do{
+    scanf("%d",&m);
+    scanf("%d",&n);
+}while(((m>10000)||(m<1))||((n>10000)||(n<1))||(m<0)||(n<0));
+if(n<m){
+        for(i=n;i<m;i++){
+        if(primo(i)==0){
+                          printf("\n%d",i);
+                          }
+}
+}
+else if(m<n){
+        for(i=m;i<n;i++){
+        if(primo(i)==0){
+                          printf("\n%d",i);
+                          }
+     }
+     }
+return 0;    
+}

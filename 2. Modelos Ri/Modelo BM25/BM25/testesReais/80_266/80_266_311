@@ -1,0 +1,32 @@
+/*
+Escreva um programa em C que leia uma string do teclado e a apresente de maneira inversa.
+Por exemplo, caso a string digitada seja BELO HORIZONTE, seu programa deverá imprimir ETNOZIROH OLEB.
+*/
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+//icaro - oraci
+
+
+int main ()
+{
+    char str[41];
+    int i;
+
+
+    gets(str);
+
+
+    for (i=strlen(str)-1;i>=0;i--)
+    {
+        printf("%c", str[i]);
+    }
+
+    printf("\n");
+
+
+
+
+}

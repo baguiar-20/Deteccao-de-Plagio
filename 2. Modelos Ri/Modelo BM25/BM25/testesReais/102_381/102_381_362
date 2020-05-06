@@ -1,0 +1,27 @@
+#include <ctype.h> 
+#include <stdio.h> 
+#include <string.h> 
+int main()
+{
+
+float vetor[100][4];
+float n1, n2, n3, n4,media,maior=0;
+int i = 0,aluno=0;
+while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4) {
+   // printf("%f %f %f %f\n", n1, n2, n3, n4 );
+    vetor[i][0] = n1;
+    vetor[i][1] = n2;
+    vetor[i][2] = n3;
+    vetor[i][3] = n4;
+    
+    media=((n1+n2+n3+n4)/4);
+    if (media>maior){
+	maior=media;
+	aluno=i;
+   }
+i++;
+}
+
+printf("%.3f do aluno %d\n", maior,aluno+1);
+
+}

@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define ERROFILAVAZIA -1
+
+typedef struct tipoNo {
+   int valor;
+   struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+   struct tipoNo *ini;
+   struct tipoNo *fim;   
+} tipoFila;
+
+
+tipoFila *inicializaFila ();
+void enFileira (tipoFila *f, int valor);
+int desenFileira (tipoFila *f);
+void imprimeFila (tipoFila *f);
+void bubble_fila(tipoFila*f);
+
+
+int main (void) {
+
+   tipoFila *fila;
+   int valor;
+   
+   
+   fila = inicializaFila();
+   
+   while(1){
+	scanf("%d",&valor);
+	
+	if (valor>=1) enFileira(fila, valor);
+    
+    
+    if(valor==0) desenFileira(fila);  
+	
+	if (valor==-1) break;
+	
+	
+	
+	 bubble_fila(fila);
+	
+	
+	
+}
+   
+   imprimeFila(fila);
+   
+   return 0;
+}
+
+
+
+tipoFila *inicializaFila () {
+   tipoFila *f;
+   f = (tipoFila *) malloc (sizeof(tipoFila));
+   f->ini = NULL;
+   f->fim = NULL;   
+   return f;
+}
+
+void enFileira (tipoFila *f, int valor) {
+   tipoNo *no;
+   no = (tipoNo *) malloc (sizeof(tipoNo));
+   no->valor = valor;
+   no->prox = NULL;
+   if(f->fim == NULL) f->ini = no;
+   else f->fim->prox = no;
+   f->fim = no;
+}
+
+int desenFileira (tipoFila *f) {
+   tipoNo *aux;
+   int valor;
+   
+   if (f->ini == NULL) {
+      printf ("Fila Vazia!\n");
+      return ERROFILAVAZIA;
+   }
+   
+   if (f->ini == f->fim) {
+      f->fim = NULL;
+   }
+   
+   valor = f->ini->valor;
+   aux = f->ini;
+   f->ini = f->ini->prox;
+   free(aux);
+   return valor;   
+}
+
+void imprimeFila (tipoFila *f) {
+   tipoNo *aux;
+   aux = f->ini;
+   
+   while (aux) {
+      printf ("%d ",aux->valor);
+      aux = aux->prox;
+   }
+   printf ("\n");
+}
+
+void bubble_fila(tipoFila*f){
+	
+	tipoNo *i,*j;
+	int aux;
+	
+	i=f->ini;
+	
+	while(i && i->prox ){
+		j=f->ini;
+		while(j && j->prox){
+			if(j->prox->valor <j->valor){
+				
+				aux=j->valor;
+				j->valor=j->prox->valor;
+				j->prox->valor=aux;
+			}
+			
+			j=j->prox;
+		}
+		
+		i=i->prox;
+		
+	}
+}
+
+
+
+
+
+
+
+

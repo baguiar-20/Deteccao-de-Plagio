@@ -1,0 +1,60 @@
+/*
+Universidade Federal do Amazonas
+Manaus, 12 de Setembro de 2013
+Academico: Guaracinesio G. de Matos Jr. 
+Laboratorio de Programacao A
+Lista de Exercicios
+
+01) Leia dois valores N e M inteiros positivos. Considere que N e M esteja entre 1 e 20 (inclusive). Em seguida, leia duas matrizes A e B, de dimensões NxM (N linhas e M colunas). Calcule a matriz C = A + B. A matriz C também tem dimensão NxM. Use alocação dinâmica de memória, isto é ponteiros, para armazenar as matrizes A, B e C.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+main()
+{
+	int linha, coluna, i, j, **a, **b, **c;
+	
+	scanf("%d %d",&linha,&coluna);
+
+	a = (malloc(linha * sizeof(int*)));
+	for (i=0; i<linha; i++)
+	{
+		a[i] = (malloc(coluna * sizeof(int)));
+	}
+	for (i=0; i<linha; i++)
+	{
+		for (j=0; j<coluna; j++)
+		{
+			scanf("%d",&a[i][j]);
+		}
+	}
+
+	b = (malloc(linha * sizeof(int*)));
+	for (i=0; i<linha; i++)
+	{
+		b[i] = (malloc(coluna * sizeof(int)));
+	}
+	for (i=0; i<linha; i++)
+	{
+		for (j=0; j<coluna; j++)
+		{
+			scanf("%d",&b[i][j]);
+		}
+	}
+
+	c = (malloc(linha * sizeof(int*)));
+	for (i=0; i<linha; i++)
+	{
+		c[i] = (malloc(coluna * sizeof(int)));
+	}
+	for (i=0; i<linha; i++)
+	{
+		for (j=0; j<coluna; j++)
+		{
+			c[i][j] = a[i][j] + b[i][j];
+			printf("%d\t",c[i][j]);
+		}
+		printf("\n");
+	}
+}

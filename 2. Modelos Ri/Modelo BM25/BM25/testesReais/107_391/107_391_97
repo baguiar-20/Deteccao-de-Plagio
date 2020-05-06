@@ -1,0 +1,109 @@
+/*
+ Implemente uma pilha usando listas encadeadas. Para tanto, crie um loop infinito que deverá ler valores numéricos do usuário. Dado um valor informado pelo usuário, sua implementação deverá seguir as regras abaixo:
+
+Sempre que o usuário informar um valor maior ou igual a 1, esse valor deverá ser empilhado.
+Sempre que o usuário informar 0, a pilha deverá ser desempilhada, removendo o último elemento inserido na pilha.
+Sempre que o usuário informar -1, o loop infinito deverá ser encerrado, e o conteúdo da pilha deverá ser impresso.
+Dicas:
+A estrutura de dados deverá usar o seguinte tipo:
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+Por exemplo, se usuário digitar a entrada: 1 2 3 4 0 0 5 6 0 7 8 9 0 -1, a saída deverá ser igual a 8 7 5 2 1.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prox;	
+}tipoNo;
+
+typedef struct tipoPilha{
+	struct tipoNo* topo;
+}	tipoPilha;
+
+int vaziaPilha(tipoPilha* p){
+	return (p->topo == NULL);
+}
+
+tipoPilha *criaPilha () {
+	tipoPilha *p;
+	p = (tipoPilha*)malloc(sizeof(tipoPilha));
+	p->topo = NULL;
+	return p;
+}
+
+void push(tipoPilha *p, int x){
+		tipoNo* aux;
+		
+		aux = (tipoNo *) malloc (sizeof(tipoNo));
+		
+		aux->valor = x;
+		aux->prox = p->topo;
+		p->topo = aux;
+}
+
+int pop(tipoPilha *p){
+	int x;
+	tipoNo* aux;
+	if(!p->topo) return -1;
+	x = p->topo->valor;
+	aux = p->topo;
+	p->topo = p->topo->prox;
+	free(aux);
+	return x;	
+}
+
+void imprimePilha (tipoPilha *p) {
+   tipoNo *aux;
+   aux = p->topo;
+   while (aux) {
+      printf ("%d ", aux->valor);  
+      aux = aux->prox;
+   }
+   printf ("\n");
+}
+
+
+int main(){
+	
+	tipoPilha *pilha;
+	
+	pilha = criaPilha();
+	
+	int controle=0;
+	
+		
+	while(controle != -1 ){
+		
+		scanf("%d", &controle);
+		if(controle>0){
+			push(pilha, controle);
+		}
+		
+		if(controle == 0){
+			pop(pilha);
+		}
+				
+	}
+	
+	imprimePilha(pilha);
+	
+	
+	
+	
+	
+return 0;	
+}
+
+
+
+

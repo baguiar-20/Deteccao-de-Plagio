@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main (void) {
+
+	char s[100];
+	int i, tam, contI, contII;
+	int aux=1;
+
+	scanf("%s", s);
+	aux=strcmp (s,"END");
+	if (aux==0) return 0;
+
+	while (aux!=0) {
+
+		contI=0; contII=0;
+	  tam=strlen(s);
+	
+		for (i=0; i<=tam; i++) {
+
+			if (s[i]>='A' && s[i]<='Z')	contI++;
+	//		printf ("contI é:%d\n", contI);			
+			if (s[i]=='+' || s[i]=='-' ||s[i]=='*' ||s[i]=='/') contII++;
+	//		printf ("contII é:%d\n", contII);
+
+		}
+
+		if (contI-contII==1) printf ("SIM\n");
+		else printf ("NAO\n");
+
+
+
+
+		scanf ("%s", s);
+		aux=strcmp (s, "END");
+
+	}
+
+	
+
+ return 0;
+}

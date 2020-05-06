@@ -1,0 +1,97 @@
+/* Roberta Kathleen Bastos dos Anjos - 21353619*/
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prev;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoLista{
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoLista;
+
+tipoLista *criarLista(){
+	tipoLista *l;
+	
+	l = (tipoLista*) malloc(sizeof(tipoLista));
+	l->ini = NULL;
+	l->fim = NULL;
+
+	return l;
+}
+
+void inserirLista(tipoLista *l, int elem){
+	tipoNo *no;
+
+	no = (tipoNo*) malloc(sizeof(tipoNo));
+	no->valor = elem;
+	no->prev == NULL;
+	no->prox = NULL;
+
+	if(l->ini == NULL){
+		l->ini = no;	
+	}else{
+		l->fim->prox = no;		
+		no->prev = l->fim;
+	}
+
+	l->fim = no;
+}
+
+void inverterLista(tipoLista *l){
+	tipoNo *aux;
+	tipoNo *troca;
+	tipoNo *inicio;
+
+	aux = l->fim;	
+
+	while(aux){
+		troca = aux->prev;
+		aux->prev = aux->prox;
+		aux->prox = troca;
+
+	aux = aux->prox;
+	}
+
+	inicio = l->ini;
+	l->ini = l->fim;
+	l->fim = inicio;
+
+}
+
+void imprimirLista(tipoLista *l){
+	tipoNo *aux;
+
+	aux = l->ini;
+
+	//printf("LISTA \n");
+	while(aux){
+		printf("%d ",aux->valor);
+		aux = aux->prox;
+	}
+	//printf("\n");
+
+}
+
+int main(){
+	int elem;
+	tipoLista *lista = criarLista();
+
+
+	while(1){
+		scanf("%d",&elem);
+
+		if(elem == -1)
+			break;
+
+		inserirLista(lista, elem);
+	}
+
+	inverterLista(lista);
+	imprimirLista(lista);
+
+return 0;
+}

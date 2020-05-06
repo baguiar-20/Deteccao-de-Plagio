@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+#define TAM 100
+
+typedef struct tipoFila
+{
+	int tam;
+	int vetor[TAM];
+}tipoFila;
+
+void criarFila();
+void inserir(tipoFila *fila, int value);
+void imprimir(tipoFila fila);
+void ordenar(tipoFila *fila);
+
+int main()
+{
+	int num;
+	tipoFila fila;
+	criarFila(&fila);
+	
+	scanf("%d", &num);
+	
+	while(num != -1)
+	{
+		inserir(&fila, num);
+		scanf("%d", &num);
+	}
+	
+	//imprimir(fila);
+	
+	ordenar(&fila);
+	
+	imprimir(fila);
+}
+
+void criarFila(tipoFila *fila)
+{
+	fila->tam = -1;
+}
+
+void inserir(tipoFila *fila, int value)
+{
+	if(fila->tam != TAM -1)
+	{
+		fila->tam++;
+		fila->vetor[fila->tam] = value;
+	}
+}
+
+void ordenar(tipoFila *fila)
+{
+	int i;
+	int j;
+	int aux;
+
+	for(i = 0; i <= fila->tam; i++)
+	{
+		for(j = 0; j <= fila->tam - 1; j++)
+		{
+			if(fila->vetor[i] < fila->vetor[j])
+			{
+				aux = fila->vetor[i];
+				fila->vetor[i] = fila->vetor[j];
+				fila->vetor[j] = aux;
+			}
+		}
+	}
+}
+
+void imprimir(tipoFila fila)
+{
+	int i;
+	
+	for(i = 0; i <= fila.tam; i++)
+	{
+		printf("%d\n", fila.vetor[i]);
+	}
+}

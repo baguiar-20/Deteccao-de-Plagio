@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+void troca(tipoNo **i, tipoNo **j) {
+
+   int aux;
+   
+   aux = (*i)->valor;
+   (*i)->valor = (*j)->valor;
+   (*j)->valor = aux;
+}
+
+void selectionSort (tipoFila *f) {
+
+	tipoNo *no, *aux; 
+	no = f->ini;
+	while(no){
+		aux = no;
+		while(aux){
+			if(aux->valor < no->valor){
+			 troca(&aux,&no);
+			}
+			aux = aux->prox;	
+		}
+		no = no->prox;
+	}
+   
+}
+
+void inicializar(tipoFila * f){
+	f->ini = NULL;
+	f->fim = NULL;
+}
+
+void inserir(tipoFila * f,int n){
+	tipoNo * novo = (tipoNo*)malloc(sizeof(tipoNo));
+	tipoNo * aux;
+	novo->valor = n;
+	novo->prox = NULL;
+	if(f->ini== NULL){
+		f->ini = novo;
+		f->fim = novo;
+	}else{
+		aux = f->fim; 
+		aux->prox = novo;
+		f->fim = novo;
+	}	
+}
+
+void remover(tipoFila * f){	
+	tipoNo * aux;
+	if(f->ini){
+		aux = f->ini;
+		f->ini = aux->prox;
+		free(aux);
+	}
+}
+void mostrar(tipoFila f){
+	if (f.ini){
+		while(f.ini){
+			printf("%d ", f.ini->valor);
+			f.ini = f.ini->prox;
+		}
+	}else{
+		//printf("Pilha vazia...\n");
+	}
+}
+int main(){
+	
+	tipoFila f;
+	inicializar(&f);
+	int d;
+	do{
+		scanf("%d",&d);
+		if(d >= 1){
+			inserir(&f,d);
+		}else if(d == 0){
+			remover(&f);
+		}		
+	}while(d != -1);
+
+	selectionSort(&f);
+	mostrar(f);	
+	return 0;
+
+}

@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+main(void)
+{
+	int a,b,i,cont,cont2;
+	cont=0;
+	cont2=0;
+	scanf("%d",&a);
+
+	scanf("%d",&b);
+
+	for(i=1;i<a;i++)
+	{
+	
+		if(a%i==0)
+		{
+		cont=cont+i;
+		}	
+	
+	}
+	for(i=1;i<b;i++)
+	{
+	
+		if(b%i==0)
+		{
+		cont2=cont2+i;
+		}	
+	
+	}
+
+	if(cont==b && cont2==a)
+	{
+	printf("amigos");
+	}
+	else
+	{
+	printf("nao amigos");
+	}
+
+}
+

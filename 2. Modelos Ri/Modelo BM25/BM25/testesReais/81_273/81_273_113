@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void main(){
+	int lin, col, i, j;
+	int **matriza, **matrizb, **matrizc ;
+	scanf("%d%d", &lin, &col);
+	
+	if((lin<=20)&&(lin>=0)&&(col>=0)&&(col<=20)){
+	matriza=(int**)malloc(sizeof(int*)*lin);
+	for(i=0;i<lin;i++){
+		matriza[i]=(int*)malloc(sizeof(int)*col);
+	}
+
+
+	matrizb=(int**)malloc(sizeof(int*)*lin);
+	for(i=0;i<lin;i++){
+		matrizb[i]=(int*)malloc(sizeof(int)*col);
+	}
+
+
+	matrizc=(int**)malloc(sizeof(int*)*lin);
+	for(i=0;i<lin;i++){
+		matrizc[i]=(int*)malloc(sizeof(int)*col);
+	}
+
+
+	for(i=0;i<lin;i++){
+		for(j=0;j<col;j++){
+			scanf("%d", &matriza[i][j]);
+		}
+	}
+	for(i=0;i<lin;i++){
+		for(j=0;j<col;j++){
+			scanf("%d", &matrizb[i][j]);
+		}
+	}
+	printf("\n");
+	for(i=0;i<lin;i++){
+		for(j=0;j<col;j++){
+		matrizc[i][j]=matriza[i][j]+matrizb[i][j];
+		printf("%d ", matrizc[i][j]);
+		}
+	printf("\n");	
+	}
+	}
+}
+

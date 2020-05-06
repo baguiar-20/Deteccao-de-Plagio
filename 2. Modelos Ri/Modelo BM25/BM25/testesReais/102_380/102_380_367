@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX	100
+int main(){
+    char str[MAX];
+    int i,a;
+    printf("Nome: ");
+    fgets(str ,MAX,stdin);
+    str[strlen(str)-1] = '\0';
+    a = strlen(str)-1;
+    printf("Inverso: ");
+    for(i=a; i>=0; i--){
+    printf("%c",str[i]);
+
+}
+printf("\n");
+}

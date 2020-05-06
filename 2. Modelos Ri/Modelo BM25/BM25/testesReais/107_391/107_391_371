@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define ERROR_PILHAVAZIA -1
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+
+tipoPilha *inicializaPilha ();
+void emPilha (tipoPilha *p, int valor);
+int desemPilha (tipoPilha *p);
+void imprimePilha (tipoPilha *p);
+
+int main (void) {
+	tipoPilha *Pilha;
+	int valor;
+	
+	Pilha = inicializaPilha();
+	scanf("%d", &valor);
+	while(valor!=-1){
+		if(valor>0) emPilha(Pilha, valor);
+		else desemPilha(Pilha);
+		scanf("%d", &valor);
+	}
+	imprimePilha(Pilha);   
+	return 0;
+}
+
+tipoPilha *inicializaPilha () {
+   tipoPilha *p;
+   p = (tipoPilha *) malloc (sizeof(tipoPilha));
+   p->topo = NULL;
+   return p;
+}
+void emPilha (tipoPilha *p, int valor) {
+   tipoNo *no;
+   no = (tipoNo *) malloc (sizeof(tipoNo));
+   no->valor = valor;
+   no->prox = p->topo;
+   p->topo = no;
+}
+int desemPilha (tipoPilha *p) {
+   int valor;
+   tipoNo *aux;
+   if (!p->topo) return ERROR_PILHAVAZIA;
+   valor = p->topo->valor;
+   aux = p->topo;
+   p->topo = p->topo->prox;
+   free(aux);   
+   return valor;
+}
+void imprimePilha (tipoPilha *p) {
+   tipoNo *aux;
+   aux = p->topo;
+   while (aux) {
+      printf ("%d ", aux->valor);
+      aux = aux->prox;
+   }
+}

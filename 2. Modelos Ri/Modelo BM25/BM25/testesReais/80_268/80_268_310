@@ -1,0 +1,29 @@
+# include <stdio.h>
+# include <string.h>
+
+int main(){
+	int i,j, equal=0, tam;
+	char str[20], str2[20];
+	scanf("%s", str);
+	scanf("%s", str2);
+	tam = strlen(str);
+	if(tam == strlen(str2)){
+		for(i=0;i <= tam-1;i++){
+			for(j=0;j <= tam-1;j++){
+				if((str[i] == str2[j]) && (str[i] != '\0') && (str2[j] != '\0')){
+					equal++;
+					str[i] = str2[j] = '\0';
+				}
+			}
+		}
+		if(equal == tam){
+			printf("SIM");
+		}else{
+			printf("NAO");
+		}
+	}else{
+		printf("NAO");
+	}
+	return 0;
+}
+

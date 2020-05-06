@@ -1,0 +1,70 @@
+/* Roberta Kathleen*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+	int elem;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct pilha{
+	struct tipoNo *topo;
+}tipoPilha;
+
+tipoPilha *iniciaPilha(){
+	tipoPilha *p;
+	p = (tipoPilha *) malloc (sizeof (tipoPilha));
+	p->topo = NULL;
+	return p;
+}
+
+void empilhar(tipoPilha *p, int elem){
+	tipoNo *lista;
+	
+	lista = (tipoNo *) malloc (sizeof(tipoNo));
+	
+	lista->elem = elem;
+	lista->prox = p->topo;
+	p->topo = lista;
+
+}
+int desempilhar(tipoPilha *p){
+	int elemento;
+	tipoNo *aux;
+	elemento = p->topo->elem;
+	aux = p->topo;
+	p->topo = p->topo->prox;
+	free(aux);
+   return elemento;
+}
+
+void imprimirPilha(tipoPilha *p){
+	tipoNo *proximo;
+	proximo = p->topo;
+
+	while(proximo != NULL){
+		printf("%d ",proximo->elem);
+		proximo =proximo->prox; 
+	}
+
+}
+
+int main(){
+	tipoPilha *pilha = iniciaPilha();
+	int elem;
+
+	while(1){
+		scanf("%d",&elem);
+		if(elem > 0){
+			empilhar(pilha, elem);
+		}else if(elem < 0){
+			imprimirPilha(pilha);
+			break;
+		}else
+			desempilhar(pilha);	
+	}
+
+
+return 0;
+}

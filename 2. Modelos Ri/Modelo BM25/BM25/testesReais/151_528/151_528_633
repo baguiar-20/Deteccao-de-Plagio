@@ -1,0 +1,34 @@
+#include<stdio.h>
+
+void troca_valor (int a, int b) {
+
+	int aux;
+
+	aux = a;
+	a = b;
+	b = aux;
+}
+
+void troca_referencia (int *a, int *b) {
+
+	int aux;
+
+	aux = *a;
+	*a = *b;
+	*b = aux;
+}
+
+int main (void) {
+	
+	int x,y;
+	scanf("%d",&x);
+	scanf("%d",&y);
+
+	troca_valor (x,y);
+	printf ("\n%d\n%d\n\n",x,y);
+
+	troca_referencia (&x,&y);
+	printf ("\n%d\n%d\n",x,y);
+
+	return 0;
+}

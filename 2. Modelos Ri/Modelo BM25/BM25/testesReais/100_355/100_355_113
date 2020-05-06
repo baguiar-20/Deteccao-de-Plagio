@@ -1,0 +1,188 @@
+/*Constantes e variáveis vão diretamente de inf para posf. Abre-parêntese vai para a pilha. Ao encontrar um fecha-parêntese, a função remove tudo da pilha até o abre-parêntese inclusive. Ao encontrar um + ou - a função desempilha tudo até um abre-parêntese exclusive E EMPILHAR. Ao encontrar um * ou / desempilha tudo até um abre-parêntese ou um + ou um - E EMPILHAR.
+
+(A + B * C/D * E - F)  */
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct elemento{
+	char valor;
+	struct elemento *proximo;
+} TElemento;
+
+typedef struct{
+	TElemento *inicio;
+} Tlista;
+
+Tlista *criarlista(){
+	Tlista *Lista=malloc(sizeof(Tlista));
+	Lista->inicio=NULL;
+
+	
+	return Lista;
+}
+
+void inserirfim(Tlista *Lista, char valor){
+	
+	TElemento *novoel= malloc(sizeof(TElemento));
+	TElemento *cam=Lista->inicio;
+	
+	novoel->valor=valor;
+	novoel->proximo=NULL;
+
+	if(cam)
+		novoel->proximo=cam;
+
+	Lista->inicio=novoel;
+
+}
+
+void removerfim(Tlista *Lista){
+	TElemento *lista;	
+	lista=Lista->inicio;
+	
+	Lista->inicio = lista->proximo;
+
+	/*if(cam->valor!='('){
+		imprimirlista(mlista);
+		cam=cam->proximo;
+	} */
+
+
+	free(lista);
+
+	
+
+}
+int imprimirlista(Tlista *Lista){
+	TElemento *cam;
+	cam=Lista->inicio;
+	while(cam){
+		printf("%c", cam->valor);
+		cam=cam->proximo;
+	}
+	printf("\n");
+}
+ 
+void polonesa(Tlista *mlista, char string[99], int len){
+	int i,flag=0;
+	TElemento *cam;
+	cam=mlista->inicio;
+
+	len=strlen(string);
+	for(i=0;i<len;i++){
+		if(isupper(string[i]) || isdigit(string[i])){
+			printf("%c", string[i]);		
+		}
+		switch(string[i]){
+			case '(':
+			{
+				inserirfim(mlista, string[i]);	
+				//imprimirlista(mlista);
+	  		break;    
+			}		
+			case ')':
+			{
+				cam=mlista->inicio;
+				while(cam->valor != '('){
+						printf("%c", cam->valor);
+						removerfim(mlista);
+						cam=mlista->inicio;					
+				}
+				removerfim(mlista);
+			break;
+			}
+			case '+':
+			{
+				//inserirfim(mlista, string[i]);
+				cam=mlista->inicio;
+				while(cam && flag==0){
+					if(cam->valor=='(')
+						flag++;
+					else{
+						printf("%c",cam->valor);						
+						removerfim(mlista);				
+					}
+					cam=mlista->inicio;				
+				}
+				inserirfim(mlista, string[i]);
+				flag=0;
+				//imprimirlista(mlista);
+			break;
+			}
+			case '-':
+			{
+				//inserirfim(mlista, string[i]);
+				cam=mlista->inicio;
+				while(cam && flag==0){
+					if(cam->valor=='(')
+						flag++;
+					else{
+						printf("%c",cam->valor);						
+						removerfim(mlista);				
+					}
+					cam=mlista->inicio;				
+				}
+				inserirfim(mlista, string[i]);
+				flag=0;
+				//imprimirlista(mlista);
+			break;
+			}
+			case '*':
+			{
+				cam=mlista->inicio;
+				while(cam!=NULL && flag==0){
+					if(cam->valor=='+' || cam->valor=='-' || cam->valor=='(')
+						flag++;						
+					else{
+						printf("%c",cam->valor);
+						removerfim(mlista);	
+					}
+					cam=mlista->inicio;	
+				}
+				//removerfim(mlista);
+				inserirfim(mlista, string[i]);
+				flag=0;
+			break;
+			}
+			case '/':
+			{
+				cam=mlista->inicio;
+				while(cam!=NULL && flag==0){
+					if(cam->valor=='+' || cam->valor=='-' || cam->valor=='(')
+						flag++;						
+					else{
+						printf("%c",cam->valor);
+						removerfim(mlista);	
+					}
+					cam=mlista->inicio;		
+				}
+				//removerfim(mlista);
+				inserirfim(mlista, string[i]);
+				flag=0;
+			}
+		}
+	cam=mlista->inicio;	
+
+	}
+	
+}
+int main(){
+	char string[99];
+	int len=0;
+	Tlista *mlista;
+	mlista=criarlista();
+	scanf("%s", string);
+	
+	while(strcmp(string,"END")){	
+		polonesa(mlista, string, len);
+		printf("\n");
+		scanf("%s", string);
+	}
+
+
+	
+
+}

@@ -1,0 +1,98 @@
+/*Este programa deve receber uma cadeia de caracteres com uma expressão aritmética e 
+simplesmente verificar se o número de operandos e o número de operadores estão corretos.
+ Se sim, deve ser impresso SIM, caso contrário deve ser impresso NAO. 
+ Uma expressão é CORRETA se possui o número operandos exatamente igual ao número de operadores mais um. 
+ O programa deve ler um número indeterminado de expressões aritméticas (cadeias de caracteres) e 
+ escrever se a expressão está correta ou não. A última cadeia é igual a END. 
+ Considere que os identificadores de variáveis sejam uma única letra maiúscula; 
+ que só existam os quatro operadores aritméticos binários (+, -, * e /);
+  e que possa ter tanto parêntesis quanto colchetes. 
+Dicas: 
+Entradas:
+ A-B+
+ A+*
+ A/BC
+ A+B/C
+ END
+
+ Saídas:
+ NAO
+ NAO
+ NAO
+ SIM 
+ */
+ #include<stdio.h>
+ #include<stdlib.h>
+ #include<string.h>
+ 
+ 
+ int fim=0;
+ 
+ typedef struct tipoNo{
+ 	char str[200];
+ 	struct tipoNo *prox;
+ }tipoNo;
+ 
+ typedef struct tipoPilha{
+ 	struct tipoNo *topo;
+ }tipoPilha;
+ 
+ tipoPilha *criar(void){
+ 	tipoPilha *p;
+ 	p=(tipoPilha *)malloc(sizeof(tipoPilha));
+ 	p->topo=NULL;
+ 	return p;
+ }
+  
+void verificar(char *str){
+	if(fim==1) return;
+  
+  int i=0, j, w;
+  int verd=1;
+  
+ int t=strlen(str);
+ 
+  while(str[i]!='\0'&&i<=t&&verd==1){
+      
+      while(str[i]=='['||str[i]==']'||str[i]=='('||str[i]==')'&&i<=t) i++;
+            j=i+1;
+      while(str[j]=='['||str[j]==']'||str[j]=='('||str[j]==')'&&j<=t+1)  j++;
+            w=j+1;
+      while(str[j]=='['||str[j]==']'||str[j]=='('||str[j]==')'&&j<=t+1) w++;
+      
+    //  printf("%i:%c %i:%c %i:%c\n", i,str[i], j,str[j], w,str[w]);
+      
+     if(str[w]=='\0'&&str[j]!='\0') {verd=0; }
+     else if(str[j]=='\0'){
+	    if(str[i]=='+'||str[i]=='-'||str[i]=='/'||str[i]=='*')verd=0; }
+      else{
+   	      if(str[i]=='+'||str[i]=='-'||str[i]=='/'||str[i]=='*') verd=0;
+   	      if(str[j]!='+'&&str[j]!='-'&&str[j]!='/'&&str[j]!='*') verd=0;
+   	      if(str[w]=='+'||str[w]=='-'||str[w]=='/'||str[w]=='*') verd=0;
+      }
+   
+    i=w;
+  
+ }
+ if(verd==1) printf("SIM\n");
+ else        printf("NAO\n");
+	
+}
+
+ void inserir(tipoPilha *p){
+ 	tipoNo *no;
+ 	no=(tipoNo*)malloc(sizeof(tipoNo));
+ 	scanf("%s", no->str);
+ 	no->prox=p->topo;
+ 	p->topo=no;
+    if(strcmp(no->str, "END")==0) fim=1;
+    verificar(no->str);
+ }
+
+
+void main(void){
+	tipoPilha *p;
+	p=criar();
+	
+	while(fim==0)  inserir(p);
+}

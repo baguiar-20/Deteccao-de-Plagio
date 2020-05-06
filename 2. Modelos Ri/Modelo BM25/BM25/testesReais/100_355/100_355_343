@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
+
+#define MAX_SEQUENCE_SIZE 1000
+
+char *getpostfixnotation(char infnotation[]) {
+   
+   char *posnotation; 
+   char *stack; int t;
+   int n, i, j;
+
+   n = strlen(infnotation);
+   posnotation = malloc( n * sizeof (char));
+   stack = malloc( n * sizeof (char));
+   t = 0;
+   stack[t++] = infnotation[0];
+   for (j = 0, i = 1;infnotation[i] != '\0'; ++i) {
+
+      switch (infnotation[i]) {
+         char aux;
+         case '(':
+		 stack[t++] = infnotation[i];         
+                   break;
+         case ')': 
+		while (1) {                
+                      aux = stack[--t];
+                      if (aux == '(') break;
+                      posnotation[j++] = aux;
+                   }
+                   break;
+         case '+': 
+         case '-': 
+		while (1) {
+                      aux = stack[t-1];
+                      if (aux == '(') break;
+                      --t;                    
+                      posnotation[j++] = aux;
+                   }
+                   stack[t++] = infnotation[i];          
+                   break;
+         case '*':
+         case '/': 
+		while (1) {
+                      aux = stack[t-1];
+                      if (aux == '(' || aux == '+' || aux == '-') 
+                         break;
+                      --t;
+                      posnotation[j++] = aux;
+                   }
+                   stack[t++] = infnotation[i];
+                   break;
+         default:  
+		posnotation[j++] = infnotation[i];
+      }
+   }
+
+   free(stack);
+   posnotation[j] = '\0'; 
+					     
+   return posnotation;
+}
+
+
+
+
+
+
+int main(){
+
+	char end[] = "END";
+	char sequence[MAX_SEQUENCE_SIZE];
+
+
+
+	while(strcmp(sequence,end)!=0){
+
+	scanf("%s",sequence);
+
+	if(strcmp(sequence,end)==0){
+		break;		
+	}
+
+
+	printf("%s\n",getpostfixnotation(sequence));
+	
+
+   }
+
+return 0;
+}

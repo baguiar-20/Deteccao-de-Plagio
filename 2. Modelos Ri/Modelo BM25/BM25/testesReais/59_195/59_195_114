@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+int main() {
+	int a, b, aux, resto;
+	scanf("%d %d", &a, &b);
+	if (a>b) {
+		aux = a;
+		a = b;
+		b = aux;
+	}
+	resto=b%a;
+	while (b%a!=0) {
+		resto = b % a;
+		b = a;
+		a = resto;
+	}
+	printf("%d", a);
+	return 0;
+}

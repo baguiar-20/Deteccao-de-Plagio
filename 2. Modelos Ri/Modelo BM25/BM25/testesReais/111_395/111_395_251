@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct elem{
+	int valor;
+	struct elem *ant;
+	struct elem *prox ;
+}TElem;
+
+typedef struct lista{
+	TElem *ini;
+	TElem *fim;
+}TLista;
+
+TElem *criaElemento(int valor){
+	TElem *Elem=malloc(sizeof(TElem));
+	Elem->ant = NULL;
+	Elem->prox=NULL;
+	Elem->valor=valor;
+	return Elem;
+}
+	
+TLista *criaLista(){
+	TLista *L= malloc(sizeof(TLista));
+	L->ini=NULL;
+	L->fim=NULL;
+	return L;
+}
+
+	
+void insereLista(TElem *Novo,TLista *L){
+	if (L->ini == NULL){
+		L->ini=Novo;
+		L->fim=Novo;
+	}
+	else{
+		Novo->ant=L->fim;
+		L->fim->prox=Novo; 
+		L->fim=Novo;
+	}
+}
+
+void inverteLista(TLista *L,int tam){
+	TElem *aux=malloc(sizeof(TElem));
+	aux=L->ini;
+	int i;
+	L->ini=L->fim;
+	L->fim=aux;
+	aux=L->ini;
+		for(i=0;i<tam-1;i++){
+			aux->prox=aux->ant;
+			aux=aux->ant;
+		}
+			
+	
+}
+
+
+void imprime(TLista *L,int tam){
+		TElem *aux=malloc(sizeof(TElem));
+		int i =0;
+		aux=L->ini;
+		while(i<tam){
+			printf("%i ",aux->valor);
+			aux=aux->prox;
+			i++;
+			
+		}
+}
+	
+		
+		
+int main(){
+	
+	TLista *Lista = criaLista();
+	TElem *Eg;
+	int valor,tam;
+	while(valor!=-1){
+	
+		scanf("%i",&valor);
+		Eg=criaElemento(valor);
+		if (valor!=-1){
+			
+			insereLista(Eg,Lista);
+			tam++;
+		}
+	}
+	inverteLista(Lista,tam);
+	imprime(Lista,tam);
+	return 0;
+ }
+	
+
+	
+

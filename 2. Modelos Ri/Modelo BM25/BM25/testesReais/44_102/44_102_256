@@ -1,0 +1,20 @@
+# include <stdio.h>
+
+int main(){
+	int fat, i, n;
+	
+	//printf("Informe o Valor de n para calculo do fatorial: ");
+	scanf("%d", &n);
+	fat = 1;
+	if(n < 0){
+		//printf("ERROR...Valor < 0\n\n");
+	}
+	else{
+		for(i=1; i<=n; i++){
+			fat = fat*i;
+		}
+		printf("%d", fat);
+		//printf("O fatorial do numero %d eh: %d",n, fat);
+		//printf("\n\n");
+	}
+}

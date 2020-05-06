@@ -1,0 +1,127 @@
+/* Aglair Barroncas */
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define TAM 100
+
+typedef struct tipono{
+	char valor;
+	struct tipono *prox;
+}tipono;
+
+typedef struct tipopliha{
+	struct tipono *topo;
+}tipopilha;
+
+
+tipopilha *criarpilha(){
+	tipopilha *p;
+	p=(tipopilha *)malloc(sizeof(tipopilha));
+	p->topo=NULL;
+	return p;
+}
+
+int vazia(tipopilha *p){
+	if (p->topo) return 0;
+	return 1;
+}
+
+tipono *empilha(tipopilha *p, char val){
+	tipono *no;
+	no=(tipono *)malloc(sizeof(tipono));
+	no->valor=val;
+	no->prox=p->topo;
+	return no;
+}
+
+void desempilha(tipopilha *p){
+	tipono *aux;
+	if (vazia(p)) return;
+	aux=p->topo;
+	p->topo=aux->prox;
+	free(aux);
+}
+
+int compara(tipopilha *p, char letra){
+	tipono *aux;
+	if (vazia(p)) return 0;
+	aux=p->topo;
+	if((aux->valor=='(' && letra==')')) return 1;
+	if((aux->valor=='[' && letra==']')) return 1;
+	return 0; 
+}
+
+int comparar_oper(tipopilha *p){
+	tipono *aux;
+	int i;
+	if (vazia(p)) return 0;
+	aux=p->topo;
+	while(aux->prox){
+		if((aux->valor!='+'&&aux->valor!='-'&&aux->valor!='*'&&aux->valor!='/') 
+		&& (aux->prox->valor=='+'||aux->prox->valor=='-'||aux->prox->valor=='*'||aux->prox->valor=='/')){
+			desempilha(p);
+			if(aux->prox->prox)desempilha(p);
+		}
+		else return 0;
+		aux=p->topo;
+	}
+	p->topo=aux->prox;
+	if(aux->valor!='+'&&aux->valor!='-'&&aux->valor!='*'&&aux->valor!='/')	return 1;
+	else 
+	return 0;
+}
+
+void imprime(tipopilha *p){
+	tipono *aux;
+	aux=p->topo;
+	while(aux){
+		printf("%c", aux->valor);
+		aux=aux->prox;
+	} 
+	printf("\n");
+}
+
+
+
+
+char main(){
+	tipopilha *pilha;
+	char vet[]= "END";
+	char frase[TAM];
+	int i, tam, valor, flag=1;
+	scanf("%s", frase);
+	while((strcmp(frase, vet)!=0)){
+		pilha=criarpilha();
+			tam=strlen(frase);
+			for(i=0; i<tam-1;i++){ 		// Ira resolver os casos que sao do tipo A+B[]
+				if((frase[i]=='['&&frase[i+1]==']')||(frase[i]=='('&&frase[i]==')')){				
+					frase[i]='X'; frase[i+1]='X';
+					}
+			}
+			for(i=0; i<tam;i++){ 		//Ira testar Parentes e Colchetes
+				if ((frase[i]=='[')||(frase[i]==']')||(frase[i]=='(')||(frase[i]==')')){
+				
+					if(compara(pilha, frase[i])) desempilha(pilha);
+					else pilha->topo=empilha(pilha, frase[i]);
+				}
+			}	
+				if(vazia(pilha)) flag=0;	// Ira finalizar teste Parentes e Colchetes
+			if (flag==0){
+				for(i=0; i<tam;i++){
+					if ((frase[i]!='[')&&(frase[i]!=']')&&(frase[i]!='(')&&(frase[i]!=')')){
+						pilha->topo=empilha(pilha, frase[i]); //emplilha
+					}
+				}
+
+				if (comparar_oper(pilha)) printf("SIM");	//Realizara o teste princial
+				else printf("NAO");
+				printf("\n");
+			}
+			else printf("NAO\n");
+		scanf("%s", frase);
+	 free(pilha);	
+	}		
+}
+
+

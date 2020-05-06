@@ -1,0 +1,39 @@
+/*Uma matriz pirâmide de ordem N é constituida por N quadrados concêntricos, cada qual formado por valores que indicam a distância do quadrado em relação a borda da pirâmide. Por exemplo, uma matriz pirâmide de ordem 3 é mostrada a seguir. Faça um programa que imprima uma matriz de ordem N, sendo N informada pelo usuário.
+
+1 1 1 1 1 1
+1 2 2 2 2 1
+1 2 3 3 2 1
+1 2 3 3 2 1
+1 2 2 2 2 1
+1 1 1 1 1 1*/
+
+#include <stdio.h>
+
+int main() {
+
+	int M[20][20], n,o,p, i, j; //onde n representa a ordem da matriz
+
+	scanf("%d", &n);
+	o=n*2;
+
+	n++;
+	
+	for (p=0;p<n;p++) {
+		for (i=0+p;i<o-p;i++) {
+			for (j=0+p;j<o-p;j++){
+				M[i][j]=1+p;
+			}
+		}
+	}
+
+	for (i=0;i<o;i++) {
+		for (j=0;j<o;j++){
+			printf("%d ",M[i][j]);
+		}
+		printf("\n");
+	}
+
+	
+
+}
+

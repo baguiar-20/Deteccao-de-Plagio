@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+
+
+int main(){
+
+	int tam,i, search, ver, inicio=0, meio, fim;
+	ver = -1;
+	scanf("%d", &tam);
+
+	int vet[tam-1];
+
+	for (i=0; i<tam; i++){
+		scanf("%d", &vet[i]);
+	}
+
+	scanf("%d", &search);
+
+	fim = tam-1;
+	while(inicio <= fim){
+
+		meio = (inicio+fim)/2;
+		if (vet[meio] == search){
+			ver = meio;
+			break;
+		}
+		if (search > vet[meio]){
+			inicio = meio+1;
+		}else {
+			fim = meio-1;
+		}
+
+	}
+	
+	printf("%d \n",ver);
+
+}

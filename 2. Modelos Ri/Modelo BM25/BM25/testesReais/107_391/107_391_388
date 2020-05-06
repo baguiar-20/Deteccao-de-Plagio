@@ -1,0 +1,62 @@
+#include <stdio.h>
+#define KMAX 100
+typedef struct Tipo_Pilha{
+	int topo;
+	int vet[KMAX];
+}Tipo_Pilha;
+void inicializa_pilha(Tipo_Pilha *p){
+	p->topo = -1;
+}
+int pilha_cheia(){
+	Tipo_Pilha pilha;
+	if (pilha.topo == KMAX - 1){
+		return 1; // verdadeiro ou seja ta cheio
+	}else{
+		return 0; // falso ou seja não ta cheio
+	}
+	
+}
+void pilha_vazia(){
+}
+void empilha(Tipo_Pilha *p, int dado){
+	p->topo++; 
+	//pilha.topo->pilha.topo+1;
+	p->vet[p->topo] = dado;
+
+}
+int desempilha(Tipo_Pilha *p){
+	p->topo--;
+	return p->vet[p->topo+1];
+}
+void emprimeapilha(Tipo_Pilha p){
+	int i;
+	//printf("Pilha : "  );
+	for(i=p.topo; i >= 0; i--){
+		printf("%d ", p.vet[i]);
+	}
+}
+int main() {
+	Tipo_Pilha pilha;
+	int valor;
+	inicializa_pilha(&pilha);
+	//printf("inicializa a pilha :");
+	scanf("%d",&valor);
+	empilha(&pilha,valor);
+	
+	while(pilha.topo < 100){
+	//printf("proximo Elemento da pilha: ");
+	scanf("%d",&valor);
+		if( valor >= 1){
+			empilha(&pilha,valor);
+		}
+		if( valor == 0){
+			desempilha(&pilha);
+		}
+		if(valor == -1){
+			emprimeapilha(pilha);
+			break;
+		}
+	}
+	
+	return 0;
+}

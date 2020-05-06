@@ -1,0 +1,212 @@
+/*				LABORATORIO DE PROGRAMAÇÃO B -
+		- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula: 21351819 -
+				Exercício - Atividade de 28 de janeiro 2014
+	  #######################################################################################################
+ Em um setor de Controle de Qualidade de uma fábrica produz-se diariamente a seguinte lista: código-defeito, código-causa, código-componente e quantidade. Considere que os três primeiros são strings de tamanho igual a 3, e o último é um valor numérico. Fazer um programa C que leia vários elementos dessa lista. O ÚLTIMO elemento, que obviamente não deverá entrar no cálculo, deve ter valor DO CÓDIGO DO DEFEITO exatamente igual a "000".
+
+Nesta primeira parte do exercício, calcule e imprima os dois principais defeitos, com as respectivas quantidades de defeitos.
+
+Certamente que os dados de entrada NÃO vão estar ordenados. Faça somente uma leitura dos dados e monte uma estrutura de dados que permita resolver o problema. Tente resolver o problema de tal forma que fique fácil estender o problema para, por exemplo, indicar os CINCO principais defeitos e não somente os DOIS.
+Dicas:
+
+Entrada:
+
+002 004 005 5
+002 004 006 22
+001 001 003 45
+004 013 007 40
+004 045 003 10
+001 001 002 25
+001 001 001 13
+002 003 004 34
+002 003 005 30
+003 013 028 15
+004 024 004 44
+001 002 002 35
+004 024 005 10
+002 003 006 50
+001 003 003 43
+002 004 007 40
+002 005 003 12
+004 013 005 54
+002 005 007 40
+003 010 008 10
+003 010 025 11
+001 002 003 53
+001 003 001 50
+003 011 008 10
+003 012 018 20
+004 024 006 100
+002 005 004 19
+004 013 006 30
+004 045 005 30
+001 002 001 15
+001 003 002 52
+004 045 008 50
+000
+
+Saída:
+
+Defeito 1: 004 (368)
+Defeito 2: 001 (331)  #######################################################################################################	
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct tipono{
+	int quantidade;
+	char defeito[4];
+	char causa[4];
+	char componente[4];
+	struct tipono *prev;
+	struct tipono *prox;
+}tipono;
+
+typedef struct tipolista{
+	struct tipono *ini;
+	struct tipono *fim;
+}tipolista;
+
+tipolista *criarlista();
+void inserir(tipolista *l, tipolista *l2, char *defeito, char *causa, char *compon, int quant);
+void imprime(tipolista *l, int valor);
+void imprime1(tipolista *l, int valor);
+void sortlista2 (tipolista *l);
+
+void main(){
+	char defeito[4], causa[4], componente[4], texto[50], tend[]= "000"; int quantidade;
+	tipolista *lista, *lista2;
+	lista=criarlista();
+	lista2=criarlista();
+
+	scanf("%s", defeito);
+	while((strcmp(defeito, tend)!=0)){ 
+		scanf("%s %s %d", causa, componente, &quantidade);
+		inserir(lista, lista2, defeito, causa, componente, quantidade);
+		scanf("%s", defeito);
+	}
+	sortlista2(lista2);
+	imprime(lista2, 2);
+	free(lista);
+	free(lista2);
+}
+
+tipolista *criarlista(){
+	tipolista *l;
+	l=(tipolista *)malloc(sizeof(tipolista));
+	l->ini=NULL;
+	l->fim=NULL;
+	return l;
+}
+
+void inserir(tipolista *l,tipolista *l2, char *defeito, char *causa, char *compon, int quant){
+	tipono *no, *no2, *aux; int flagg=0;
+	no=(tipono *)malloc(sizeof(tipono));
+	no2=(tipono *)malloc(sizeof(tipono));
+	strcpy(no->defeito,defeito);
+	strcpy(no->causa,causa);
+	strcpy(no->componente, compon);
+	no->quantidade=quant;
+	no->prox=NULL;
+	no->prev=NULL;
+	if(!l->ini && !l->fim){
+		l->ini=no;
+		l->fim=no;
+	}
+	else {
+		aux=l->ini;		
+		no->prev=l->ini->prev;
+		no->prox=l->ini;
+		l->ini->prev=no;
+		l->ini=no;
+	}
+
+	
+	strcpy(no2->defeito,defeito);
+	strcpy(no2->causa,causa);
+	strcpy(no2->componente, compon);
+	no2->quantidade=quant;
+	no2->prox=NULL;
+	no2->prev=NULL;
+	if(!l2->ini && !l2->fim){
+		l2->ini=no2;
+		l2->fim=no2;
+	}
+	else {
+		aux=l2->ini; flagg=0;		
+		while(aux){ 
+			if(strcmp(aux->defeito,defeito)==0){
+				aux->quantidade+=quant;
+				free(no2);
+				flagg=1;
+			}
+			aux=aux->prox;
+		}
+			if(flagg==0){
+				no2->prev=l2->ini->prev;
+				no2->prox=l2->ini;
+				l2->ini->prev=no2;
+				l2->ini=no2;
+			} 
+	}
+}
+
+void sortlista2 (tipolista *l) {
+	tipono *i, *j, *aux;
+	int pivo;
+	char defe[4], caus[4], compo[4];
+	i = l->ini->prox;
+	while (i) {
+		pivo = i->quantidade;
+		strcpy(defe,i->defeito);
+		strcpy(caus,i->causa);
+		strcpy(compo,i->componente);
+		j = i->prev;
+		while (j && pivo<j->quantidade) {
+			j->prox->quantidade = j->quantidade;
+			strcpy(j->prox->defeito, j->defeito);
+			strcpy(j->prox->causa, j->causa);
+			strcpy(j->prox->componente, j->componente);
+			j = j->prev;
+		}
+		if (j){
+			j->prox->quantidade = pivo;
+			strcpy(j->prox->defeito, defe);
+			strcpy(j->prox->causa, caus);
+			strcpy(j->prox->componente, compo);
+		}
+
+		else {
+			l->ini->quantidade = pivo;
+			strcpy(l->ini->defeito, defe);
+			strcpy(l->ini->causa, caus);
+			strcpy(l->ini->componente, compo);
+		}
+		i = i->prox;      
+	}
+}
+
+
+void imprime1(tipolista *l, int valor){
+	tipono *aux; int i=0;
+	aux=l->fim;
+	while(aux){
+	printf("%s %s %s %d\n",aux->defeito, aux->causa, aux->componente, aux->quantidade);
+	aux=aux->prev;
+	}
+}
+
+void imprime(tipolista *l, int valor){
+	tipono *aux; int i=0;
+	aux=l->fim;
+	while(aux && i<valor){
+	printf("Defeito %d: %s (%d)\n",i+1,aux->defeito, aux->quantidade);
+	aux=aux->prev;
+	i++;
+	}
+}
+
+
+

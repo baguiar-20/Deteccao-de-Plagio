@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+/*
+
+	float notas[100][4];
+	float a, b, c, d,;
+	int i = 0;
+	while (scanf("%f %f %f %f", &a, &b, &c, &d) == 4) {
+	    vetor[i][0] = a;
+	    vetor[i][1] = b;
+	    vetor[i][2] = c;
+	    vetor[i][3] = d;
+	    i++;
+	}
+	getchar();
+
+*/
+
+
+int main(){
+
+	float notas[100][4];
+	float a, b, c, d, med;
+	int i, line;
+	
+	i = line = 0;
+	med = 0;
+	
+	do{
+		scanf("%f %f %f %f", &a, &b, &c, &d);
+		notas[i][0]= a;
+		notas[i][1]= b;
+		notas[i][2]= c;
+		notas[i][3]= d;
+		i++;
+		
+		if (a+b+c+d > med){
+			med = a+b+c+d;
+			line = i;
+		}else med;			
+	
+	}while(getchar() != 'F');
+	
+	printf("%.3f do aluno %d\n", med/4, line);
+
+}

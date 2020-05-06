@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main()
+{
+	int n, i, ver_pri, aux;
+	
+	ver_pri = 0;
+	
+	scanf("%d", &n);
+	aux = n + 1;
+	
+	do
+	{
+		for(i = 1; i <= aux; i++)
+		{
+			if(aux % i == 0)
+			  ver_pri = ver_pri + 1;
+	    }
+	    if (ver_pri == 2) 
+	  
+	      printf("%d", aux);
+	    else 
+	      {
+			  aux = aux + 1;
+	          ver_pri = 0;
+	      }
+	 }
+	 while (ver_pri != 2);
+	 
+	return 0;
+}
+

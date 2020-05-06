@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<math.h>
+
+int main(){
+	int i, j;
+	int notas[30];
+	int cont[11];
+	int aux;
+	
+	aux=0;
+	
+	for(i=0; i<30; i++)
+	{
+		scanf("%d", &notas[i]);
+	}
+	
+	for(j=0; j<11; j++)
+	{
+		for(i=0; i<30; i++)
+		{
+			if (notas[i]==j)
+				aux=aux+1;
+		}
+		cont[j]=aux;
+		aux=0;
+	}
+	
+	for(j=0; j<11; j++)
+	{
+		printf("%d ", j);
+		for(i=0; i<cont[j]; i++)
+		{
+			printf("* ");
+		}
+		printf("\n");
+	}
+
+	return 0;
+}

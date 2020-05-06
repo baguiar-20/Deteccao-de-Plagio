@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+void verifica(char operacao[]){
+		
+		int contSinais=0, contVar=0, i=1, aux, tam=0;
+		tam = strlen(operacao);
+		
+		for(i=0;i<tam;i++){
+			if(operacao[i]=='+' || operacao[i]=='-' || operacao[i]=='*' ||operacao[i]=='/'){
+				
+				contSinais++;
+			}
+			else if(operacao[i]=='[' || operacao[i]==']' || operacao[i]=='(' ||operacao[i]==')'){
+				
+					
+			}
+				else contVar++;
+		}
+			
+		//printf("numero de sinais: %d\n", contSinais);
+		//printf("numero de variaveis: %d\n", contVar);
+		
+		if (contVar-contSinais==1){
+			printf ("SIM\n");
+			
+		}
+		else printf("NAO\n");
+		
+		
+	}
+
+int main(){
+	
+	char operacao[100];
+
+	scanf("%s", operacao);
+
+	char aux[]= "END";
+	
+
+	while (strcmp(operacao,aux)!=0){
+		
+		verifica(operacao);
+		
+		scanf("%s", operacao);
+
+	}
+	
+}

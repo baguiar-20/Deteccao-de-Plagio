@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct tipoNo {
+   char valor;
+   struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+   struct tipoNo *topo;
+} tipoPilha;
+
+tipoPilha *criaPilha ();
+tipoNo *empilhaPilha(tipoPilha *p, char valor);
+void desempilhaPilha(tipoPilha *p);
+int vaziaPilha(tipoPilha *p);
+
+int main(void) {
+	char entrada[200];
+	int i, aux, cont;
+	
+	tipoPilha *p = criaPilha();
+   
+	do{
+		scanf("%s", entrada);
+		aux = 0;
+		cont = 0;
+		for(i=0;i<strlen(entrada);i++){
+
+			switch(entrada[i]){
+        
+				case '(':
+				p->topo = empilhaPilha(p,entrada[i]);
+				aux++;
+				cont++;
+				break;
+
+				case '[':
+				p->topo = empilhaPilha(p,entrada[i]);
+				aux++;
+				cont++;
+				break;
+
+				case ')':
+				if (!vaziaPilha(p)){
+					if(p->topo->valor == '(')
+					desempilhaPilha(p);
+				}
+				cont--;
+				break;
+
+				case ']':
+					if (!vaziaPilha(p)){
+					   if(p->topo->valor == '[')
+					   desempilhaPilha(p);
+					}
+				cont--;
+				break;
+
+				default:
+				break;
+			}
+		}
+		
+		if((vaziaPilha(p)) && (aux>0) && (cont == 0)){
+            printf("SIM\n");
+		}else if(vaziaPilha(p) && (cont>=0)){
+			continue;
+		}else{
+			printf("NAO\n");
+		}
+
+		while(!vaziaPilha(p))
+		desempilhaPilha(p);
+	
+	}while(strcmp(entrada, "END"));
+
+return 0;	
+}
+
+
+tipoPilha *criaPilha () {
+   tipoPilha* p;
+   p = (tipoPilha *) malloc(sizeof(tipoPilha));
+   p->topo = NULL;
+   return p;
+}
+
+tipoNo *empilhaPilha(tipoPilha *p, char valor) {
+   tipoNo *no;
+   no = (tipoNo *) malloc (sizeof(tipoNo));
+   no->valor = valor;
+   no->prox = p->topo;
+   return no;
+}
+
+void desempilhaPilha(tipoPilha *p) {
+   tipoNo *no;
+   if (vaziaPilha(p)) return;
+   no = p->topo;
+   p->topo = no->prox;
+   free(no);
+}
+
+int vaziaPilha(tipoPilha *p) {
+   if (p->topo) return 0;
+   return 1;
+}

@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+
+int main() {
+    char a[50];
+    int tamanho,x;
+    
+    gets(a);
+    
+    tamanho=strlen(a);
+    
+   for (x=tamanho-1; x>=0;x--) {
+       printf("%c",a[x]);
+       }
+ 
+
+    
+}
+    
+    
+    

@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo 
+{
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha 
+{
+  struct tipoNo *topo;
+} tipoPilha;
+
+tipoPilha *criarPilha();
+void inserir(tipoPilha *pilha, int num);
+void excluir(tipoPilha *pilha);
+void imprimir(tipoPilha *pilha);
+
+int main()
+{
+	tipoPilha *pilha = criarPilha();
+
+	int number;
+	scanf("%d", &number);
+	inserir(pilha, number);
+	scanf("%d", &number);
+	
+	while(1)
+	{
+		if(number >= 1)
+		{
+			inserir(pilha, number);
+		}
+		else if(number == 0)
+		{
+			excluir(pilha);
+		}
+		else
+		{
+			break;
+		}
+		
+		scanf("%d", &number);
+	}
+	
+	imprimir(pilha);
+	
+	return 0;
+}	
+
+tipoPilha *criarPilha()
+{
+	tipoPilha *pilha = malloc(sizeof(tipoPilha));
+	pilha->topo = NULL;
+	
+	return pilha;
+}
+
+void inserir(tipoPilha *pilha, int num)
+{
+	tipoNo *elemento = malloc(sizeof(tipoNo));
+	
+	elemento->valor = num;
+	
+	if(pilha->topo != NULL)
+	{
+		elemento->prox = pilha->topo;
+	}
+	else
+	{
+		elemento->prox = NULL;
+	}
+	
+	pilha->topo = elemento;
+}
+
+void excluir(tipoPilha *pilha)
+{
+	if(pilha->topo != NULL)
+	{
+		tipoNo *aux = pilha->topo;
+		pilha->topo = pilha->topo->prox;
+		free(aux);
+	}
+}
+
+void imprimir(tipoPilha *pilha)
+{
+	tipoNo *impresso = pilha->topo;
+
+	while(impresso != NULL)
+	{
+		printf("%d\n", impresso->valor);
+		impresso = impresso->prox;
+	}
+}

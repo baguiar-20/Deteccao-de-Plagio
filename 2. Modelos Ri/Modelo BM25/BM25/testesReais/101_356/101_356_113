@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+	char op[99];
+	int i, len, contop=0, contsi=0;
+	scanf("%s", op);
+	len=strlen(op);
+	
+	while(strcmp(op,"END")){
+		for(i=0;i<len;i++){
+			if((op[i]=='+')||(op[i]=='-')||(op[i]=='*')||(op[i]=='/'))
+				contsi++;	
+			if(isupper(op[i]))
+				contop++;	
+		
+		}
+		if(contop>0 && contsi>0){
+			if(contop==++contsi)
+				printf("SIM\n");
+			else
+				printf("NAO\n");
+		}
+		scanf("%s", op);
+		len=strlen(op);
+		contsi=0;
+		contop=0;
+	}
+}
+	//A+B/C

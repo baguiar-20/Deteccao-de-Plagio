@@ -1,0 +1,36 @@
+#include<stdio.h>
+int main(){
+
+    int m[100][100];
+    int n, i, j, t, fim;
+
+    scanf("%d",&n);
+
+    n =n*2;
+
+    fim = n / 2;
+
+    fim++;
+
+    for(t=0;t<fim;t++)
+    {
+        for(i=0+t;i<n-t;i++)
+        {
+            for(j=0+t;j<n-t;j++)
+            {
+                m[i][j] = 1+t ;
+            }
+
+        }
+    }
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            printf("%d ",m[i][j]);
+        }
+        printf("\n");
+    }
+    //printf("%d",fim);
+    getchar();
+}

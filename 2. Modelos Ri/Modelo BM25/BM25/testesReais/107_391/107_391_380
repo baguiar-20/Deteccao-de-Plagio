@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 100
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+
+
+ void empilha(tipoPilha *P, int elemento){
+ 	tipoNo *aux;
+ 	
+	aux =(tipoNo *) malloc (sizeof(tipoNo));
+ 	aux->valor = elemento;
+ 	
+	 if (P){
+	 	aux->prox=P->topo;
+ 	}
+ 	P->topo=aux;
+}
+
+void remover(tipoPilha *P){
+	tipoNo *aux;
+	
+	if(P){
+	
+		aux=P->topo;
+		P->topo=P->topo->prox;
+		free(aux);
+	}
+}
+
+void imprime (tipoPilha *P){
+	tipoNo *aux;
+	for(aux=P->topo;aux;aux=aux->prox){
+		printf("%d  ", aux->valor);
+	}
+}
+
+int main(){
+	int elemento;
+	tipoPilha P;
+	P.topo=NULL;
+	while(1){
+		scanf ("%d", &elemento);
+		if(elemento >=1){
+			empilha(&P, elemento);
+		}else if(elemento ==0){
+			remover(&P);
+		}else{
+			imprime(&P);
+			break;
+		}
+	}
+}

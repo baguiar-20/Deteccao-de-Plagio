@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int busca_binaria(int *vetor, int tam, int busca){
+	int ini=0, meio, fim = tam-1;
+	while(ini <= fim){
+		meio = (ini+fim)/2;
+		if(vetor[meio] == busca)
+			return meio;
+		else if(vetor[meio]<busca)
+			ini = meio+1;
+		else
+			fim = meio-1; 
+	}
+}
+
+int main(){
+	int tam,i,busca;
+	
+	scanf("%d",&tam);
+	int vetor[tam];
+
+	for(i=0; i<tam; i++){
+		scanf("%d",&vetor[i]);
+	}
+	scanf("%d",&busca);
+	printf("%d", busca_binaria(vetor, tam, busca));
+	
+return 0;
+}

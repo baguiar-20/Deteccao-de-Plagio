@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define max 100
+
+int main () {
+	
+	char frase[max], contrario [max];
+	int i, j;
+	
+	printf("Nome: ");
+	fgets(frase,max,stdin);
+	
+
+	
+	for(i = strlen(frase)-2, j = 0; i >= 0; i--, j++){
+		
+	    
+		contrario[j] = frase[i];
+		
+	
+	}
+	
+	printf("Inverso: %s", contrario);
+	printf("\n");
+	
+	
+	
+	getchar();
+return 0;
+}

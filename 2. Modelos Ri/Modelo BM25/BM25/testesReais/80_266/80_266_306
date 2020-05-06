@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+    char frase[100],aux;
+    int i,num,tamanho;
+
+    gets(frase);
+
+    //printf("%d",strlen(frase));
+    num = strlen(frase)/2;
+    tamanho =strlen(frase);
+    for(i=0;i<num;i++)
+    {
+        aux = frase[i];
+        frase[i] = frase[tamanho -i-1] ;
+        frase[tamanho -i-1] = aux;
+    }
+    printf("%s",frase);
+}

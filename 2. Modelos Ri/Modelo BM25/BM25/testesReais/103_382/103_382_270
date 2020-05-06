@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct tipoNo {
+   char defeito[4];
+   char causa[4];
+   char compo[4];
+   int valor;
+   struct tipoNo *prox;
+} tipoNo;
+
+tipoNo *criaLista();
+
+void insereLista(tipoNo *l, char COM[],char XIS[],char YIS[],int v) {
+   tipoNo *no, *aux;
+   
+   no = (tipoNo *) malloc (sizeof(tipoNo));
+   strcpy(no->defeito,COM);
+   strcpy(no->causa,XIS);
+   strcpy(no->compo,YIS);
+   no->valor=v;
+   aux = l;
+   while(aux->prox && (strcmp(COM,aux->prox->defeito)>=0)) {
+      aux = aux->prox;
+    }
+   no->prox = aux->prox;
+   aux->prox = no;
+}
+
+ void imprimeLista (tipoNo *l) {
+   tipoNo *aux;
+   aux = l->prox;  
+  while (aux) {
+      printf ("%s ",(aux->defeito));
+	  printf ("%s ",(aux->causa));
+	  printf ("%s ",(aux->compo));
+	  printf ("%d\n",(aux->valor));
+      aux = aux->prox;
+   }
+   printf ("\n");
+ }
+ 
+ void soma(tipoNo *l, int* maior, int* menor, char defeito1[],char defeito2[]){
+	tipoNo *aux;
+	int temp=0;
+	char pos[4]="000";
+	aux=l->prox;
+	strcpy (defeito2,aux->defeito);
+	while (aux){
+		while(aux && (strcmp(defeito2,aux->defeito)==0)){
+			
+			*menor=*menor+(aux->valor);
+			aux=aux->prox;
+		}
+		if (*menor > *maior){
+			strcpy (pos,defeito1);
+			strcpy (defeito1,defeito2);
+			strcpy (defeito2,pos);
+			
+			temp = *maior;
+			*maior=*menor;
+			*menor = temp;
+		}
+		if(aux) {
+			strcpy (defeito2,aux->defeito);
+		}
+		if(aux)
+		*menor=0;
+	}
+ }
+
+int main () {
+   tipoNo *lista1;
+   lista1 = criaLista();
+   char COM[4],COM1[4],COM2[4];
+   int valor,maior=0,menor=0;
+   char defeito1[4]="000",defeito2[4]="000";
+   scanf("%s",COM);
+   while(strcmp(COM, "000")){
+		scanf("%s",COM1);
+		scanf("%s",COM2);
+		scanf("%d",&valor);
+		insereLista(lista1, COM ,COM1,COM2,valor);
+		scanf("%s",COM);
+   }
+   soma (lista1,&maior,&menor,defeito1,defeito2);
+   printf("Defeito 1: %s (%d)\n",defeito1,maior);
+   printf("Defeito 2: %s (%d)\n",defeito2,menor);
+   return 0;
+}
+
+tipoNo *criaLista() {
+   tipoNo *l;
+   l = (tipoNo *) malloc (sizeof(tipoNo));
+   l->prox = NULL;
+   return l;
+}

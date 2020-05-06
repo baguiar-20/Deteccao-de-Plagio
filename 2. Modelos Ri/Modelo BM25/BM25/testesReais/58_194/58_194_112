@@ -1,0 +1,22 @@
+#include "stdio.h"
+
+int main(){
+	int n1,n2,x=1,f1,f2,f3;
+	scanf("%d%d",&n1,&n2);
+	if(n1 > n2){
+	while(f2!=0){
+        f1=(n1*x)/n2;
+	f2=(n1*x)%n2;
+	f3=n1*x;
+	x++;
+	}
+    	}else{
+        while(f2!=0){
+        f1=(n2*x)/n1;
+	f2=(n2*x)%n1;
+	f3=n2*x;
+	x++;
+	}
+	}
+	printf("%d",f3);
+}

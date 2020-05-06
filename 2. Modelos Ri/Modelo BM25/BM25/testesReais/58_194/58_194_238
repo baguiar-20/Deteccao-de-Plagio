@@ -1,0 +1,19 @@
+#include <stdio.h>
+main(){
+	int a,b,z,c,mmc;
+	scanf("%d%d",&a,&b);
+	if(a%b==0)
+		mmc = a;
+	else{
+		for(c=2;c<=b;c++){
+			z=a*c;
+			if(z%b==0){
+				mmc = z;
+				c=b+1;
+			}
+		}
+	}	
+	printf("%d",mmc);
+
+	
+}

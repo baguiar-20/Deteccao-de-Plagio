@@ -1,0 +1,37 @@
+#include<stdio.h>
+
+int buscaBinaria(int xpesq, int *xvet, int xini, int xfim);
+
+int main (void){
+	int pesq;
+	int vet[100];
+	int tam;
+	int i;
+
+	scanf("%d", &tam);
+	
+	for (i=0; i<tam; i++)
+		scanf("%d",&vet[i]);
+
+	scanf("%d", &pesq);
+	printf("%d\n", buscaBinaria(pesq, vet, 0, tam));
+}
+
+int buscaBinaria(int xpesq, int *xvet, int xini, int xfim){
+	int meio;
+		
+	while (xini<=xfim){
+
+		meio=(xini+xfim)/2;
+
+		if (xpesq==xvet[meio])
+		    return meio;
+		else if (xpesq>xvet[meio])
+			xini=meio+1;
+		else 
+			xfim=meio-1; 		
+	}
+	
+	return -1;
+}
+

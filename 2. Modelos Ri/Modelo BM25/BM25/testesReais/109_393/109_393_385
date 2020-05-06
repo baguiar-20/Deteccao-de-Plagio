@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+
+tipoFila *criaFila ();
+void enFileira (tipoFila *fila, int valor);
+void desenFileira (tipoFila *fila);
+void imprimeFila (tipoFila *fila);
+void liberaFila (tipoFila *fila);
+void ordenaFila (tipoFila *fila);
+void troca (tipoNo *n1, tipoNo *n2);
+
+
+int main (void) {
+	tipoFila *fila;
+	int valor;
+	fila = criaFila();
+	
+	
+	while (1) {
+		scanf ("%d", &valor);
+		
+		if (valor>=1) enFileira (fila,valor);
+		else if (valor==0) desenFileira (fila);
+		else {
+			ordenaFila (fila);
+			imprimeFila (fila);
+			break;
+		}
+	}
+	
+	liberaFila (fila);	 
+	return 0;
+}
+
+tipoFila *criaFila () {
+	tipoFila *f;
+	f = (tipoFila *) malloc (sizeof(tipoFila));
+	return f;
+}
+
+void enFileira (tipoFila *fila, int valor) {
+	tipoNo *aux;
+	aux = (tipoNo *) malloc (sizeof(tipoNo));
+	
+
+	aux->valor = valor;
+	if (fila->ini == NULL) {
+		fila->ini = aux;
+		fila->fim = aux;
+	} else {
+		fila->fim->prox = aux;
+		fila->fim = aux;
+	}
+}
+
+void desenFileira (tipoFila *fila) {
+	tipoNo *aux;
+	
+	if (fila->ini == NULL) {
+		printf ("Lista vazia!/n");
+	} else {
+		aux = fila->ini;
+		fila->ini = aux->prox;
+		free (aux);
+	}
+}
+
+void imprimeFila (tipoFila *fila) {
+	tipoNo *aux = fila->ini;
+	while (aux) {
+		printf ("%d ", aux->valor);
+		aux = aux->prox;
+	}
+}
+
+void liberaFila (tipoFila *fila) {
+	tipoNo *aux = fila->ini;
+	
+	while (aux) {
+		fila->ini = aux->prox;
+		free (aux);
+		aux = fila->ini;
+	}
+	fila->fim = NULL;
+
+	free(fila);
+}
+
+void ordenaFila (tipoFila *fila) {
+	tipoNo *i, *j;
+	i = fila->ini;
+	j = fila->ini;
+	
+	while (i) {
+		while (j->prox) {
+			if (j->prox->valor < j->valor) 
+				troca (j->prox,j);
+			j = j->prox;
+		}
+		j = fila->ini;
+		i = i->prox;
+	}
+}
+
+void troca (tipoNo *n1, tipoNo *n2) {
+	int aux;
+	
+	aux = n1->valor;
+	n1->valor = n2->valor;
+	n2->valor = aux;
+}

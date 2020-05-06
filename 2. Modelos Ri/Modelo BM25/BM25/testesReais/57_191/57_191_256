@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	int n, Num_1=2, Num_2=2, Opt=0, cont_primo=0; 
+	
+	scanf("%d", &n);
+	
+	while(Num_1 <= 1000){
+		while(Num_2 < Num_1){
+			if(Num_1 % Num_2 == 0){
+				Opt=1;
+			}
+			Num_2 = Num_2+1;
+		}
+		Num_2 = 2;
+		if(Opt == 0){
+			if(Num_1 > n){
+			printf("%d ", Num_1);
+			break;
+			}
+		}
+		Opt=0;
+		Num_1++;
+	}
+	//printf("\n\n");
+}

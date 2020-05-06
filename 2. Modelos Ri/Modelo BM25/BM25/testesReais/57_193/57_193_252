@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main(){
+	char cavalo[10][10];
+	int linha , coluna, i , j;
+	
+	scanf("%d", &linha);
+	scanf("%d", &coluna);
+	
+	for(i = 0; i < 8; i++)
+		for(j = 0; j < 8; j++)
+			cavalo[i][j] = '*';
+	
+	for(i = 0; i < 8; i++){
+		for(j = 0; j < 8; j++){
+			if((i == linha)&&(coluna == j))
+				cavalo[i][j] = 'C';
+			if((i == linha + 2)||(i == linha -2)){
+				if((j == coluna + 1)||(j == coluna -1))
+					cavalo[i][j] = 'X';
+			}
+			if((j == coluna + 2)||(j == coluna - 2)){
+				if((i == linha + 1)||(i == linha - 1))
+					cavalo[i][j] = 'X';
+			}
+		}
+	}
+	
+	for(i = 0; i< 8; i++){
+		for(j = 0; j < 8; j++)
+			printf("%c",cavalo[i][j]);
+		printf("\n");
+	}
+return 0;
+}

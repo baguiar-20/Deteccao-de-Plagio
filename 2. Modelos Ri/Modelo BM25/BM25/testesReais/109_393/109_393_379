@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+    int valor;
+    struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+    struct tipoNo *ini;
+    struct tipoNo *fim;
+} tipoFila;
+
+tipoFila *criaFila();
+tipoNo *criaNo();
+void InsereNo(tipoFila **fila, int valor);
+void ImprimeFila(tipoFila *fila);
+void OrdenaFila(tipoFila **fila);
+
+int main(int argc, char* argv[]){
+    int n;
+    
+    tipoFila *Fila = criaFila();
+    
+    do{
+        scanf("%d", &n);
+        
+        switch (n){
+            case -1: OrdenaFila(&Fila); ImprimeFila(Fila); break;
+            default: InsereNo(&Fila, n); break;
+        }
+        
+        if (n == -1) break;
+        
+    }while(1);
+    
+    return 0;
+}
+
+tipoFila *criaFila(){
+    tipoFila *aux = (tipoFila *)malloc(sizeof(tipoFila));
+    
+    aux->ini = NULL;
+    aux->fim = NULL;
+    
+    return aux;
+}
+
+tipoNo *criaNo(){
+    tipoNo *aux = (tipoNo *)malloc(sizeof(tipoNo));
+    
+    aux->prox = NULL;
+    
+    return aux;    
+}
+
+void InsereNo(tipoFila **fila, int valor){
+    tipoNo *aux = criaNo();
+    
+    aux->valor = valor;
+    
+    if (!(*fila)->ini) 
+        (*fila)->ini = aux;
+    else
+        (*fila)->fim->prox = aux;
+        
+    (*fila)->fim = aux;
+}
+
+void ImprimeFila(tipoFila *fila){
+    tipoNo *aux = fila->ini;
+    
+    while (aux){
+        printf("%d ", aux->valor);
+        
+        aux = aux->prox;
+    }
+}
+
+void OrdenaFila(tipoFila **fila){
+    tipoNo *aux1 = (*fila)->ini, *aux2;
+    int vaux;
+    
+    while (aux1){
+        aux2 = aux1->prox;
+        
+        while (aux2){
+            if (aux1->valor > aux2->valor){
+                vaux = aux1->valor;
+                aux1->valor = aux2->valor;
+                aux2->valor = vaux;
+            }
+            
+            aux2 = aux2->prox;
+        }
+        
+        aux1 = aux1->prox;
+    }
+}

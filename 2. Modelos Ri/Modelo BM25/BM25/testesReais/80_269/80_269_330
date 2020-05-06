@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+
+  char frase[100];
+  char letra ;
+  int i,cont=0;
+
+     gets(frase);
+     scanf("%c", &letra);
+       
+
+ for(i=0;i<strlen(frase); i++){
+    if(frase[i]==letra)
+          cont++;  
+ 
+    }
+
+        printf("%d",cont);
+
+
+
+
+}
+

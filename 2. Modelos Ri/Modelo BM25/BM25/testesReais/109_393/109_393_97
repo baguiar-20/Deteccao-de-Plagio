@@ -1,0 +1,152 @@
+/*
+ * Implemente uma fila usando listas encadeadas. Para tanto, crie um loop onde o usuário fornece um valor numérico a cada iteração. Dado um valor informado pelo usuário, sua implementação deverá seguir as regras abaixo:
+
+Sempre que o usuário informar um valor maior ou igual a 1, esse valor deverá ser inserido na fila.
+Sempre que o usuário informar 0, o primeiro elemento da fila deverá ser removido.
+Sempre que o usuário informar -1, o loop deverá ser encerrado, e o conteúdo da fila deverá ser impresso.
+Dicas:
+A estrutura de dados deverá usar o seguinte tipo:
+
+typedef struct tipoNo {
+int valor;
+struct tipoNo *prox;
+} tipoNo;
+typedef struct tipoFila {
+struct tipoNo *ini;
+struct tipoNo *fim;
+} tipoFila;
+Por exemplo, se usuário digitar a entrada: 1 2 3 4 0 0 5 6 0 7 8 9 0 -1, a saída deverá ser igual a 5 6 7 8 9.
+ * 
+ * */
+#include "stdio.h"
+#include "stdlib.h"
+#define ERROFILAVAZIA -1
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prox;	
+} tipoNo;
+
+typedef struct tipoFila{
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+
+tipoFila *inicializaFila(){
+		tipoFila* f;
+		f = (tipoFila*) malloc(sizeof(tipoFila));
+		f->ini = NULL;
+		f->fim = NULL;
+		return f;
+}
+
+void enFileira(tipoFila* f, int valor){
+	tipoNo *no;
+	
+	no = (tipoNo*) malloc(sizeof(tipoNo));
+	
+	no->valor = valor;
+	
+	no->prox = NULL;
+	
+	if(f->fim == NULL) f->ini = no;
+	else f->fim->prox = no;
+	
+	f->fim = no;
+}
+
+int desenFileira(tipoFila* f){
+	tipoNo* aux;
+	int valor;
+	
+	if(f->ini == NULL){
+	//printf("FILA VAZIA");
+		//return ERROFILAVAZIA;
+	}
+	if(f->fim == f->ini){
+		f->fim = NULL;
+	}
+	
+	valor = f->ini->valor;
+	aux = f->ini;
+	f->ini = f->ini->prox;
+	free(aux);
+	return valor;
+	
+}
+
+void imprimeFila(tipoFila* f){
+	tipoNo *aux;
+	
+	aux=f->ini;
+	
+	while(aux){
+		printf("%d ", aux->valor);		
+		aux = aux->prox;
+	}
+	printf("\n");
+	
+}
+
+void troca(int *i, int *j) {
+
+   int aux;
+   
+   aux = *i;
+   *i = *j;
+   *j = aux;
+}
+
+void bubbleLista (tipoFila *f) {
+   tipoNo *i,*j;
+   i = f->ini;
+   while (i && i->prox) {
+      j = f->ini;
+      while (j && j->prox) {
+         if(j->prox->valor < j->valor) {
+            troca(&j->prox->valor,&j->valor);
+         }
+         j = j->prox;
+      }
+      i = i->prox;
+   }
+}
+
+
+int main (){
+	
+	tipoFila *fila;
+	
+	fila = inicializaFila();
+	
+	int controle=0;
+	
+		
+	while(controle != -1 ){
+		
+		scanf("%d", &controle);
+		if(controle>0){
+			enFileira(fila, controle);
+		}
+		
+		if(controle == 0){
+			desenFileira(fila);
+		}
+				
+	}
+	
+	
+	bubbleLista(fila);
+	
+	imprimeFila(fila);
+	
+	
+	
+	
+	
+	
+	
+return 0;	
+	
+		
+}

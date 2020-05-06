@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int recursao(int valor,int a[],int inicio,int meio,int fim){
+	meio =(inicio+fim)/2;
+	if(valor == a[inicio]){
+		return inicio;
+	}
+	else if (valor == a[fim]){
+		return fim;
+	}
+	else if (valor == a[meio]){
+		
+		return meio;
+	}
+	else if (valor>a[meio]){
+		inicio=meio+1;
+	}
+	else if(valor<a[meio]){
+		fim=meio-1;
+	}
+	
+	
+	recursao(valor,a,inicio,meio,fim);
+}
+	
+
+int main(){
+	int tam,a[100],valor,i=0,j=0,inicio=0,meio,fim,yo;
+	
+	scanf("%d",&tam);
+	fim=tam-1;
+	for(i=0;i<=fim;i++){
+		scanf("%d",&a[i]);
+	}
+	scanf("%d",&valor);
+	yo=recursao(valor,a,inicio,meio,fim);
+	printf("%d",yo);
+	return 0;
+}
+
+	

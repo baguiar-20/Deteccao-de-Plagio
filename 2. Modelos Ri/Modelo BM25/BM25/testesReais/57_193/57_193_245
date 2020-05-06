@@ -1,0 +1,50 @@
+# include<stdio.h>
+int main()
+{
+    char tab[9][9];
+    int i, j, linha, coluna;
+    for(i=0;i<=8;i++){
+        for(j=0;j<=8;j++){
+            tab[i][j]='*';
+        }
+    }
+    do{
+        scanf("%d", &linha);
+    }while((linha<0)||(linha>8));
+    do{
+        scanf("%d", &coluna);
+    }while((coluna<=0)||(coluna>8));
+    tab[linha][coluna]='C';
+    if ((linha-2>=0)&&(coluna-1>=0)){
+        tab[linha-2][coluna-1]='X';
+    }
+    if ((linha-2>=0)&&(coluna+1<=8)){
+        tab[linha-2][coluna+1]='X';
+    }
+    if ((linha+2<=8)&&(coluna-1>=0)){
+        tab[linha+2][coluna-1]='X';
+    }
+    if ((linha+2<=8)&&(coluna+1<=8)){
+        tab[linha+2][coluna+1]='X';
+    }
+    if ((linha-1>=0)&&(coluna-2>=0)){
+        tab[linha-1][coluna-2]='X';
+    }
+    if ((linha-1>=0)&&(coluna+2<=8)){
+        tab[linha-1][coluna+2]='X';
+    }
+    if ((linha+1<=8)&&(coluna-2>=0)){
+        tab[linha+1][coluna-2]='X';
+    }
+    if ((linha+1<=8)&&(coluna+2<=8)){
+        tab[linha+1][coluna+2]='X';
+    }
+
+    for(i=0;i<=7;i++){
+        for(j=0;j<=7;j++){
+            printf("%c",tab[i][j]);
+        }       
+        printf ("\n");
+    }
+    return 0;
+}

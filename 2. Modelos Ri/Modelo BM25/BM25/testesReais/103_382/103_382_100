@@ -1,0 +1,215 @@
+/*Em um setor de Controle de Qualidade de uma fábrica produz-se diariamente a seguinte lista: código-defeito, código-causa, código-componente e quantidade. Considere que os três primeiros são strings de tamanho igual a 3, e o último é um valor numérico. Fazer um programa C que leia vários elementos dessa lista. O ÚLTIMO elemento, que obviamente não deverá entrar no cálculo, deve ter valor DO CÓDIGO DO DEFEITO exatamente igual a "000".
+
+Nesta primeira parte do exercício, calcule e imprima os dois principais defeitos, com as respectivas quantidades de defeitos.
+
+Certamente que os dados de entrada NÃO vão estar ordenados. Faça somente uma leitura dos dados e monte uma estrutura de dados que permita resolver o problema. Tente resolver o problema de tal forma que fique fácil estender o problema para, por exemplo, indicar os CINCO principais defeitos e não somente os DOIS.
+
+Dicas:
+Entrada:
+
+002 004 005 5
+002 004 006 22
+001 001 003 45
+004 013 007 40
+004 045 003 10
+001 001 002 25
+001 001 001 13
+002 003 004 34
+002 003 005 30
+003 013 028 15
+004 024 004 44
+001 002 002 35
+004 024 005 10
+002 003 006 50
+001 003 003 43
+002 004 007 40
+002 005 003 12
+004 013 005 54
+002 005 007 40
+003 010 008 10
+003 010 025 11
+001 002 003 53
+001 003 001 50
+003 011 008 10
+003 012 018 20
+004 024 006 100
+002 005 004 19
+004 013 006 30
+004 045 005 30
+001 002 001 15
+001 003 002 52
+004 045 008 50
+000
+
+Saída:
+
+Defeito 1: 004 (368)
+Defeito 2: 001 (331)*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define TAM 3
+
+typedef struct lista {
+	char defeito[TAM];
+	char causa[TAM];
+	char componente[TAM];
+	int quantidade;
+	struct lista* prox;
+} Lista;
+
+Lista* lst_cria (void)
+{
+	return NULL;
+}
+
+Lista* lst_insere (Lista* l, char *d, char *ca, char *co, int q)
+{
+	int i;
+	Lista* novo = (Lista*) malloc(sizeof(Lista));
+	Lista *aux, *aux2;
+	int flag = 0;
+	char defeito[TAM];
+	
+	if (!lst_vazia(l)) {
+		for (aux=l;aux!=NULL;aux=aux->prox) {
+			flag=0;
+						
+			for (i=0;i<TAM;i++) {
+				
+				if(aux->defeito[i]!=d[i])
+					flag=-1;		
+			}
+			
+			if (flag==0) {
+				aux->quantidade=aux->quantidade+q;
+				return l;
+					
+			}
+		}
+		flag=0;
+	}
+
+		
+		for(i=0;i<TAM;i++){
+			novo->defeito[i]=d[i];
+			novo->causa[i]=ca[i];
+			novo->componente[i]=co[i];
+		}
+		novo->quantidade=q;
+		novo->prox = l;
+	
+
+
+	return novo;
+}
+
+void lst_imprime (Lista* l)
+{
+	int i;
+	Lista* p;
+	
+	printf ("Lista: \n");
+	
+	for (p=l;p!=NULL;p=p->prox) {
+		for(i=0;i<TAM;i++)
+			printf ("%c", p->defeito[i]);
+	printf(" ");
+		for(i=0;i<TAM;i++)
+			printf ("%c", p->causa[i]);
+	printf(" ");
+		for(i=0;i<TAM;i++)
+			printf ("%c", p->componente[i]);
+	printf (" %d\n", p->quantidade);
+
+	}
+}
+
+void principais_defeitos(Lista*l) {
+	char defeito1[TAM], defeito2[TAM];
+	int maior1, maior2, i;
+	Lista* aux;
+	maior1=0;
+	maior2=0;
+
+	for (aux=l;aux!=NULL;aux=aux->prox) {
+		if (aux->quantidade>maior1) {
+			maior2=maior1;
+			maior1=aux->quantidade;
+			for(i=0;i<TAM;i++)
+				defeito1[i]=aux->defeito[i];
+		}
+		else if (aux->quantidade>maior2) {
+			maior2=aux->quantidade;
+			for(i=0;i<TAM;i++)
+				defeito2[i]=aux->defeito[i];			
+		}
+	}
+	printf ("Defeito 1: ");
+	for(i=0;i<TAM;i++)
+		printf("%c",defeito1[i]);
+	printf (" (%d)\n",maior1);
+	
+	printf ("Defeito 2: ");
+	for(i=0;i<TAM;i++)
+		printf("%c",defeito2[i]);
+	printf (" (%d)\n",maior2);
+}
+
+int lst_vazia (Lista* l) 
+{
+	return (l==NULL);
+}
+
+void lst_libera (Lista* l)
+{
+	Lista* p = l;
+
+	while (p!=NULL) {
+ 		Lista* t = p->prox;
+		free(p);
+		p=t;
+	}
+}
+
+int main (void)
+{
+	Lista* l;
+	char defeito[TAM];
+	char causa[TAM];
+	char componente[TAM];
+	int quantidade, i;
+
+	l = lst_cria( );
+
+	//printf ("defeito: ");
+	scanf ("%s", defeito);
+
+	while (strcmp(defeito,"000")) {
+
+		//printf ("causa: ");
+		scanf ("%s", causa);
+
+		//printf ("componente: ");
+		scanf ("%s", componente);
+
+		//printf ("quantidade: ");
+		scanf ("%d", &quantidade);
+
+		l = lst_insere(l,defeito,causa,componente,quantidade);
+
+		//printf ("defeito: ");
+		scanf ("%s", defeito);
+	}
+
+	//lst_imprime(l);
+
+	principais_defeitos(l);
+	
+	lst_libera(l);
+
+	return 0;
+}
+		
+

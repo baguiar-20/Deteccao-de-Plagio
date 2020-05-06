@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define ERRO -1
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *no;
+} tipoPilha;
+
+int menuPilha();
+void emPilha(tipoPilha *p, tipoNo no);
+void desemPilha(tipoPilha *p);
+void imprimePilha(tipoPilha *p);
+
+int main(void){
+	tipoPilha p;
+	tipoNo no;
+	int opcao;
+	
+	p.no=NULL;
+	
+	opcao = menuPilha();
+	while(opcao != -1){
+		if(opcao >= 1){
+			no.valor = opcao;
+			emPilha(&p,no);
+		}
+		else{
+			desemPilha(&p);
+		}
+		opcao = menuPilha();
+	}
+	imprimePilha(&p);
+	return 0;
+}
+
+int menuPilha(){
+	int opcao;
+	scanf("%d", &opcao);
+	return opcao;
+}
+
+void emPilha(tipoPilha *p, tipoNo no){
+	tipoNo *aux;
+	aux = (tipoNo *)malloc(sizeof(tipoNo));
+	aux->valor = no.valor;
+	aux->prox = p->no;
+	p->no = aux;
+}
+void desemPilha(tipoPilha *p){
+	tipoNo *aux;
+	aux = p->no;
+	p->no = p->no->prox;
+	free(aux);
+}
+
+void imprimePilha(tipoPilha *p){
+	tipoNo *aux;
+	aux = p->no;
+	while(aux){
+		printf("%d ", aux->valor);
+		aux = aux->prox;
+	}
+}

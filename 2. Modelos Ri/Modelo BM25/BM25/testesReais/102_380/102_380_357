@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+
+int main(){
+
+char nome[100];
+int i, j=0;
+printf("Nome: ");
+fgets(nome, 100, stdin);
+nome[strlen(nome)-1] = '\0';
+
+printf("Inverso: ");
+for(i=strlen(nome)-1; i>=0; i-- ){
+printf("%c", nome[i]);
+}
+printf("\n");
+
+}
+

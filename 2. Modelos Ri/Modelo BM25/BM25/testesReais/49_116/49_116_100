@@ -1,0 +1,32 @@
+/*Dois números inteiros são ditos amigos se a soma dos divisores de cada um deles (menores que eles) é igual ao outro. Por exemplo, os divisores de 220 são 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 e 110 e 1 + 2 + 4 + 5 + 10 + 11 + 20 + 22 + 44 + 55 + 110 = 284 e os divisores de 284 são 1, 2, 4, 71 e 142 e 1 + 2 + 4 + 71 + 142 = 220. Escreva um programa que leia dois valores inteiros e imprima "amigos" caso os dois números sejam amigos, e imprima "nao amigos" caso contrário.*/
+
+#include <stdio.h>
+
+int main() {
+
+	int num1, num2, i, soma1, soma2;
+	soma1=0;
+	soma2=0;
+
+	scanf ("%d", &num1);
+	scanf ("%d", &num2);
+
+	for (i=1;i<num1;i++) {
+		if (num1%i==0) {
+			soma1=soma1+i;
+		}
+	}
+	
+	for (i=1;i<num2;i++) {
+		if (num2%i==0) {
+			soma2=soma2+i;
+		}
+	}
+
+	if (soma1==num2 & soma2==num1) {
+		printf ("amigos");
+	} else {
+		printf ("nao amigos");
+	}
+
+}

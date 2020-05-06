@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+
+int main(){
+     int n , primo, i, cont;
+     
+     scanf("%d", &n);
+     
+     for(primo = n + 1; primo > n; primo++){
+		 cont = 0;
+		 for(i = 2; i <= primo-1; i++){
+			 if(primo % i == 0){
+			    cont++;
+			    break;
+			 }   
+		 }
+		 if((cont == 0)&&(primo !=1)){
+			 printf(" %d ", primo);
+			 break;
+		 }   
+	 }
+	
+return 0;
+}

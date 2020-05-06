@@ -1,0 +1,90 @@
+/*	- LABORATORIO DE PROGRAMAÇÃO A -
+				- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula 21351819 -
+					Atividade relativa a aula de 08-13 de agosto de 2013
+	#################################################################################################################
+ Implemente uma estrutura de dados conhecida como PILHA utilizando alocação dinâmica de memória (ponteiros). Isto é, a inserção e retirada de elementos sempre é a partir do "topo da pilha". Considere inicialmente uma pilha vazia. Leia um número indeterminado de operações sobre a pilha determinado pelas letras "I <número inteiro>" (inserir um valor inteiro na pilha), "R" (remover o valor que esteja no topo dapilha) ou "S" (sair). Após a saída, imprimir toda a pilha. Se for o caso, não esqueçer de liberar a memória utilizada pela estrutura de dados.
+Dicas:
+
+	Entrada
+	I 40
+	I 23
+	I 38
+	R
+	I 25
+	S
+
+	SAÍDA
+	25 23 40 
+	#################################################################################################################	
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Elemento{
+    int dados;
+    struct Elemento *proximo;
+};
+ typedef struct Elemento elemento;
+ 
+struct Localizar{
+  elemento *inicio;
+  int tamanho;
+};
+
+typedef struct Localizar Pilha;
+
+void iniciar(Pilha *pilha){
+  pilha->inicio=NULL;
+  pilha->tamanho=0;
+}
+
+int inserir(Pilha *pilha, int v){
+  elemento *novo=malloc(sizeof(elemento));
+  if (novo==NULL)
+   return -1;
+  novo->dados=v;
+  novo->proximo = pilha->inicio;
+  pilha->inicio = novo;
+  pilha->tamanho++;
+}
+
+int remover (Pilha *pilha){
+  elemento *p_elemento;
+  if (pilha->tamanho == 0)
+    return -1;
+  p_elemento = pilha->inicio;
+  pilha->inicio = pilha->inicio->proximo;
+ free (p_elemento);
+  pilha->tamanho--;
+
+}
+
+void imprimir(Pilha *pilha){
+  elemento *atual;
+  int i, tam;
+  atual = pilha->inicio;
+ tam=pilha->tamanho;
+  for(i=0;i<pilha->tamanho;++i){
+	printf("%d ", atual->dados);
+	atual=atual->proximo;
+  }
+}
+
+int main(){
+	int i, valor;
+	char caract[1];
+	Pilha *pilha=malloc(sizeof(Pilha));
+	iniciar(pilha);
+	scanf("%s", caract);
+	while (strcmp(caract,"S")!=0){
+		if (strcmp(caract,"I")==0){
+			scanf("%d", &valor);
+			inserir(pilha,valor);
+		}
+		if (strcmp(caract,"R")==0)
+			remover(pilha);
+			scanf("%s", caract);
+	}
+	imprimir(pilha);
+}

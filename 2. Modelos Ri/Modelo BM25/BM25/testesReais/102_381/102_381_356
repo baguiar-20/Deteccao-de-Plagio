@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main () {
+	float vetor[100][4], media [100];
+	float n1, n2, n3, n4, melhor;
+	int i = 0,j,m;
+			
+	while ((scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4)&&(n1!='F')) {
+	    vetor[i][0] = n1;
+	    vetor[i][1] = n2;
+	    vetor[i][2] = n3;
+	    vetor[i][3] = n4;
+	    i++;
+	    media [i] = (n1+n2+n3+n4)/4;
+	}
+	melhor=0;
+	m=0;
+
+	for (j=0; j<=i; j++){
+		if ( media [j] > melhor) {
+			melhor = media[j];
+			m = j;}
+	}
+	
+	printf ("%.3f do aluno %d\n", melhor, m);
+}

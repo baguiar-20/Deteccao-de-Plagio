@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void main()
+{
+  int lin, col;
+  int **A, **B, **C;
+  int i, j;
+  scanf("%d %d", &lin, &col);
+
+  A = (int**) malloc (sizeof(int*) * lin);
+  for (i=0; i<lin; i++)
+    A[i]=(int*) malloc (sizeof(int)*col);
+
+  for (i=0; i<lin; i++)
+    for (j=0; j<col; j++)
+      scanf ("%d", &A[i][j]);
+
+  B = (int**) malloc (sizeof(int*) * lin);
+  for (i=0; i<lin; i++)
+    B[i]=(int*) malloc (sizeof(int)*col);
+
+  for (i=0; i<lin; i++)
+    for (j=0; j<col; j++)
+      scanf ("%d", &B[i][j]);
+
+  C = (int**) malloc (sizeof(int*) * lin);
+  for (i=0; i<lin; i++)
+    C[i]=(int*) malloc (sizeof(int)*col);
+
+  for (i=0; i<lin; i++)
+    for (j=0; j<col; j++) 
+      C[i][j] = A[i][j] + B[i][j];
+
+  for (i=0; i<lin; i++) {
+    for (j=0; j<col; j++) 
+      printf("%d ", C[i][j]);
+    printf("\n");
+  }
+}
+

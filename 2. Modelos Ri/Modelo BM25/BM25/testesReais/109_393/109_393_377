@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+
+tipoFila *inicia();
+void insere(tipoFila* f, int valor);
+void desempilha(tipoFila* f);
+void imprime(tipoFila* f);
+void ordena(tipoFila* f);
+
+int main(){
+	tipoFila *fila;
+	fila = inicia();
+	int i;
+	
+	while(1){
+	scanf("%d",&i);
+	if(i <= -1) break;
+	else if(i == 0) desempilha(fila);
+		 else insere(fila,i);
+	}
+ordena(fila);	
+imprime(fila);
+return 0;	
+}
+
+tipoFila *inicia(){
+	tipoFila* aux;
+	aux = (tipoFila*)malloc(sizeof(tipoFila));
+	aux->ini = NULL;
+	aux->fim = NULL;
+return aux;
+}
+
+void insere(tipoFila* f, int valor){
+	tipoNo* aux;
+	aux = (tipoNo*)malloc(sizeof(tipoNo));
+	aux->valor = valor;
+	aux->prox = NULL;
+	if(f->ini == NULL){
+	f->ini = aux;
+	} else {
+		   f->fim->prox = aux;
+		   }
+	f->fim = aux;
+}
+
+void desempilha(tipoFila* f){
+	tipoNo* aux;
+	if(f->ini != NULL){
+		aux = f->ini;
+		f->ini = aux->prox;
+		free(aux);
+	}
+	if(f->ini == f->fim) f->fim = NULL;
+}
+
+void imprime(tipoFila* f){
+	tipoNo* aux;
+	aux = f->ini;
+	while(aux){
+		printf("%d ",aux->valor);
+		aux = aux->prox;
+	}
+printf("\n");	
+}
+
+void ordena(tipoFila* f){
+	tipoNo *i,*j;
+	int aux;
+	i = f->ini;
+	while(i && i->prox){
+	j = f->ini;
+		while(j && j->prox){
+			if(j->valor > j->prox->valor){
+			  aux = j->valor;
+			  j->valor = j->prox->valor;
+			  j->prox->valor= aux;
+			  }		
+		j = j->prox;
+		}
+	i = i->prox;
+	}
+}

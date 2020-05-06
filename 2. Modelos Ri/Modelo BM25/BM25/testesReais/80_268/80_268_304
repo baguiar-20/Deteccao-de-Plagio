@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+main()
+{
+      char str[25], aux[25];
+      int i,j,contador=0;
+      
+      scanf("%s", str);    
+      scanf("%s", aux);
+       
+      if(strlen(str) == strlen(aux))
+      {    
+          for (i=0;i<strlen(str);i++){
+          for (j=0;j<strlen(aux);j++){
+              if (toupper(str[i]) == toupper(aux[j])){
+                 contador=contador+1;
+                 aux[j] = (int)atoi("1");
+                 break;
+              }
+            }
+          }
+      
+            if(contador==strlen(str))
+            printf("SIM");
+            else
+            printf("NAO");
+      }
+      else
+       printf("NAO");
+}

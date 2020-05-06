@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+#include <ctype.h>
+
+int main()
+{
+	int vet1[10], vet2[10], S[20], i, min, j, aux;
+	
+	//printf("Digite o primeiro vetor: \n");
+	for(i=0; i<10; i++)
+	{
+		scanf("%d", &vet1[i]);
+		S[i] = vet1[i];
+	}
+	//printf("Digite o segundo vetor: \n");
+	for(i=0; i<10; i++)
+	{
+		scanf("%d", &vet2[i]);
+		S[10 + i] = vet2[i];
+	}
+	//printf("O vetor resultante eh: \n");
+	for(i=0; i<19; i++)
+	{
+		min = i;
+		for(j = i+1; j < 20; j++)
+		{
+			if (S[j] < S[min])
+			{
+				min = j;
+			}
+		}
+		aux = S[i];
+		S[i] = S[min];
+		S[min] = aux;		
+	}
+	for(i=0; i < 20; i++)
+	{
+		printf("%d\t", S[i]);
+	}
+	
+
+
+	return 0;
+}

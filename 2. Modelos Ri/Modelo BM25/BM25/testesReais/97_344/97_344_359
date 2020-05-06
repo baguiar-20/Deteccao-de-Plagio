@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+
+int main(int argc, char *argv[]) {
+  FILE *fp = fopen(argv[1], "rb"); // Abre arquivo
+
+  
+  int j=0;
+  
+
+
+   
+  if (fp != NULL){
+
+ 
+      
+      while (!feof(fp)){
+             fread (&j, sizeof(int), 1, fp);
+             if (!feof(fp)){
+                 printf ("%d\n",j);
+             }
+            
+              
+      }
+      
+    
+      
+  }
+
+   else {
+         printf("Arquivo nao pode ser aberto.\n");
+
+   }
+   
+   fclose(fp);
+
+   return 0;
+}

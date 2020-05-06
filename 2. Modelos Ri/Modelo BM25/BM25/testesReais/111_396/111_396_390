@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+    int valor;
+    struct tipoNo *prox;
+    struct tipoNo *prev;
+} tipoNo;
+
+typedef struct tipoLista {
+    struct tipoNo *inicio;
+    struct tipoNo *fim;
+} tipoLista;
+
+void *criarLista();
+void insereNaLista(tipoLista *l, int valor);
+tipoLista *inverteLista(tipoLista *l);
+void imprimeLista(tipoLista *l);
+void insertionSort(tipoLista *l);
+
+int main(void){
+	tipoLista *l;
+	int opcao;
+    l = criarLista();
+	scanf("%d", &opcao);
+	while(opcao != -1){
+        insereNaLista(l,opcao);
+		scanf("%d", &opcao);
+	}
+	//l = inverteLista(l);
+	insertionSort(l);
+	imprimeLista(l);
+	return 0;
+}
+
+void *criarLista(){
+    tipoLista *l;
+    l = (tipoLista*)malloc(sizeof(tipoLista));
+    l->inicio = NULL;
+    l->fim = NULL;
+    return l;
+}
+
+void insereNaLista(tipoLista *l, int valor){
+    tipoNo *no;
+    no = (tipoNo *)malloc(sizeof(tipoNo));
+
+    no->valor = valor;
+    no->prox = NULL;
+    no->prev = NULL;
+
+    if(!l->inicio){
+        l->inicio = no;
+        l->fim = no;
+    }
+    else{
+        l->fim->prox = no;
+        no->prev = l->fim;
+        l->fim = no;
+    }
+}
+
+tipoLista *inverteLista(tipoLista *l){
+    tipoNo *aux;
+    aux = l->fim;
+    l->fim = l->inicio;
+    l->inicio = aux;
+    return l;
+}
+
+void imprimeLista(tipoLista *l){
+    tipoNo *aux;
+    aux = l->inicio;
+    while(aux){
+        printf("%d ", aux->valor);
+        aux = aux->prox;
+    }
+}
+
+void insertionSort(tipoLista *l){
+    int menor;
+    int tmp;
+    tipoNo *i, *j;
+    menor = l->inicio->valor;
+    i = l->inicio->prox;
+    j = l->inicio;
+    while(i){
+        j = l->inicio;
+        while(j != i){
+            if(i->valor < j->valor){
+                tmp = i->valor;
+                i->valor = j->valor;
+                j->valor = tmp;
+            }
+            j = j->prox;
+        }
+        i = i->prox;
+    }
+}

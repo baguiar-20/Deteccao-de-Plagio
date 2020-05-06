@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	char tabul[8][8];
+	int l, c;
+
+	for (l = 0; l < 8; l++){
+		for (c = 0; c < 8; c++){
+			tabul[l][c] = '*';
+		}
+	}
+
+	scanf("%d", &l);
+	scanf("%d", &c);
+
+	tabul[l][c] = 'C';
+
+	if ( (l-2>=0) && (c-1>=0) )
+	{
+		tabul[l-2][c-1] = 'X';
+	}
+
+
+	if ( (l-1>=0) && (c-2>=0) )
+	{
+		tabul[l-1][c-2] = 'X';
+	}
+
+
+	if ( (l+1>=0) && (c-2>=0) )
+	{
+		tabul[l+1][c-2] = 'X';
+	}
+
+	if ( (l+2>=0) && (c-1>=0) )
+	{
+		tabul[l+2][c-1] = 'X';
+	}
+
+
+	if ( (l+2>=0) && (c+1>=0) )
+	{
+		tabul[l+2][c+1] = 'X';
+	}
+
+
+	if ( (l+1>=0) && (c+2>=0) )
+	{
+		tabul[l+1][c+2] = 'X';
+	}
+
+	if ( (l-1>=0) && (c+2>=0) )
+	{
+		tabul[l-1][c+2] = 'X';
+	}
+
+	if ( (l-2>=0) && (c+1>=0) )
+	{
+		tabul[l-2][c+1] = 'X';
+	}
+
+
+
+	for (l = 0; l < 8; l++){
+		for (c = 0; c < 8; c++){
+			printf("%c",tabul[l][c]);
+		}
+		printf("\n");
+	}
+
+
+	return 0;
+}

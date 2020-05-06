@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+#define TAM_MAX 100
+int main(){
+	int i,j;
+	char mensagem [TAM_MAX];
+	printf("Nome: ");
+	fgets(mensagem, TAM_MAX, stdin);
+	mensagem[strlen(mensagem)-1] = '\0';
+	j=strlen(mensagem)-1;
+	printf("Inverso: ");
+	for(i=j;i>=0;i--){
+		
+	printf("%c", mensagem[i]);
+	}
+	printf("\n");
+	return 0;
+}

@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include <math.h>
+#include<string.h>
+#include <stdlib.h>
+#define tam 50
+#define tam1 50
+
+int main() {
+    char A[tam];
+    char X;
+    int cont=0,i,j;
+    
+    gets(A);
+  scanf("%c", &X);
+    
+  
+    for(i=0; i<tam; i++)
+	{
+         
+            
+             if (A[i]== X){
+                             cont++;
+                                }
+                                }          
+   printf("%d",cont);
+   
+}          

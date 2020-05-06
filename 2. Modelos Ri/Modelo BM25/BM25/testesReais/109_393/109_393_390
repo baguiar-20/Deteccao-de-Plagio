@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+    int valor;
+    struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+    struct tipoNo *ini;
+    struct tipoNo *fim;
+} tipoFila;
+
+int menuFila();
+void enFileira(tipoFila *p, int valor);
+void ordenaFila(tipoFila *p);
+void imprimeFila(tipoFila *p);
+void troca(int *i, int *j);
+
+int main(void){
+	tipoFila p;
+	int opcao;
+
+    p.ini = NULL;
+    p.fim = NULL;
+
+	opcao = menuFila();
+	while(opcao != -1){
+		enFileira(&p,opcao);
+		opcao = menuFila();
+	}
+	ordenaFila(&p);
+	imprimeFila(&p);
+	return 0;
+}
+
+
+int menuFila(){
+	int opcao;
+	scanf("%d", &opcao);
+	return opcao;
+}
+
+void enFileira(tipoFila *p, int valor){
+    tipoNo *aux;
+    aux = (tipoNo*)malloc(sizeof(tipoNo));
+    aux->valor = valor;
+    aux->prox = NULL;
+    if(p->fim == NULL){
+        p->ini = aux;
+    }
+    else {
+        p->fim->prox = aux;
+    }
+    p->fim = aux;
+}
+
+void ordenaFila(tipoFila *p){
+    tipoNo *i, *j;
+    i = p->ini;
+    while(i && i->prox){
+        j = p->ini;
+        while(j && j->prox){
+            if (j->prox->valor < j->valor){
+                troca(&j->prox->valor,&j->valor);
+            }
+            j = j->prox;
+        }
+        i = i->prox;
+    }
+}
+
+void troca(int *i, int *j){
+    int aux;
+
+    aux = *i;
+    *i = *j;
+    *j = aux;
+}
+
+void imprimeFila(tipoFila *p){
+    tipoNo *aux;
+    aux = p->ini;
+    while(aux){
+        printf("%d ", aux->valor);
+        aux = aux->prox;
+    }
+}

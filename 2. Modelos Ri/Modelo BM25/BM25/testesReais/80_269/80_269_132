@@ -1,0 +1,17 @@
+#include<stdio.h>
+void main()
+{
+ char str[30];
+ char ltr;
+ scanf("%[^\n]", str);
+ getchar();
+ ltr=getchar();
+ int i=0, cont=0;
+ while(str[i]!='\0')
+  {
+    if(str[i]==ltr)
+      cont++;
+    i++;
+  }
+ printf("%i", cont);    
+}

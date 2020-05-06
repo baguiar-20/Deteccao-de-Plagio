@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct elemento{
+	int valor;
+	struct elemento *prox;
+} TElemento;
+
+typedef struct{
+	TElemento *inicio;
+} Tlista;
+
+Tlista *criarlista(){
+	Tlista *L = malloc(sizeof(Tlista));
+	L -> inicio = NULL;
+	
+	return L;
+}
+
+void remover(Tlista *L){
+
+	TElemento *l;
+	l = L -> inicio;
+	L -> inicio = l -> prox;
+	free(l);
+}
+
+void insertlista(Tlista *L, int valor){
+	
+	TElemento *novo = malloc(sizeof(TElemento));
+	TElemento *ant, *l = L -> inicio;
+
+	novo -> valor = valor;         
+	novo -> prox = NULL;
+	
+	if(L -> inicio != NULL)
+		novo -> prox = L -> inicio;
+
+	L -> inicio = novo;
+}
+
+void printlista(Tlista *L){
+	
+	TElemento *cam= L -> inicio;
+
+	printf("\n");
+	
+	while (cam != NULL){
+		printf("%d ", cam -> valor);
+		cam = cam -> prox;		
+	}
+}
+
+
+main(){
+
+	Tlista *list = criarlista();
+	char x;
+	int y;
+
+	scanf("%c", &x);
+
+	while(x != 'S'){
+		if(x == 'I'){
+			scanf("%d", &y);
+			insertlista(list, y);
+		}else{
+			if(x == 'R')
+				remover(list);				
+		}
+		scanf("%c", &x);	
+	}
+	printlista(list);
+}
+	

@@ -1,0 +1,11 @@
+#include<stdio.h>
+void main(){
+char ltr1[30];
+scanf("%[^\n]", ltr1);
+int ax=0;
+while(ltr1[ax]!='\0')
+ax++;
+int i=ax;
+for(;i>=0;i--)
+printf("%c", ltr1[i]);
+}

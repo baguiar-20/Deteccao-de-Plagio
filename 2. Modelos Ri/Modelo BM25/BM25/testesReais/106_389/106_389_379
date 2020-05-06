@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int pesq_bin_i(int t, int v[100], int p){
+	int first = 0, end = t - 1, mid;
+	
+	while (first != end){
+		mid = (first + end) / 2;
+		
+		if (v[mid] == p) 
+			return mid;
+		else
+		if (p > v[mid]) 
+			first = mid + 1;
+		if (p < v[mid])
+			end = mid - 1;
+	}
+	
+	if (v[first] == p) 
+		return first;
+	else
+		return -1;
+}
+
+int main(int argc, char *argv[]){
+	
+	int v[100];
+	int t, i, p, achou;
+	
+	scanf("%d", &t);
+	
+	for (i = 0; i < t; ++i)	scanf("%d", &v[i]);
+	
+	scanf("%d", &p);
+	
+	printf("%d\n", pesq_bin_i(t, v, p));
+	
+	return 0;
+}

@@ -1,0 +1,50 @@
+/*Um número inteiro positivo é dito semiprimo se ele é igual ao produto de dois (e apenas dois) números primos. Por exemplo, 15 é semiprimo pois 15 = 3 x 5; 9 é semiprimo pois 9 = 3 x 3; 20 não é semiprimo pois 20 = 2 x 10 e 10 não é primo. Escreva um programa que receba um valor informado por um usuário, e imprima "semiprimo" caso o valor seja semiprimo, e imprima "nao semiprimo" caso o valor não seja semiprimo.*/
+
+#include <stdio.h>
+
+int main() {
+
+	int num, i, j, cont, produto;
+
+	scanf ("%d", &num); 
+
+	for (i=2;i<=num/2;i++) {
+		//verificar se eh primo
+		int resposta = acha_primo(i);
+		if (resposta==1) {
+			for (j=i;j<=num/2;j++){
+				produto=i*j;
+				if (produto==num) {
+					int resposta2 = acha_primo(j);
+						if (resposta2==1) {
+							printf ("semiprimo"); 
+							
+						}else
+							printf ("nao semiprimo");
+					
+				}
+			}
+		}
+	}
+
+	
+}
+
+acha_primo (int a) {
+
+	int i, cont;
+
+	cont=0;
+
+	for (i=1;i<=a;i++) {
+			if (a%i==0) {
+				cont++;
+			}
+		}
+		if (cont==2) {
+			return 1;	
+		} else {
+			return 0;
+		}	
+}
+

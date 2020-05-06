@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+
+tipoPilha* cria ();
+void empilha (int valor, tipoPilha *pilha);
+void desempilha (tipoPilha *pilha);
+void imprimePilha (tipoPilha *pilha);
+void liberaPilha (tipoPilha *pilha);
+
+int main () {
+	int valor;
+    tipoPilha *pilha;
+    pilha = cria ();
+    
+    while (1) {
+        scanf ("%d", &valor);
+        if (valor>=1) {
+            empilha(valor, pilha);
+        } else if (valor==0) {
+            desempilha(pilha);
+        } else if (valor==-1) 
+            break;
+    }
+    
+    imprimePilha (pilha);
+    liberaPilha (pilha);
+    return 0;
+}
+
+tipoPilha* cria () {
+    tipoPilha *p;
+    p = (tipoPilha *) malloc(sizeof(tipoPilha));
+    p->topo = NULL;
+    return p;
+}
+
+void empilha (int valor, tipoPilha *pilha) {
+    tipoNo *aux;
+    aux = (tipoNo *) malloc (sizeof(tipoNo));
+    aux->valor = valor;
+    aux->prox = pilha->topo;
+    pilha->topo = aux;
+}
+
+void desempilha (tipoPilha *pilha) {
+    tipoNo *aux;
+    if (pilha->topo!=NULL) {
+    	aux = pilha->topo;
+    	pilha->topo = aux->prox;
+    	free (aux);
+	}
+}
+
+void imprimePilha (tipoPilha *pilha) {
+	tipoNo *aux = pilha->topo;
+	while (aux) {
+		printf ("%d ", aux->valor);
+		aux = aux->prox;
+	}
+	printf ("\n");
+}
+
+void liberaPilha (tipoPilha *pilha) {
+	tipoNo *aux1 = pilha->topo;
+	while (aux1!=NULL) {
+		tipoNo *aux2 = aux1->prox;
+		free (aux1);
+		aux1 = aux2;
+	}
+	free (pilha);
+}
+

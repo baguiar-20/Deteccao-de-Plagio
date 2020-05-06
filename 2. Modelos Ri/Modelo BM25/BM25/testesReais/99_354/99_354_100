@@ -1,0 +1,169 @@
+/*Neste problema queremos decidir se uma dada sequência de parênteses e colchetes está BEM FORMADA, 
+ou seja, parênteses e colchetes são fechados na ordem inversa àquela em que foram abertos.
+
+
+Suponha que a sequência de parênteses e colchetes está armazenada em uma cadeia de caracteres (ou string). 
+Desconsidere (jogue fora) qualquer outro caractere que não seja abre ou fecha parêntesis e abre e fecha colchetes. 
+Não esqueça que em C o último caractere da string é sempre o caractere nulo ('\0').
+
+
+Faça um programa que leia um número indeterminado de cadeias de caracteres e, para cada cadeia, 
+retorne SIM se a cadeia estiver BEM FORMADA, ou NAO caso contrário. A última cadeia será necessariamente "END". 
+Use PILHAS alocadas dinamicamente.
+
+Dicas:
+
+Entrada:
+
+(()[()])
+[(A)(B)]
+([)]
+END
+
+Saída:
+
+SIM
+
+SIM
+
+NAO
+
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+#define TAM 10
+
+struct lista {
+	char seq;
+	struct lista* prox;
+};
+typedef struct lista Lista;
+
+struct pilha {
+	Lista* prim;
+};
+typedef struct pilha Pilha;
+
+Pilha* pilha_cria (void) 
+{
+	Pilha* q = (Pilha*) malloc(sizeof(Pilha));
+	q->prim = NULL;
+	return q;
+}
+
+void pilha_push (Pilha* p, char s)
+{
+	Lista* l = (Lista*) malloc(sizeof(Lista));
+	
+	l->seq = s;
+	l->prox = p->prim;
+	p->prim = l;
+}
+
+char pilha_pop (Pilha* p)
+{
+
+	Lista* i;
+	char k;
+	
+	if (pilha_vazia(p))
+		return 1;
+	
+	i = p->prim;
+	k = i->seq;
+	p->prim = i->prox;
+	free(i);
+	return k;
+}
+
+int pilha_vazia (Pilha* p)
+{
+	return (p->prim==NULL);
+}
+
+void pilha_libera (Pilha* p)
+{
+	Lista* aux = p->prim;
+
+	while (aux!=NULL) {
+		Lista* aux2 = aux->prox;
+		free(aux);
+		aux=aux2;
+	}
+	free(p);
+}
+
+int func1 (int len, char* s, Pilha*p){
+
+	int i, flag;
+	char x;
+
+	flag=0;
+	
+	for (i=0;i<=len;i++) {
+			
+			switch(s[i]) {
+				case '(': pilha_push(p,s[i]); flag++; break;
+				case '[': pilha_push(p,s[i]); flag++; break;
+				case ')': x = pilha_pop(p);
+					if (x!='(') {
+						return -1;
+						break;
+					}
+					break;
+				case ']': x = pilha_pop(p);
+										
+						if (x!='[' ) {
+						
+						return -1;
+						break;						
+					}
+					break; 
+			}
+		}
+
+return flag;
+
+}
+
+int main() {
+
+	char s[100], x;
+	Pilha* p;
+	int i, len, flag;
+
+	flag=0;
+	
+	scanf ("%s", s);
+
+	while (strcmp(s,"END")) { 
+		p = pilha_cria();	
+		
+		len = strlen(s);
+
+		flag = func1(len, s, p);
+		
+		
+//printf("asdasdasd");
+//printf("O teste deu %d",flag);
+		if ( (flag>0) && (pilha_vazia(p)) ) {
+			printf("SIM\n");
+		}
+		if ( (flag==-1) || (!pilha_vazia(p)) ){
+			printf("NAO\n");
+		}
+
+		
+//		printf ("flag%d=", flag);
+//		printf ("vazia%d=", pilha_vazia(p));
+		pilha_libera(p);
+
+		scanf ("%s", s);
+		flag = 0;
+	} 
+
+	return 0;
+}

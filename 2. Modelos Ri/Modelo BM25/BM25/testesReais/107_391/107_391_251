@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+   int valor;
+   struct tipoNo *prox;
+}tNo;
+
+typedef struct tipoPilha{
+   struct tipoNo *topo;
+}tPilha;
+
+
+tPilha *inicializapilha(){
+   tPilha *P=malloc(sizeof(tPilha));
+   
+   P->topo =NULL;
+   return P;
+}
+
+void empilha(tPilha *p, int valor){
+   tNo *no=malloc (sizeof(tNo));
+   
+   no->valor = valor;
+    no->prox = p->topo;
+   p->topo = no;
+}
+
+int desempilha(tPilha *p){
+   int valor;
+   tNo *aux;
+   if (!p->topo) return -1;
+   valor = p->topo->valor;
+   aux = p->topo;
+   p->topo = p->topo->prox;
+   free(aux);   
+   return valor;
+}
+
+void imprimepilha(tPilha *p){
+   tNo *aux;
+   aux = p->topo;
+   while (aux){
+     printf ("%d ", aux->valor);
+     aux = aux->prox;
+   }
+   printf ("\n");
+}
+
+
+
+int main(){
+   tPilha *pilha=inicializapilha();
+  	int valor;
+   scanf("%d",&valor);
+  	while(1){
+		if (valor==-1) break;
+		else if(valor >= 1) empilha(pilha,valor);
+		else desempilha(pilha);
+		scanf("%d",&valor);
+	}
+	
+   imprimepilha(pilha);   
+   return 0;
+}
+
+

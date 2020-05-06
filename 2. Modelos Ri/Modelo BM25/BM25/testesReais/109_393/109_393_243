@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no
+{
+	int valor;
+	struct no *proximo;
+} tipoNo;
+
+typedef struct fila
+{
+	tipoNo *inicio;
+	tipoNo *fim;
+} tipoFila;
+
+tipoFila* criarFila()
+{
+	tipoFila* f = malloc(sizeof(tipoFila));
+
+	f->inicio = NULL;
+	f->fim = NULL;
+
+	return f;
+}
+
+void enFileirar(tipoFila* f, int valor)
+{
+	tipoNo* no = malloc(sizeof(tipoNo));
+
+	no->valor = valor;
+	no->proximo = NULL;
+
+	if (f->inicio == NULL)
+		f->inicio = no;
+	else
+		f->fim->proximo = no;
+	f->fim = no;
+}
+
+void ordenaFila(tipoFila* f)
+{
+	tipoNo *caminha1, *caminha2;
+	int auxiliar;
+
+	caminha1 = f->inicio;
+
+	while (caminha1 != NULL)
+	{
+		caminha2 = caminha1->proximo;
+		while (caminha2 != NULL)
+		{
+			if (caminha2->valor < caminha1->valor)
+			{
+				auxiliar = caminha1->valor;
+				caminha1->valor = caminha2->valor;
+				caminha2->valor = auxiliar;
+			}
+			caminha2 = caminha2->proximo;
+		}
+		caminha1 = caminha1->proximo;
+	}
+}
+
+void imprimirFila(tipoFila* f)
+{
+	tipoNo* caminha = f->inicio;
+
+	while (caminha != NULL)
+	{
+		printf("%d ", caminha->valor);
+		caminha = caminha->proximo;
+	}
+}
+
+
+int main()
+{
+	tipoFila* f;
+	int valor;
+
+	f = criarFila();
+
+	while(1)
+	{
+		scanf("%d", &valor);
+		if (valor == -1)
+			break;
+		else
+			enFileirar(f, valor);
+	}
+
+    ordenaFila(f);
+	imprimirFila(f);
+
+
+	
+	return 0;
+}

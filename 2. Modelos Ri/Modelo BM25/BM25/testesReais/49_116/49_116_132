@@ -1,0 +1,23 @@
+#include<stdio.h>
+int main(){
+int s1=0, s2=0, x1, x2, i=2;
+scanf("%i%i", &x1, &x2);
+
+for(i=1;i<x1;i++)
+{
+   if(x1%i==0)
+   s1=s1+i;
+}
+
+for(i=1;i<x1;i++)
+{
+   if(x2%i==0)
+   s2=s2+i;
+}
+
+
+if(s1==x2&&s2==x1)
+printf("amigos");
+else
+printf("nao amigos");
+}

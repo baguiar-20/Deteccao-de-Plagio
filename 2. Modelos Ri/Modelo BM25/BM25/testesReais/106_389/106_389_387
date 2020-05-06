@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int busca_bin(int tam, int v[], int num){
+
+int inicio=0,meio,fim=tam;
+
+while(inicio<fim){
+     meio=(inicio+fim)/2;
+     if(v[meio]==num){
+        return meio;
+     }else{
+         if(num < v[meio]){
+            fim = meio -1;
+         }else{
+            inicio = meio +1;
+         }
+
+
+     }
+}
+return -1;
+}
+
+int main(){
+
+int t,v[100],n,i;
+
+scanf("%d",&t);
+
+    for(i=0;i<t;i++){
+        scanf("%d",&v[i]);
+    }
+
+scanf("%d",&n);
+
+printf("%d",busca_bin(t,v,n));
+
+return 0;
+
+}

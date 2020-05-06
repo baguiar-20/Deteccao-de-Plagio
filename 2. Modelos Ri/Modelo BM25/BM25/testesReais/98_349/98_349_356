@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main (int argc, char *argv[]){
+	FILE *bin;
+	int inteiro;
+	char c;
+	bin = fopen (argv[1],"rb");
+	
+	while ( fread (&inteiro, sizeof(int), 1, bin ) >=1 ){
+		printf ("%d\n", inteiro);
+	}
+	
+	
+	fclose (bin);
+	
+}

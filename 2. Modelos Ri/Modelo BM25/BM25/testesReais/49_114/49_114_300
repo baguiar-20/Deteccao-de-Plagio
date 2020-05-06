@@ -1,0 +1,50 @@
+#include <stdio.h>
+ main()
+{ int n, i, cont1 = 0, j, a, cont2 = 0, k, cont3, cont4 = 0;
+  
+   //printf("\n Digite um inteiro: ");
+   scanf("%d",&n);
+   
+   for (i = 1; i <= n; i++)
+   {
+     if(n%i == 0)
+     {
+       cont1++;
+     }
+   }
+   
+   
+   if (cont1 == 2)
+   {
+     printf("\n nao semiprimo \n", n);
+   }
+   else
+   {
+     for(j = 2; j < n; j++)
+     {
+       if (n%j == 0)
+       {
+         a = n/j;
+         cont2++;
+         cont3 = 0; 
+        
+         for (k = 1; k <= a; k++)
+         {
+           if (a%k == 0)
+             cont3++;
+         }
+       
+         if (cont3 <= 2)
+           cont4++;
+        
+       }
+     }
+     
+     if (cont2 == cont4)
+       printf("\n semiprimo \n", n);
+     else
+       printf("\n nao semiprimo \n", n);
+   
+   }
+
+}

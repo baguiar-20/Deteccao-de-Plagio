@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipono{
+	int valor;
+	struct tipono *prox;
+}tipono;
+
+typedef struct tipofila{
+	struct tipono *inicio;
+	struct tipono *fim;
+}tipofila;
+
+tipofila *inicializa(){
+	tipofila *f;
+	f=(tipofila *) malloc (sizeof(tipofila));
+	f->inicio = NULL;
+	f->fim = NULL;
+	return f;
+}
+
+void enfileira(tipofila *f, int valor){
+	tipono *no;
+	no = (tipono *) malloc(sizeof(tipono));
+	no->valor = valor;
+	no->prox = NULL;
+	
+	if(f->fim == NULL){
+		f->inicio = no;
+	}else{
+		f->fim->prox = no;
+		}
+		f->fim = no;
+}
+
+int desenfileira (tipofila *f){
+	tipono *aux; 
+	int valor;
+	//if(f->inicio == NULL){
+		// fila vazia nao da pra retirar nada dela
+	//	}
+	//if(f->inicio == f->fim){
+		// fila com somente 1 elemento entao retorna null
+	//	}
+	valor = f->inicio->valor;
+	aux = f->inicio;
+	f->inicio = f->inicio->prox;
+	free(aux);
+	return valor;
+}
+
+void imprimefila(tipofila *f){
+	tipono *aux;
+	aux = f->inicio;
+	//printf("fila: ");
+	while(aux){
+		printf("%d ", aux->valor);
+		aux = aux->prox;
+	}
+	printf("\n");
+}
+
+void troca(int *i, int *j){
+	
+		int aux;
+		
+		aux = *i;
+		*i = *j;
+		*j = aux;
+		
+}
+
+void inverte(tipofila *f){
+		tipono *i,*j;
+		i = f->inicio;
+		while (i && i->prox){
+			j = f->inicio;
+			while(j && j->prox){
+				if(j->prox->valor < j->valor){
+					troca(&j->prox->valor ,&j->valor);
+					}
+				j = j->prox;
+				}
+			i = i->prox;
+			}
+}
+
+int main(void){
+	tipofila *fila1;
+	int i;
+	fila1 = inicializa();
+	//scanf("%d", &i);
+	//enfileira(fila1,i);
+	while(1){
+		scanf("%d", &i);
+		if(i >= 1 ){
+		
+		enfileira(fila1,i);
+		}
+		if(i == 0){
+			desenfileira(fila1);
+		}
+		if(i == -1){
+			inverte(fila1);
+			imprimefila(fila1);break;
+		}
+	}
+	return 0;
+
+}
+

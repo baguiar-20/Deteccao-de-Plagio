@@ -1,0 +1,29 @@
+/*
+Escreva um programa em C que leia uma string e um caracter do teclado e imprima o número
+de vezes que esse caractere aparece na string. Por exemplo, se a entrada for
+UNIVERSIDADE FEDERAL DO AMAZONAS e o caracter for E, seu programa deverá imprimir 4.
+*/
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+int main ()
+{
+    char str[41];
+    int i;
+    char carac[2];
+    int cont=0;
+
+
+    gets(str);
+    gets(carac);
+
+
+    for (i=0; i<strlen(str);i++)
+    {
+        if(str[i]==carac[0]) cont++;
+    }
+
+    printf("%d", cont);
+}

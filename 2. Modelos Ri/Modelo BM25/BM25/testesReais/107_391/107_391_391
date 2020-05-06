@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+ struct tipoNo* prox;
+ int v;
+} tipoNo;
+
+typedef struct tipoPilha{
+ struct tipoNo* top;
+} tipoPilha;
+
+void iniciaPilha(tipoPilha* P){
+ P->top = NULL;
+}
+
+void empilha(tipoPilha* P, int valor){
+ tipoNo* aux = (tipoNo*)malloc(sizeof(tipoNo));
+ aux->v = valor;
+ aux->prox = P->top;
+ P->top = aux;
+}
+
+void desempilha(tipoPilha* P){
+ if(P->top){
+  tipoNo* aux;
+  aux = P->top->prox;
+  free(P->top);
+  P->top = aux;
+ }
+}
+
+void encerra(tipoPilha P){
+ while(P.top){
+  printf("%d ",P.top->v);
+  P.top = P.top->prox;
+ } 	
+}
+
+int main(){
+
+int valor = 0;
+
+tipoPilha P;
+
+iniciaPilha(&P);
+
+while(valor != -1){
+
+ scanf("%d",&valor);
+
+ if(valor == -1){
+  encerra(P);
+  exit(1);
+ }else
+ if(valor == 0){
+  desempilha(&P); 
+ }else 	
+ if(valor > 0){
+  empilha(&P,valor);
+ }  	
+
+} 	 
+}

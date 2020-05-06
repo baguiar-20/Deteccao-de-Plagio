@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo
+{
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha
+{
+	struct tipoNo *topo;
+} tipoPilha;
+
+tipoNo* criarNo(int dado)
+{
+	tipoNo *no = malloc(sizeof(tipoNo));
+
+	no->valor = dado;
+	no->prox = NULL;
+
+	return no;
+}
+
+tipoPilha* criarPilha()
+{
+	tipoPilha* pilha = malloc(sizeof(tipoPilha));
+
+	pilha->topo = NULL;
+
+	return pilha;
+}
+
+void empilha(tipoPilha* pilha, tipoNo* no)
+{
+	if (pilha->topo == NULL)
+		pilha->topo = no;
+	else {
+		no->prox = pilha->topo;
+		pilha->topo = no;
+	}
+}
+
+void desempilha(tipoPilha* pilha)
+{
+	if (pilha->topo != NULL)
+	{
+		tipoNo* auxiliar = pilha->topo;
+		pilha->topo = pilha->topo->prox;
+		free(auxiliar);
+	}
+}
+
+void imprimePilha(tipoPilha *pilha)
+{
+	tipoNo *caminha;
+
+	caminha = pilha->topo;
+
+	while (caminha != NULL)
+	{
+		printf("%d ", caminha->valor);
+		caminha = caminha->prox;
+	}
+}
+
+
+int main()
+{
+	tipoPilha* pilha;
+	int dado;
+
+	pilha = criarPilha();
+
+	while(1)
+	{
+		scanf("%d", &dado);
+
+		if (dado >= 1)
+		{
+			tipoNo* no = criarNo(dado);
+			empilha(pilha, no);
+		}
+		else {
+			if (dado == 0)
+				desempilha(pilha);
+			else {
+				if (dado == -1)
+					break;
+			}
+		}
+	}
+
+	imprimePilha(pilha);
+
+	return 0;
+}

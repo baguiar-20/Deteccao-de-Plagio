@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+void primos (int x, int y){
+	int i,j,cont;
+	if (x==1)
+		printf("1 ");
+	for (i=x;i<=y;i++){
+		cont=0;
+		for(j=1;j<=i;j++){
+			if(i%j==0){
+				cont++;
+			}
+		}
+		if(cont==2){
+			j = j-1;
+			printf("%d ",j);
+		}
+	}
+}
+
+main (){
+	int M,N;
+	scanf("%d %d",&M,&N);
+	primos(M,N);
+	printf("\n");
+}

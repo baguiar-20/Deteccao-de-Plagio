@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <ctype.h>
+
+
+int main(){
+ 
+ float vetor[100][4];
+ float n1, n2, n3, n4, get, med;
+ int i,acc;
+ i = 0;
+ med,get = 0; 
+
+
+ while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4) {
+    vetor[i][0] = n1;
+    vetor[i][1] = n2;
+    vetor[i][2] = n3;
+    vetor[i][3] = n4;
+    i++;
+    get=((n1+n2+n3+n4)/4);
+
+    if (get>med){
+        med = get;
+        acc = i;
+    }
+
+    
+ }
+ getchar();
+
+ printf("%.3f do aluno %d\n", med,acc);
+
+
+}

@@ -1,0 +1,37 @@
+#include <stdio.h>
+void primo(int num, int m){
+
+	int f,cont=0,x;
+
+	if((num>0)&&(num<=10000)){
+		if(num==1){
+			printf("1 ");
+		}
+		for(x=num;x<=m;x++){	
+			cont=0;
+			for(f=1;f<=x;f++){
+				if(x%f==0){
+					cont++;
+				}
+			}
+		if(cont==2)
+			printf("%d ", x);
+		}
+
+	}
+	
+}
+
+int main(){
+
+	int num,m;
+
+	scanf("%d", &num);
+	scanf("%d", &m);
+
+ 	
+	primo(num, m);	
+	
+	
+			
+}

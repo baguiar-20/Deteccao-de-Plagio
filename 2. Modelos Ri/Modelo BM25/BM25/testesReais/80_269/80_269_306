@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+void main()
+{
+    char frase[100],ca;
+    int i, quantidade;
+
+    quantidade = 0;
+
+    gets(frase);
+    scanf("%c",&ca);
+
+    ///printf("%d",strlen(frase));
+
+    for(i=0;i<strlen(frase);i++)
+    {
+        ///printf("%c",frase[i]);
+        if(frase[i] == ca)
+        {
+            quantidade++;
+        }
+    }
+
+
+    printf("%d",quantidade);
+}

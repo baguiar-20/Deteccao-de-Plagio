@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+	char nome[100], letra;
+	int tam1, i;
+	int cont;
+		
+	cont=0;
+		
+	gets(nome);
+	tam1=strlen(nome);
+
+	scanf("%c", &letra);
+
+	for (i=0; i<tam1-1; i++)
+	{
+		if (nome[i]==letra)
+		    cont++;	
+	}
+
+	printf("%d", cont);
+				
+}

@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX	100
+int main(){
+    float vetor[MAX][4];
+    float n1, n2, n3, n4, m=0;
+    int i = 0;
+    int a;
+    while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4) {
+     vetor[i][0] = n1;
+     vetor[i][1] = n2;
+     vetor[i][2] = n3;
+     vetor[i][3] = n4;
+     i++;
+     if (n1+n2+n3+n4 >= m){
+    	m = (n1+n2+n3+n4)/4;
+        a=i;
+     }
+}
+printf("%.3f do aluno %d \n", m, a);
+
+
+}

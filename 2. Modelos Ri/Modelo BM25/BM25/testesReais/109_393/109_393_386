@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+
+tipoFila* inicializaFila(){
+	tipoFila *fila;
+	fila = (tipoFila *) malloc (sizeof(tipoFila));
+	fila -> ini = NULL;
+	fila -> fim = NULL;
+	return fila;
+}
+
+void InsereFila (int valor, tipoFila* fila){
+	tipoNo *novo;
+	novo = (tipoNo *) malloc (sizeof(tipoNo));
+	novo -> valor = valor;
+	novo -> prox = NULL;
+	if(fila -> ini == NULL){
+		fila -> fim = novo;
+		fila -> ini = novo;
+	}
+	else{
+	fila->fim -> prox = novo;
+	fila->fim = novo;
+	}
+
+}
+
+void RetiraFila(tipoFila * fila){
+	if(fila -> ini == NULL){
+		printf("A fila esta vazia");
+		return;
+	}
+	tipoNo *aux = fila -> ini;
+	fila->ini = fila->ini->prox;
+	free(aux);
+}
+
+void ImprimeFila(tipoFila *fila){
+	tipoNo *imprime = fila-> ini;
+	while(imprime){
+		printf("%d ", imprime->valor);
+		imprime = imprime -> prox;
+	}
+}
+void troca(int *i, int *j) {
+
+   int aux;
+   
+   aux = *i;
+   *i = *j;
+   *j = aux;
+}
+
+void ordena(tipoFila* f){
+   tipoNo *i,*j;
+   i = f->ini;
+   while (i && i->prox) {
+      j = f->ini;
+      while (j && j->prox) {
+         if(j->prox->valor < j->valor) {
+            troca(&j->prox->valor,&j->valor);
+         }
+         j = j->prox;
+      }
+      i = i->prox;
+   }
+}
+/*void OrdenaFila(tipoFila *fila, int tamanho){
+	int i=0;
+	tipoNo* aux;
+	aux = (tipoNo*) malloc (sizeof(tipoNo));
+	aux = fila->ini;
+	tipoNo* caminha;
+	caminha = (tipoNo*) malloc (sizeof(tipoNo));
+	caminha = fila->ini;
+	for(i=0;i<tamanho;i++){
+		while(caminha->prox != NULL){
+			if(caminha->valor > caminha->prox->valor){
+				aux->valor = caminha->valor;
+				caminha->valor = caminha->prox->valor;
+				caminha->prox->valor = aux->valor;
+				caminha = caminha -> prox;
+			}
+	//	}
+	}
+}*/
+int main(){
+	int valor;
+	int tamanho =0;
+	tipoFila* fila;
+	fila = inicializaFila();
+
+	while(1){
+		scanf("%d", &valor);
+		if (valor == -1) break;
+		if (valor == 0) RetiraFila (fila);
+		if (valor >= 1){
+			InsereFila (valor, fila);
+			tamanho++;
+		}
+	}
+	ordena(fila);
+	ImprimeFila(fila);
+	return 0;
+}

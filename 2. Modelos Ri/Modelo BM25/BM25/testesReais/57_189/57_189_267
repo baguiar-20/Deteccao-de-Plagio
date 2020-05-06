@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main(){
+	int vet1[11], vet2[11], vetordenado[22];
+	int i , j, aux, menor;
+	
+	for(i = 1; i <= 10; i++)
+		scanf("%d", &vet1[i]);
+	
+	for(i = 1; i <= 10; i++)
+		scanf("%d", &vet2[i]);	
+	
+	j = 1;
+	for(i = 1; i <= 10; i++){
+		vetordenado[j] = vet1[i];
+		j++;
+	}	
+	
+  	for(i = 1; i <= 10; i++){
+  		vetordenado[j] = vet2[j - 10];
+  		j++;
+	}	
+	
+	j = 1;
+	do{
+		menor = vetordenado[j];
+		for(i = j; i <= 20; i++){
+			if(menor > vetordenado[i]){
+				aux = vetordenado[j];
+				menor = vetordenado[i];
+				vetordenado[j] = menor;
+				vetordenado[i] = aux;
+			}
+		}
+		j++;
+	}while(j < 20);
+	
+	for(j= 1; j <= 20; j++)
+	   printf("%d ", vetordenado[j]);
+return 0;
+}

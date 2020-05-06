@@ -1,0 +1,63 @@
+/*						- LABORATORIO DE PROGRAMAÇÃO A -
+				- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula 21351819 -
+	#################################################################################################################
+Exercicio --> 1)  Um inteiro positivo x é dito uma potência prima se existem dois inteiros positivos p e k, com p primo, 
+	tais que x = p^k (p elevado a 	k). Escreva um programa que receba um inteiro e imprima "potencia prima" caso o número 
+	seja uma potência prima. Caso contrário, imprima "nao potencia prima". Por exemplo, 16 = 2^4 é uma potência prima, 
+	mas 36 = 6^2 não é.
+	Dicas:Verifique que "potencia prima" e "nao potencia prima" se escreve sem til e sem acentos. 
+	#################################################################################################################	
+*/
+#include <stdio.h>
+int primo (n)
+{
+	int i, sair;
+ 	sair=1;
+	i=2;
+	if((n==1)||(n == 2)||(n==3)||(n==5)||(n==7))
+	{
+		sair=1;
+	}
+	else 		
+	{
+		while((sair!=0)&&(i<=7))
+		{
+			sair=n%i;
+			i++;
+		}
+	}
+	if (sair!=0)	
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int main()
+{
+	int p, x, r, valor;
+ 	scanf ("%d",&x);
+	if (x==1) { printf("potencia prima");}
+	else
+		{
+			for(p=2;p<=x;p++)
+			{
+				valor=primo(p);
+				if ((valor==1)&& (x%p==0))
+				{
+					for (r=p;r<=x;r*=p)
+					{
+						if(r==x)
+						{
+							printf("potencia prima");
+							p=(x+1);
+						}
+					}
+				}
+			}
+		}
+	if ((p!=(x+2)) && (x!=1)){printf("nao potencia prima");}
+}
+

@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	FILE *fp;
+	int a;
+	fp = fopen(argv[1], "rb");
+	if (fp==NULL)
+	{
+		printf("Aqruivo não pode ser aberto.\n\n");
+	}
+	else
+	{	
+		while (fread(&a, sizeof(int), 1, fp)>=1)
+		{
+			printf("%d\n", a);
+		}
+		fclose(fp);
+	}
+	return 0;
+}

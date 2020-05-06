@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int busca(int*vetor, int valor,int tam){
+	
+	int inicio=0;
+	int final=tam-1;
+	int meio;
+	
+		while(inicio<=final){
+			
+		 meio=(inicio+final)/2;
+		 
+		 if(vetor[meio]==valor){
+		 	return meio;
+		 }else if(vetor[meio]<valor){
+		 	
+		 	inicio=meio+1;
+		 	
+		 	
+		 }else final=meio-1;
+		 
+	}
+		 return -1;
+}
+
+
+int main(){
+
+	int tamanhovetor;
+	scanf("%d",&tamanhovetor);
+	
+	int vetor[tamanhovetor];
+	int i=0;
+	int valor;
+	
+	while(i<tamanhovetor){
+		scanf("%d",&valor);
+		vetor[i]=valor;
+		i++;
+	}
+	
+	scanf("%d",&valor);
+	
+	printf( "%d\n", busca(vetor,valor,tamanhovetor));
+
+return 0;
+ 
+		
+	
+	
+
+
+
+
+
+}

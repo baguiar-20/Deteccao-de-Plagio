@@ -1,0 +1,19 @@
+#include <stdio.h>
+int main(){
+
+	int x,y,a,b,aux,mdc;
+
+	scanf("%d %d", &x,&y);
+
+	a= x;
+	b= y;
+
+	while(b!=0){
+		aux= a;
+		a= b;
+		b= aux%b;
+	}
+
+	mdc= a;
+	printf("%d\n",mdc);
+}

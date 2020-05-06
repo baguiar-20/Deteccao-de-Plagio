@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+
+tipoNo *InitNo();
+void push(tipoPilha *P, int valor);
+tipoNo *pop(tipoPilha *P);
+void printPilha(tipoPilha P);
+
+int main(int argc, char *argv[]){
+    tipoPilha P;
+    
+    P.topo = NULL;
+    
+    int loop, i;
+    
+    while (1){
+        scanf("%d", &loop);
+        
+        if (loop >  0) push(&P, loop);
+        if (loop == 0) pop(&P);
+        if (loop == -1) break;
+    }
+    
+    printPilha(P);
+    
+    return 0;
+}
+
+tipoNo *InitNo(){
+    tipoNo *aux = (tipoNo *)malloc((unsigned)sizeof(tipoNo));
+    
+    aux->prox  = NULL;
+    aux->valor = 0;
+    
+    return aux;
+}
+
+void push(tipoPilha *P, int valor){
+    tipoNo *aux = InitNo();
+    
+    aux->valor = valor;
+    aux->prox  = P->topo;
+    P->topo    = aux;
+    
+}
+
+tipoNo *pop(tipoPilha *P){
+    if (P->topo){
+        tipoNo *aux = P->topo;
+        P->topo = P->topo->prox;
+        
+        return aux;
+    }
+    
+    return NULL;
+}
+
+void printPilha(tipoPilha P){
+    while (P.topo){
+        printf("%d ", P.topo->valor);
+        
+        P.topo = P.topo->prox;
+    }
+}
+

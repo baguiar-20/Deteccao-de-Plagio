@@ -1,0 +1,27 @@
+#include <stdio.h> 
+
+int main(){
+  int x, y, i, k, x1, y1, menor;
+  int vetor[100][100];
+  
+  scanf("%d %d", &x, &y);
+  for(i=0; i<x; i++){
+    for(k=0; k<y; k++){
+      scanf("%d", &vetor[i][k]);
+    }
+  }
+  
+  menor= vetor[0][0];
+  for(i=0; i<x; i++){
+    for(k=0; k<y; k++){
+      if(vetor[i][k]<menor){
+	menor=vetor[i][k];
+	x1=i;
+	y1=k;
+      }
+    }
+  }
+  
+  printf("%d %d %d\n",x1,y1,menor);
+ 
+}

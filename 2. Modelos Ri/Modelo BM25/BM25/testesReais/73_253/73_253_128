@@ -1,0 +1,33 @@
+#include <stdio.h>
+int primo(int num){
+
+	int f,cont=0,x;
+
+	if((num>0)&&(num<=10000)){
+		for(f=1;f<=num;f++){
+			if(num%f==0){
+				cont++;
+			}
+		}
+		if(cont==2)
+			x= 1;
+		if(cont>2)
+			x= 0;
+	}
+	return x;
+}
+
+int main(){
+
+	int num,a;
+
+	scanf("%d", &num);
+
+	a= primo(num);	
+	
+	if(a==0)
+		printf("NAO\n");
+	if(a==1)
+		printf("SIM\n");
+			
+}

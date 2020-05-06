@@ -1,0 +1,38 @@
+#include "stdio.h"
+
+main()
+{
+	int n, i, num, cont;
+	
+	scanf("%d", &n);
+	
+	if(n > 0)
+	{
+		int vetor[n];
+		scanf("%d", &num);
+	
+		for(i = 0;i < n;i++)
+		{
+			scanf("%d", &vetor[i]);
+		}
+		
+		cont = 0;
+		
+		for(i = 0;i < n;i++)
+		{
+			if(vetor[i] == num)
+			{
+				cont++;
+			}
+		}
+		
+		if(cont == 1)
+		{
+			printf("SIM\n");
+		}
+		else
+		{
+			printf("NAO\n");
+		}
+	}
+}

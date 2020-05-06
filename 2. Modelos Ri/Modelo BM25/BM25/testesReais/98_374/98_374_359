@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main () {
+
+ int N,M,j,k,i,acc1,acc2,acc3;
+ scanf ("%d %d", &N,&M);
+	
+ int vetor[N][M];
+	
+ for (j=0;j<N;j++) {
+      for (k=0; k<M; k++) {
+	   scanf ("%d", &i);
+	   vetor[j][k] = i;
+           
+      }
+ }
+
+ acc1 = vetor[0][1];
+ for (j=0; j<N; j++){
+      for (k=0; k<M; k++){
+           if (vetor[j][k] < acc1){
+               acc1 = vetor[j][k];
+               acc2 = j;
+               acc3 = k;
+           }
+      }
+ }
+
+ printf("%d %d %d\n", acc2,acc3,acc1);
+
+ return 0;
+}

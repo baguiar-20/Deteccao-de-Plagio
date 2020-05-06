@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+main()
+{
+      char string[50], anagrama[50];
+      int i,j,k,cont=0,a=0;
+      
+      scanf("%s", string);
+      scanf("%s", anagrama);
+       
+      if(strlen(string) == strlen(anagrama))
+      {    
+          for (i=0;i<strlen(string);i++){
+          for (j=0;j<strlen(anagrama);j++){
+              if (toupper(string[i]) == toupper(anagrama[j])){
+                 cont++;
+                 anagrama[j] = (int)atoi("1");
+                 break;
+              }
+            }
+          }
+      
+            if(cont==strlen(string))
+            printf("SIM");
+            else
+            printf("NAO");
+      }
+      else
+       printf("NAO");
+}

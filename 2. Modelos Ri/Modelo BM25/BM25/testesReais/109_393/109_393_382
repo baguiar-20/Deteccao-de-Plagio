@@ -1,0 +1,93 @@
+//Roberta Kahtleen Bastos dos Anjos// 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+} tipoFila;
+
+tipoFila *iniciaFila(){
+	tipoFila *fila;
+	
+	fila = (tipoFila *) malloc(sizeof(tipoFila));
+	fila->ini = NULL;
+	fila->fim = NULL;
+
+	return fila;
+}
+
+void inserirFila(tipoFila *fila, int elem){
+	tipoNo *no;
+	no = (tipoNo *) malloc(sizeof(tipoNo));
+
+	no->valor = elem;
+	no->prox = NULL;
+
+	if(fila->ini == NULL){
+		fila->ini = no;
+	}else{
+		fila->fim->prox = no;
+	}
+	fila->fim = no; 
+}
+
+void imprimirFila(tipoFila *fila){
+	tipoNo *aux;
+
+	aux = fila->ini;
+	while(aux != NULL){
+		printf("%d ",aux->valor);
+		aux = aux->prox;
+	}
+}
+
+void troca(int *i, int *j) {
+
+   int aux;
+   
+   aux = *i;
+   *i = *j;
+   *j = aux;
+}
+
+
+void ordenarFila(tipoFila *fila) {
+   tipoNo *caminho,*aux;
+   aux = fila->ini;
+   while (aux && aux->prox) {
+      caminho = fila->ini;
+      while (caminho && caminho->prox) {
+         if(caminho->prox->valor < caminho->valor) {
+            troca(&caminho->prox->valor,&caminho->valor);
+         }
+         caminho = caminho->prox;
+      }
+      aux = aux->prox;
+   }
+}
+
+int main(){
+	tipoFila *fila = iniciaFila();
+	int elem;
+	
+	//prinf("Para remover: 0 \nPara encerrar: -1");
+	while(1){
+		scanf("%d",&elem);
+		
+		if(elem == -1){
+			break;
+		}
+		inserirFila(fila,elem);
+
+	}
+	ordenarFila(fila);
+	imprimirFila(fila);
+	return 0;
+}

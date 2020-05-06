@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prev;
+	struct tipoNo *prox;	
+} tipoNo;
+
+typedef struct tipoLista {
+	struct tipoNo *ini;
+	struct tipoNo *fim;	
+} tipoLista;
+
+tipoLista *criaLista() {
+	tipoLista *l;
+	l = (tipoLista *) malloc (sizeof(tipoLista));
+	l->ini = NULL;
+	l->fim = NULL;	
+	return l;
+}
+
+void insereLista(tipoLista *l, int valor) {
+
+	tipoNo *no;
+	no = (tipoNo *) malloc (sizeof(tipoNo));
+	
+	no->valor = valor;
+	no->prev = NULL;
+	no->prox = NULL;	
+	
+	if (!l->ini) {
+		l->ini = no;
+		l->fim = no;		
+	} else {	
+		l->fim->prox = no;
+		no->prev = l->fim;
+		l->fim = no;
+	}
+}
+
+void removeLista (tipoLista *l, int valor) {
+	
+	tipoNo *aux, *del;
+	
+	if (!l->ini) {
+		return;
+	}
+	
+	if (l->ini == l->fim) {
+		if (l->ini->valor == valor) {
+			del = l->ini;
+			l->ini = NULL;
+			l->fim = NULL;			
+			free(del);
+		}
+		return;
+	}	
+	
+	if (l->ini->valor == valor) {
+		del = l->ini;
+		l->ini = l->ini->prox;
+		l->ini->prev = NULL;
+		free(del);
+		return;
+	}
+	
+	aux = l->ini->prox;
+	
+	while (aux && aux->prox) {
+		if (aux->valor == valor) {
+			aux->prox->prev = aux->prev;
+			aux->prev->prox = aux->prox;		
+			free(aux);
+			return;
+		}
+		aux = aux->prox;
+	}
+	
+	if (l->fim->valor == valor) {
+		del = l->fim;
+		l->fim = l->fim->prev;
+		l->fim->prox = NULL;
+		free(del);
+		return;
+	}
+}
+
+void imprimeLista(tipoLista *l) {
+		tipoNo *aux;
+		aux = l->ini;
+		while (aux) {
+			printf ("%d ", aux->valor);
+			aux = aux->prox;
+		}
+}
+
+void imprimeInvLista(tipoLista *l) {
+		tipoNo *aux;
+		aux = l->fim;
+		while (aux) {
+			printf ("%d ", aux->valor);
+			aux = aux->prev;
+		}
+}
+
+void invertlista(tipoLista *l){
+	tipoNo *aux1,*aux2;
+
+	aux1=l->ini;
+	l->ini=l->fim;
+	l->fim=aux1;
+	aux1=l->ini;
+
+	while(aux1){
+		aux2=aux1->prox;
+		aux1->prox=aux1->prev;		
+		aux1->prev=aux2;
+		
+		aux1=aux1->prox;
+	}
+
+	return;
+}
+
+int main (void) {
+	tipoLista *lista;
+	int valor;
+	lista = criaLista();
+
+	while(1){
+		scanf("%d",&valor);
+		if(valor!=-1) insereLista(lista, valor);
+		else break;
+	}
+	
+	invertlista(lista);
+	imprimeLista(lista);
+	return 0;
+}

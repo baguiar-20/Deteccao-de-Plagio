@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prox;
+	struct tipoNo *ante;
+} tipoNo;
+
+typedef struct tipoLista {
+	struct tipoNo *prim;
+	struct tipoNo *fim;
+} tipoLista;
+
+
+
+void inicializa_lista(tipoLista *L);
+void insere_lista(tipoLista *L, int valor);
+void inverte_lista(tipoLista *L);
+void imprime(tipoLista *L);
+
+int main(){
+	tipoLista lista;
+	int i;
+	
+	inicializa_lista(&lista);
+	while(i!=-1){
+		scanf("%d", &i);
+		if(i>=1){insere_lista(&lista, i);}
+	}
+	
+	inverte_lista(&lista);	
+	imprime(&lista);
+	return 0;
+}
+
+void inicializa_lista(tipoLista *L){
+
+	L->prim = NULL;
+
+}
+
+void insere_lista(tipoLista *L, int valor){
+	tipoNo *aux;
+	
+	aux = (tipoNo *)malloc(sizeof(tipoNo));
+	aux->valor = valor;
+	if(L->prim == NULL){
+		aux->ante = NULL;
+		aux->prox = NULL;
+		L->prim = aux;
+		L->fim = aux;
+	}
+	else{
+		aux->ante = L->fim;
+		aux->prox = NULL;
+		L->fim->prox= aux;
+		L->fim= aux;
+	}
+	
+}
+
+void inverte_lista(tipoLista *L){
+	tipoNo *aux, *aux2, *aux3;
+	
+	if(L->prim){
+		aux = L->prim;
+		L->prim = L->fim;
+		L->fim = aux;
+	}
+	aux = L->prim;
+	while(aux){
+		aux2 = aux->ante;
+		aux->ante = aux->prox;
+		aux->prox = aux2;
+		aux = aux->prox;
+	
+	}
+
+	
+}
+
+void imprime(tipoLista *L){
+	tipoNo *aux;
+	
+	if(L->prim==NULL){
+		printf("Lista VAZIA");
+	}
+	else{
+		aux = L->prim;
+		while(aux){
+			printf("%d ", aux->valor);
+			aux = aux->prox;
+		}
+	
+	}
+}

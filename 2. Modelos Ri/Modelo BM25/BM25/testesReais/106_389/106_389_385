@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main (void) {
+	int vetor[100];
+	int valor, tamVet, i;
+
+	scanf ("%d", &tamVet);
+	for (i=0;i<tamVet;i++) 
+		scanf("%d", &vetor[i]);
+	scanf ("%d", &valor);
+	printf ("%d", posBin (valor, tamVet, vetor));
+
+	return 0;
+}
+
+int posBin (int v, int tam, int *p) {
+	int I=0, M, F=tam-1;
+ 
+	while (I <= F) {
+		M = (I+F)/2;
+		if (p[M] == v) 
+			return M;
+		else if (p[M]>v)
+			F = M-1;
+		else
+			I = M+1;
+	}
+	return -1;
+}

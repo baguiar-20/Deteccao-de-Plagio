@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+int main(){
+ int a[10],b[10],s[20];
+ int i=0,j=0,k=0,oco;
+ while(i<10){
+ scanf("%d",&a[i]);
+ i++;
+ }
+ while(j<10){
+ scanf("%d",&b[j]);
+ j++;
+ }
+ i=0;
+ j=0;
+ while(i<10){
+ s[k] = a[i];
+ i++;
+ k++;
+ }
+ while(j<10){
+ s[k] = b[j];
+ j++;
+ k++;
+ }
+ k=1;
+ while(k<20){
+             i=k;
+             oco=s[k];
+             while(oco<s[i-1]){
+                     s[i] = s[i-1];
+                     i--;
+                     }
+                     s[i]=oco;
+        k++;
+        }
+ k=0;
+ while(k<20){
+ printf("%d \n",s[k]);
+ k++;
+ }
+ return 0;
+ 
+}

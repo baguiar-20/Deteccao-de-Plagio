@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+void bBinariaIterativa(int vetor[], int valor, int inicio, int fim){
+	int meio;
+
+	while(inicio<=fim){
+		
+		meio= (inicio+fim)/2;
+		if(vetor[meio]==valor){
+			printf("%d \n", meio);
+			return;
+		}else if (vetor[meio]>valor){
+			fim= meio-1;
+		}else{
+			inicio=meio+1;
+		}
+	}
+}
+
+int main(){
+	
+	int n,i,valor;
+	scanf("%d", &n);
+	int vetor[n];
+
+	for(i=0; i<n;i++){
+	
+		scanf("%d", &vetor[i]);
+	}
+
+	scanf("%d", &valor);
+	
+	bBinariaIterativa(vetor,valor,0,n);
+	
+	return 0;
+}

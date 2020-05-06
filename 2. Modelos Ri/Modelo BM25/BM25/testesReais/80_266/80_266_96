@@ -1,0 +1,28 @@
+/*Escreva um programa em C que leia uma string do teclado e a apresente de maneira inversa.
+Por exemplo, caso a string digitada seja BELO HORIZONTE, seu programa deverá imprimir ETNOZIROH OLEB.*/
+
+
+#include <stdio.h>
+#define MAX 31
+
+int main()
+{
+	char str[MAX], copia[MAX];
+	int i, compstr;
+	
+	gets(str);
+	
+	/* Determina o comprimento da string atraves
+	de um for sem conteudo : ao final dele, compstr
+	contem a posicao do '\0' da string*/
+	for(compstr=0; str[compstr]; compstr++);
+
+	/* Inverte a string */
+	for(i=0; str[i]; i++){
+		copia[i] = str[compstr-i-1]; /* Linha em destaque */
+	}
+	copia[i] = '\0'; /* coloca um finalizador na string */
+	printf("%s\n", copia);
+	
+	return 0;
+} 

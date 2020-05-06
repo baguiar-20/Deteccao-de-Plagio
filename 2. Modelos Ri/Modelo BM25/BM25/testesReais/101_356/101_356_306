@@ -1,0 +1,31 @@
+//CARLOS PHILIPE
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void main(){
+	int i,tamanho,variaveis, operadores;
+	char expressao[20];
+	scanf("%s",expressao);
+	while(strcmp (expressao, "END") != 0){
+		variaveis = 0;
+		operadores = 0;
+		tamanho = strlen(expressao);
+			for(i=0; i<tamanho; i++)
+		{
+			if((expressao[i]!='(')&&(expressao[i]!=')')&&(expressao[i]!='[')&&(expressao[i]!=']'))
+				if((expressao[i]=='+')||(expressao[i]=='-')||(expressao[i]=='*')||(expressao[i]=='/'))
+				{
+					operadores++;
+				}
+				else{
+					variaveis++;
+				}	
+		}
+		if(variaveis ==(operadores+1)){
+			printf("SIM\n");
+		}else{
+			printf("NAO\n");
+		}	
+		scanf("%s",expressao);
+	}
+}

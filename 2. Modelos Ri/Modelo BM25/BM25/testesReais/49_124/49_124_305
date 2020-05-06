@@ -1,0 +1,28 @@
+#include<stdio.h>
+int mat[36][36],n;
+void setMatriz(int m[][36],int n,int aux){
+	int i, j;
+	for(i=aux;i<n-aux;i++){
+ 		   for(j=aux;j<n-aux;j++){
+ 			mat[i][j] = aux+1;	   
+  		   }
+	}
+}
+void getMatriz(int n){
+	int i, j;
+	for(i=0;i<n;i++){
+ 		   for(j=0;j<n;j++){
+ 			printf("%d ", mat[i][j]);	   
+  		   }
+		   printf("\n");
+	}
+
+}
+int main(){
+	int n,i;
+	scanf("%d",&n);
+	for(i=0;i<n*2;i++){	
+		setMatriz(mat,n*2,i);
+	}
+	getMatriz(n*2);
+}

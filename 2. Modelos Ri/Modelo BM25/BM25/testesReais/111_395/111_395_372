@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct elemento
+{
+	struct elemento *ant;
+	struct elemento *prox;
+	int valor;
+}Element;
+
+typedef struct lista
+{
+	Element *ini, *fim;
+	int tam;
+}List;
+
+List* createList();
+void addElement(List *lista, int valor);
+void invertList(List *lista);
+void printList(List *lista);
+
+int main()
+{
+	List *lista = createList();
+	int n;
+	scanf("%d", &n);
+	
+	while(n != -1)
+	{
+		addElement(lista, n);
+		scanf("%d", &n);
+	}
+	
+	//printList(lista);
+    invertList(lista);
+	printList(lista);
+	
+	return 0;
+}
+
+List* createList()
+{
+	List *lista = malloc(sizeof(List));
+	lista->ini = NULL;
+	lista->fim = NULL;
+	lista->tam = 0;
+
+	return lista;
+}
+
+void addElement(List *lista, int valor)
+{
+	Element *elemento = malloc(sizeof(Element));
+	elemento->valor = valor;
+	elemento->ant = NULL;
+	elemento->prox = NULL;
+	
+	if(lista->tam == 0)
+	{
+		lista->ini = elemento;
+		lista->fim = elemento;
+	}
+	else
+	{
+		lista->fim->prox = elemento;
+		elemento->ant = lista->fim;
+		lista->fim = elemento;
+	}
+	
+	lista->tam++;
+}
+
+void printList(List *lista)
+{
+	Element *caminho = lista->ini;
+	while(caminho != NULL)
+	{
+		printf("%d\n", caminho->valor);
+		caminho = caminho->prox;
+	}
+	
+	//printf("\n\n");
+}
+
+void invertList(List *lista)
+{
+	Element *first = lista->ini, *aux;
+	aux = first->ant;
+	first->ant = first->prox;
+	first->prox = aux;
+	
+	first = first->ant;
+	while(first != NULL)
+	{
+		aux = first->ant;
+		first->ant = first->prox;
+		first->prox = aux;
+	
+		first = first->ant;
+	}
+	
+	aux = lista->ini;
+	lista->ini = lista->fim;
+	lista->fim = aux;
+}
+

@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int calculo (int x){
+	int i,cont=0,aux=1;
+	for(i=1;i<=x;i++){
+		cont=cont + aux;
+		if (aux > 0)
+		aux = (aux + 2) *(-1);
+		else
+		aux = (aux - 2) * (-1);
+	}
+	return cont;
+}
+
+main (){
+	int N,valor;
+	scanf("%d",&N);
+	valor=calculo(N);
+	printf("%d",valor);
+}

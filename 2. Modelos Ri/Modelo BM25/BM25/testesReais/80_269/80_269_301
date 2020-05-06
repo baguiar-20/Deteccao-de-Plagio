@@ -1,0 +1,37 @@
+/*Escreva um programa em C que leia uma string e um caracter do teclado e imprima o número de vezes que esse caractere aparece na string.
+ Por exemplo, se a entrada for UNIVERSIDADE FEDERAL DO AMAZONAS e o caracter for E, seu programa deverá imprimir 4.*/
+ 
+#include<stdio.h>
+#include<string.h>
+#include <math.h>
+#include <stdlib.h>
+#define tam 100
+#define tam1 100
+
+
+
+int main() {
+    char a[tam];
+    char b;
+    int cont=0,i,j;
+    
+    gets(a);
+  scanf("%c", &b);
+    
+  
+    
+    for(i=0; i<tam; i++)
+	{
+         
+            
+             if (a[i]== b){
+                             cont++;
+                                }
+                                }
+                               
+                               
+   printf("%d",cont);
+   
+
+   
+}          

@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main()
+{
+	int i,j,n,p;
+	scanf("%d",&n);
+	
+		for(i=n+1;;i++){
+			p=0;
+			for(j=1;j<=i;j++){
+				if(i%j==0){
+					p=p+1;
+				}
+			}
+			if(p==2){
+				printf("%d",i);
+				break;
+			}
+		}
+	
+	return 0;
+}
+

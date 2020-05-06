@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+int valor;
+struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+struct tipoNo *ini;
+struct tipoNo *fim;
+} tipoFila;
+
+void enfila(tipoFila *P, int elemento){
+ 	tipoNo *aux;
+ 	
+	aux =(tipoNo *) malloc (sizeof(tipoNo));
+ 	aux->valor = elemento;
+ 	aux->prox=NULL;
+	 if (P->ini){
+	 	P->fim->prox=aux;
+ 	}else{
+ 		P->ini=aux;
+ 	}
+ 	P->fim=aux;
+}
+
+void imprime (tipoFila *P){
+	tipoNo *aux;
+	for(aux=P->ini;aux;aux=aux->prox){
+		printf("%d  ", aux->valor);
+	}
+}
+
+void ordFila (tipoFila *P){
+	tipoNo  *i, *j;
+	int aux;
+	
+	for(i=P->ini;i;i=i->prox){
+		for(j=i;j;j=j->prox){
+			if((j->valor)<(i->valor)){
+				   aux = i->valor;
+					i->valor = j->valor;
+					j->valor = aux;	
+			}
+		}
+	}
+
+}
+
+int main(){
+	int elemento;
+	tipoFila F;
+	F.ini=NULL;
+	F.fim=NULL;
+	
+	while(1){
+		scanf ("%d", &elemento);
+		if(elemento!=-1){
+			enfila(&F, elemento);
+			ordFila(&F);
+		}else break;
+			
+	}
+	imprime(&F);
+	
+	return 0;
+}

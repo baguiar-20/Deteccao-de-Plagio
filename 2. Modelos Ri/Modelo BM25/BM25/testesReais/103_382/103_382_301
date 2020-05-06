@@ -1,0 +1,160 @@
+/*Giselle Almeida */
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct TipoNo{
+	int quantidade;
+	char defeito[4];
+	char causa[4];
+	char componente[4];
+	struct TipoNo *prev;
+	struct TipoNo *prox;
+}TipoNo;
+
+typedef struct TipoLista{
+	struct TipoNo *ini;
+	struct TipoNo *fim;
+}TipoLista;
+
+TipoLista *criarlista();
+void inserir(TipoLista *l1, TipoLista *l2, char *defeito, char *causa, char *compon, int quant);
+void imprime(TipoLista *l, int valor);
+void sortlista (TipoLista *l);
+
+int main(){
+	
+	char defeito[4];
+	char causa[4];
+	char componente[4];
+	char texto[50];
+	char fim[]= "000"; 
+	int quantidade;
+	TipoLista *lista1, *lista2;
+	lista1=criarlista();
+	lista2=criarlista();
+	
+	scanf("%s", defeito);
+	
+	while((strcmp(defeito, fim)!=0)){ 
+		scanf("%s",causa);
+		scanf("%s",componente);
+		scanf("%i",&quantidade);
+		inserir(lista1, lista2, defeito, causa, componente, quantidade);
+		scanf("%s", defeito);
+	}
+	
+	sortlista(lista2);
+	imprime(lista2, 2);
+	free(lista1);
+	free(lista2);
+	
+	return 0;
+}
+
+TipoLista *criarlista(){
+	TipoLista *l;
+	l=(TipoLista *)malloc(sizeof(TipoLista));
+	l->ini=NULL;
+	l->fim=NULL;
+	return l;
+}
+
+void inserir(TipoLista *l1,TipoLista *l2, char *defeito, char *causa, char *compon, int quant){
+	TipoNo *novo, *novo2, *aux; int percorrer=0;
+	novo=(TipoNo *)malloc(sizeof(TipoNo));
+	novo2=(TipoNo *)malloc(sizeof(TipoNo));
+	strcpy(novo->defeito,defeito);
+	strcpy(novo->causa,causa);
+	strcpy(novo->componente, compon);
+	novo->quantidade=quant;
+	novo->prox=NULL;
+	novo->prev=NULL;
+	if(!l1->ini && !l1->fim){
+		l1->ini=novo;
+		l1->fim=novo;
+	}
+	else {
+		aux=l1->ini;		
+		novo->prev=l1->ini->prev;
+		novo->prox=l1->ini;
+		l1->ini->prev=novo;
+		l1->ini=novo;
+	}
+	
+	strcpy(novo2->defeito,defeito);
+	strcpy(novo2->causa,causa);
+	strcpy(novo2->componente, compon);
+	novo2->quantidade=quant;
+	novo2->prox=NULL;
+	novo2->prev=NULL;
+	if(!l2->ini && !l2->fim){
+		l2->ini=novo2;
+		l2->fim=novo2;
+	}
+	else {
+		aux=l2->ini; percorrer=0;		
+		while(aux){ 
+			if(strcmp(aux->defeito,defeito)==0){
+				aux->quantidade+=quant;
+				free(novo2);
+				percorrer=1;
+			}
+			aux=aux->prox;
+		}
+			if(percorrer==0){
+				novo2->prev=l2->ini->prev;
+				novo2->prox=l2->ini;
+				l2->ini->prev=novo2;
+				l2->ini=novo2;
+			} 
+	}
+}
+
+void sortlista (TipoLista *l) {
+	TipoNo *i, *j, *aux;
+	int pivo;
+	char defe[4], caus[4], compo[4];
+	i = l->ini->prox;
+	while (i) {
+		pivo = i->quantidade;
+		strcpy(defe,i->defeito);
+		strcpy(caus,i->causa);
+		strcpy(compo,i->componente);
+		j = i->prev;
+		while (j && pivo < j->quantidade) {
+			j->prox->quantidade = j->quantidade;
+			strcpy(j->prox->defeito, j->defeito);
+			strcpy(j->prox->causa, j->causa);
+			strcpy(j->prox->componente, j->componente);
+			j = j->prev;
+		}
+		if (j){
+			j->prox->quantidade = pivo;
+			strcpy(j->prox->defeito, defe);
+			strcpy(j->prox->causa, caus);
+			strcpy(j->prox->componente, compo);
+		}
+
+		else {
+			l->ini->quantidade = pivo;
+			strcpy(l->ini->defeito, defe);
+			strcpy(l->ini->causa, caus);
+			strcpy(l->ini->componente, compo);
+		}
+		i = i->prox;      
+	}
+}
+
+void imprime(TipoLista *l, int valor){
+	TipoNo *aux; int i=0;
+	aux=l->fim;
+	while(aux && i<valor){
+		printf("Defeito %d: %s (%d)\n",i+1,aux->defeito, aux->quantidade);
+		aux=aux->prev;
+		i++;
+	}
+}
+
+
+

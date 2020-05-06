@@ -1,0 +1,163 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+#define TAM 10000
+
+typedef struct tipono{
+	char cod_defeito[4];
+	char cod_causa[4];
+	char cod_componente[4];
+	int     quant; 	
+	struct  tipono *prox;
+}tipono;
+
+typedef struct tipodefeito{
+        char defeito[4];
+        int quant;
+}tipodefeito;
+
+tipono *criarlista(){
+	tipono *l;
+	l=(tipono *) malloc(sizeof(tipono));
+	strcpy(l->cod_defeito,"yyy"); 
+	strcpy(l->cod_causa,"yyy");
+	strcpy(l->cod_componente,"yyy");
+	l->quant=-1;
+	l->prox=NULL;
+	
+	return l;
+}
+
+void inserirlista(tipono  *l, char xdefeito[4], char xcausa[4], char xcomponente[4], int xquant){
+	tipono *novo, *aux;
+	novo = (tipono *) malloc (sizeof(tipono));
+	strcpy (novo->cod_defeito, xdefeito); 
+	strcpy (novo->cod_causa, xcausa);
+	strcpy (novo->cod_componente, xcomponente);
+	novo->quant=xquant;
+	
+	aux=l;
+	
+	while(aux->prox!=NULL){
+		aux=aux->prox;
+	}
+	
+	aux->prox=novo;
+	novo->prox=NULL;
+}
+
+void inserirlistaord(tipono  *l, char xdefeito[4], char xcausa[4], char xcomponente[4], int xquant){
+	tipono *novo, *aux, *aux2;
+	novo = (tipono *) malloc (sizeof(tipono));
+	strcpy (novo->cod_defeito, xdefeito); 
+	strcpy (novo->cod_causa, xcausa);
+	strcpy (novo->cod_componente, xcomponente);
+	novo->quant=xquant;
+	
+	aux=l;
+	
+	if (aux->prox==NULL){
+        aux->prox=novo;
+	    novo->prox=NULL;            
+    }     
+	else{               
+        while(aux->prox!=NULL){                                    
+              if (atoi(aux->prox->cod_defeito)>atoi(novo->cod_defeito))
+                  break;                                       
+              
+              aux=aux->prox;
+        }
+        novo->prox=aux->prox;
+        aux->prox=novo;
+	}
+}
+
+void imprimirlista(tipono *l){
+	tipono *aux;
+	aux=l->prox;
+	
+	while(aux!=NULL){
+		printf("%s %s %s %d\n", aux->cod_defeito, aux->cod_causa, aux->cod_componente, aux->quant);
+		
+		aux=aux->prox;
+	}
+}
+
+int main(void){
+     
+	tipono *l, *aux;
+	
+	int arm_quant=0, troca_quant;
+	tipodefeito defeitos[TAM];
+	char aux_def[4], troca_def[4];
+	
+	char cod_defeito[4];
+	char cod_causa[4];
+	char cod_componente[4];
+	
+	int  quant;
+    
+    int i=0, j, k; 	
+	
+	l=criarlista();
+	
+	scanf("%s", cod_defeito);
+	scanf("%s", cod_causa);
+	scanf("%s", cod_componente);
+	scanf("%d", &quant);
+	
+	while(strcmp(cod_defeito,"000 ")==1){
+         inserirlistaord(l, cod_defeito, cod_causa, cod_componente, quant);                        
+                            
+         scanf("%s", cod_defeito);
+ 	     scanf("%s", cod_causa);
+	     scanf("%s", cod_componente);
+	     scanf("%d", &quant);                        
+    }
+    
+    aux=l->prox;
+    
+    do{
+         strcpy(aux_def,aux->cod_defeito);
+         arm_quant=aux->quant+arm_quant;
+         
+         strcpy(defeitos[i].defeito,aux_def);
+         aux=aux->prox;
+         
+         while((aux!=NULL) && strcmp(aux_def,aux->cod_defeito)==0){
+               arm_quant=aux->quant+arm_quant;
+               aux=aux->prox;
+         }
+         
+         defeitos[i].quant=arm_quant;
+         
+         arm_quant=0;
+         i++;
+    }while(aux!=NULL);
+
+    for (j=0; j<(i-1); j++){
+         for (k=(j+1); k<i; k++){
+             if (defeitos[j].quant<defeitos[k].quant)
+             {
+                troca_quant=defeitos[j].quant;
+                strcpy(troca_def,defeitos[j].defeito);    
+                
+                defeitos[j].quant=defeitos[k].quant;
+                strcpy(defeitos[j].defeito, defeitos[k].defeito);
+                
+                defeitos[k].quant=troca_quant;
+                strcpy(defeitos[k].defeito, troca_def);                                
+             }
+         }    
+    }
+	
+	printf("Defeito 1: %s (%d)\n", defeitos[0].defeito, defeitos[0].quant);
+	printf("Defeito 2: %s (%d)\n", defeitos[1].defeito, defeitos[1].quant);
+    //inserirlistaord(l, "004", "025", "145", 25);
+	//inserirlistaord(l, "003", "069", "185", 10);
+	//inserirlistaord(l, "005", "056", "286", 76);
+	//imprimirlista(l);
+ 
+    //system("pause");
+}

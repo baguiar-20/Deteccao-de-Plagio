@@ -1,0 +1,133 @@
+# include <stdio.h>
+# include <stdlib.h>
+#include <string.h>
+
+typedef struct tipoNo{
+	char simb;
+    struct tipoNo *prox;
+}tipoNo;
+
+void Transfere(tipoNo **p, tipoNo **q, tipoNo *aux);
+void AlocaChar(tipoNo **ppPilha, tipoNo *aux, char simb);
+void Polonesa(char *carac, tipoNo **p, tipoNo **q);
+void imprimir(tipoNo *topo);
+
+int main(){
+
+	char carac[200];
+	
+	scanf("%s", carac);
+	while(strcmp(carac, "END")){
+		tipoNo *p = NULL;
+		tipoNo *q = NULL;
+		Polonesa(carac, &p, &q);
+		imprimir(p);
+		printf("\n");
+		scanf("%s", carac);
+	}
+}
+
+void Transfere(tipoNo **p, tipoNo **q, tipoNo *aux){
+    
+	aux = (*q) -> prox;
+    (*q) -> prox = *p;
+    *p = *q;
+    *q = aux;
+}
+ 
+void AlocaChar(tipoNo **ppPilha, tipoNo *aux, char simb){
+    
+	aux = (tipoNo *) malloc(sizeof(tipoNo));
+    aux -> simb = simb;  
+    aux -> prox = *ppPilha;
+    *ppPilha = aux;
+}
+ 
+void Polonesa( char *carac, tipoNo **p, tipoNo **q ){
+   
+	tipoNo *aux;
+	int i;
+    
+	for(i=0; i<strlen(carac); i++){
+		
+		switch( carac[i] ){
+			case '+':
+				
+				while((*q) && ((*q) -> simb != '(' )){
+					Transfere( &(*p), &(*q), aux);
+				}
+				AlocaChar( &(*q), aux, carac[i] );
+				break;
+				
+			case '-':
+ 
+				while( (*q) && ( (*q) -> simb != '(') ){
+					
+					Transfere( &(*p), &(*q), aux);
+				}
+ 
+				AlocaChar( &(*q), aux, carac[i]);
+				break;
+ 
+			case '*':
+			
+				while( (*q) && ( (*q) -> simb != '+' && (*q) -> simb != '-' && (*q) -> simb != '(' ) ){        
+					
+					Transfere( &(*p), &(*q), aux );
+				}
+
+				AlocaChar( &(*q), aux, carac[i] );
+				break;
+				
+			case '/':
+ 
+				while( (*q) && ( (*q) -> simb != '+' && (*q) -> simb != '-' && (*q) -> simb != '(' ) ){        
+					
+					Transfere( &(*p), &(*q), aux );
+				}
+				
+				AlocaChar( &(*q), aux, carac[i] );
+				break;
+ 
+			case ')':
+			
+				while( (*q) && ( (*q) -> simb != '(' ) ){
+					
+					Transfere( &(*p), &(*q), aux );
+				}
+
+				if( (*q) && (*q) -> simb == '(' ){
+				
+					aux = *q;
+					*q = (*q) -> prox;
+					free( aux );
+				}
+				break;
+ 
+			case '(':
+			
+				AlocaChar( &(*q), aux, carac[i] );
+				break;
+ 
+			default:
+				
+				AlocaChar( &(*p), aux, carac[i] );
+				break;
+		}
+	}
+ 
+    while(*q){
+       
+		AlocaChar( &(*q), aux, carac[i] );
+    }
+	
+}
+
+void imprimir( tipoNo *topo ){
+   
+	if(topo){
+	
+		imprimir( topo -> prox );
+		printf( "%c", topo -> simb );
+	}  
+}

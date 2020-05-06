@@ -1,0 +1,24 @@
+#include <stdio.h>
+#define TAM_MAX 100
+int main(){
+	int n=0,m=0,i=0,j=0;
+	scanf("%d %d",&n,&m);
+	
+	if (n<= TAM_MAX && m<= TAM_MAX){
+	int matrix [n][m],valor_atual=0;
+	int e=0,r=0;
+	int a=TAM_MAX;
+	for (i=0;i<n;i++){
+	for (j=0;j<m;j++){
+	scanf("%d",&valor_atual);
+	matrix[i][j]= valor_atual;
+	if (matrix[i][j]<a)
+		a=matrix[i][j];
+		e=i;
+		r=j;
+	}	
+	}
+	printf("%d %d %d\n",e,r-1,a);
+	}
+	return 0;
+}

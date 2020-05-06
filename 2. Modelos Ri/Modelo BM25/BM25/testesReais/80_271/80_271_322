@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <math.h>
+
+int main (void) {
+
+
+		struct Ponto {
+			int x1, x2;
+			int y1, y2;
+		}Ponto;
+	
+		int disx, disy;
+		float dist;
+
+			int x1, x2;
+			int y1, y2;
+
+		scanf ("%d", &Ponto.x1);
+		scanf ("%d", &Ponto.x2);
+		scanf ("%d", &Ponto.y1);
+		scanf ("%d", &Ponto.y2);
+
+//		scanf ("%d", &x1);
+//		scanf ("%d", &x2);
+//		scanf ("%d", &y1);
+//		scanf ("%d", &y2);
+
+
+		disx=(Ponto.x2-Ponto.x1);
+		disy=(Ponto.y2-Ponto.y1);
+
+//		disx=(x2-x1);
+//		disy=(y2-y1);
+
+
+
+		
+		dist=pow(((disx*disx)+(disy*disy)), 1/2);		
+
+
+		printf ("%.1f\n", dist);	
+
+
+}

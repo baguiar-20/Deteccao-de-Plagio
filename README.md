@@ -6,4 +6,4 @@
 
 -> Indexação: 
 
--> Similiaridade:
+-> Similiaridade: Utilizaçao de modelos de RI, modelo vetorial e modelo BM25

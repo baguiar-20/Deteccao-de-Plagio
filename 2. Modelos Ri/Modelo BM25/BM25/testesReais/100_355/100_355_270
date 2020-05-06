@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h> 
+
+int main(){   
+  char *posf,inf[30], S[4]="END"; 
+   char *pi; int t; // pilha
+   int n, i, j,flag;
+   
+	scanf("%s",inf);
+	n = strlen( inf);
+	flag = strcmp(inf, S); 
+   while (flag){
+   posf = malloc ( n * sizeof (char));
+   pi = malloc ( n * sizeof (char));
+   t = 0;
+   pi[t++] = inf[0];                          // empilha '('
+   for (j = 0, i = 1; /*X*/ inf[i] != '\0'; ++i) {
+      // a pilha está em pi[0..t-1]
+      switch (inf[i]) {
+         char x;
+         case '(': pi[t++] = inf[i];          // empilha
+                   break;
+         case ')': while (1) {                // desempilha
+                      x = pi[--t];
+                      if (x == '(') break;
+                      posf[j++] = x;
+                   }
+                   break;
+         case '+': 
+         case '-': while (1) {
+                      x = pi[t-1];
+                      if (x == '(') break;
+                      --t;                    // desempilha
+                      posf[j++] = x;
+                   }
+                   pi[t++] = inf[i];          // empilha
+                   break;
+         case '*':
+         case '/': while (1) {
+                      x = pi[t-1];
+                      if (x == '(' || x == '+' || x == '-') 
+                         break;
+                      --t;
+                      posf[j++] = x;
+                   }
+                   pi[t++] = inf[i];
+                   break;
+         default:  posf[j++] = inf[i];
+      }
+   }
+   free( pi);
+   posf[j] = '\0';
+	printf("%s\n",posf);
+   	scanf("%s",inf);
+	n = strlen( inf);
+	flag = strcmp(inf, S); 
+	}
+	return 0;
+}

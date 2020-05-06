@@ -1,0 +1,35 @@
+/*
+Um determinado arquivo binário é composto por diversos inteiros. Escreva um programa que leia estes números e os imprima separados por nova linha até que o final do arquivo seja atingido. Imprima uma nova linha ao final também.
+
+Exemplo de Saída:
+
+20
+61
+37
+87
+93
+Dicas:
+
+A função fread retorna a quantidade de bytes lidos. Se for zero ou menor do que a quantidade solicitada, o final do arquivo foi atingido. Ao contrário do fgetc, o fread nunca retorna EOF.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+
+  FILE *fp = fopen(argv[1], "r");
+
+  int c;
+
+  while(fread(&c, sizeof(int), 1, fp)!=0){
+
+    printf("%d\n", c);
+
+  }
+
+  fclose(fp);
+
+  return 0;
+
+}

@@ -1,0 +1,59 @@
+/*
+Uma matriz Nx4 contém as 4 notas parciais de N alunos de uma turma. Elabore um programa que leia da entrada padrão uma lista de notas (notas separadas por espaço e alunos separados por linha, máximo de 100 alunos) até uma linha que contém apenas o caractere 'F'. Em seguida, seu programa deverá imprimir a média e o número do melhor aluno. Use três casas de precisão e imprima uma linha nova ao final.
+
+Exemplo de Entrada (em negrito) e Saída
+
+2.3 9.8 6.0 2.4
+3.5 8.2 1.8 5.5
+9.7 8.9 9.5 9.1
+F
+9.300 do aluno 3
+Dicas:
+
+Para ler uma lista de vários números separados por linha:
+
+float vetor[100][4];
+float n1, n2, n3, n4;
+int i = 0;
+while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4) {
+    vetor[i][0] = n1;
+    vetor[i][1] = n2;
+    vetor[i][2] = n3;
+    vetor[i][3] = n4;
+    i++;
+}
+getchar();
+*/
+
+#include <stdio.h>
+#include <string.h>
+
+int main (int argc, char *argv[]){
+
+  float n1, n2, n3, n4, mat[100][4], maior=0, media;
+  int i=0, l, j;
+
+  
+  while(scanf("%f %f %f %f", &n1, &n2, &n3, &n4)==4){
+    mat[i][0]=n1;
+    mat[i][1]=n2;
+    mat[i][2]=n3;
+    mat[i][3]=n4;
+    i++;
+  }
+
+
+  for(j=i-1; j>=0; j--){
+    media=(mat[j][0]+mat[j][1]+mat[j][2]+mat[j][3])/4.000;
+    if (media>maior){
+      maior=media;
+      l=j;
+    }
+  }
+
+  printf("%.3f do aluno %d\n", maior, l+1);
+
+
+  return 0;
+
+}

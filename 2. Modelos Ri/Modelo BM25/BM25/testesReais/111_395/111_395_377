@@ -1,0 +1,146 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct tipoNo {
+	int valor;
+	struct tipoNo *prev;
+	struct tipoNo *prox;	
+} tipoNo;
+
+typedef struct tipoLista {
+	struct tipoNo *ini;
+	struct tipoNo *fim;	
+} tipoLista;
+
+tipoLista *criaLista();
+void insereLista(tipoLista *l, int valor);
+void imprimeLista(tipoLista *l);
+void imprimeInvLista(tipoLista *l);
+void removeLista (tipoLista *l, int valor);
+void inverteLista(tipoLista *l);
+
+int main(){
+	tipoLista* lista;
+	int i;
+
+	lista = criaLista();
+
+	while(1){
+
+	scanf("%d",&i);
+	if(i>=0){
+		insereLista(lista,i);	
+		} else break;
+	}
+	
+	inverteLista(lista);
+	imprimeLista(lista);
+return 0;
+}
+
+tipoLista *criaLista() {
+	tipoLista *l;
+	l = (tipoLista *) malloc (sizeof(tipoLista));
+	l->ini = NULL;
+	l->fim = NULL;	
+	return l;
+}
+
+void insereLista(tipoLista *l, int valor) {
+
+	tipoNo *no;
+	no = (tipoNo *) malloc (sizeof(tipoNo));
+	
+	no->valor = valor;
+	no->prev = NULL;
+	no->prox = NULL;	
+	
+	if (!l->ini) {
+		l->ini = no;
+		l->fim = no;		
+	} else {	
+		l->fim->prox = no;
+		no->prev = l->fim;
+		l->fim = no;
+	}
+}
+
+void removeLista (tipoLista *l, int valor) {
+	
+	tipoNo *aux, *del;
+	
+	if (!l->ini) {
+		return;
+	}
+	
+	if (l->ini == l->fim) {
+		if (l->ini->valor == valor) {
+			del = l->ini;
+			l->ini = NULL;
+			l->fim = NULL;			
+			free(del);
+		}
+		return;
+	}	
+	
+	if (l->ini->valor == valor) {
+		del = l->ini;
+		l->ini = l->ini->prox;
+		l->ini->prev = NULL;
+		free(del);
+		return;
+	}
+	
+	aux = l->ini->prox;
+	
+	while (aux && aux->prox) {
+		if (aux->valor == valor) {
+			aux->prox->prev = aux->prev;
+			aux->prev->prox = aux->prox;		
+			free(aux);
+			return;
+		}
+		aux = aux->prox;
+	}
+	
+	if (l->fim->valor == valor) {
+		del = l->fim;
+		l->fim = l->fim->prev;
+		l->fim->prox = NULL;
+		free(del);
+		return;
+	}
+}
+
+void imprimeLista(tipoLista *l) {
+		tipoNo *aux;
+		aux = l->ini;
+
+		while (aux) {
+			printf ("%d ", aux->valor);
+			aux = aux->prox;
+		}
+		printf ("\n");
+}
+
+void inverteLista(tipoLista *l){
+	tipoNo *aux,*aux2;
+	
+	if(l->ini == l->fim) return;
+		else {
+		 	aux = l->ini;
+			aux2 = l->ini->prox;
+
+			while(aux2){
+			aux->prox = aux->prev;
+			aux->prev = aux2;
+			aux = aux2;
+			aux2 = aux2->prox;
+           }
+			aux->prox = aux->prev;
+			aux->prev = aux2;			
+			aux = l->ini;
+			l->ini = l->fim;
+			l->fim = aux;
+			}
+}

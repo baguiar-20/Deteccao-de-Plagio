@@ -1,0 +1,21 @@
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+
+int main(){
+	char *str = malloc(20*sizeof(char));
+	char car;
+	int i, tam, count=0;
+	scanf("%[^\n] %c", str, &car);
+	tam = strlen(str);
+	for(i=0;i <= tam-1; i++){
+		if(str[i] == car){
+			count++;
+		}
+	}
+	
+	printf("%d", count);
+	
+	return 0;
+}
+

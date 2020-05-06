@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int buscaSequencialRecursiva(int *vetor, int t, int chave,int i){
+
+ if(i < t){ 		
+  if(vetor[i] == chave){
+   return i;		
+  }else{
+    i = i + 1;
+	return buscaSequencialRecursiva(vetor,t,chave,i);
+   }
+  }
+ return 0;
+}
+
+
+int main(){
+    
+ int t;
+ scanf("%d",&t);
+    
+ int vetor[t];
+ 
+ int i;
+ for(i=0;i<t;i++){
+  scanf("%d",&vetor[i]);    
+ }
+ 
+ int chave;
+ scanf("%d",&chave);
+ 
+ int x = (buscaSequencialRecursiva(vetor,t,chave,0));
+ 
+ if(x >= 0){
+  printf("%d",x);
+ }
+ 
+}

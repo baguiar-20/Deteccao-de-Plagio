@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int operacao (int num)
+{ int i, soma = 0;
+
+  for (i = 1; i <= num/2; i++)
+  {
+    if (num%i == 0)
+    soma += i;  
+  }
+
+ return soma;
+}
+
+main()
+{ int n1, n2;
+
+  //printf ("\n Digite dois numeros: \n");
+  scanf ("%d", &n1);
+  scanf ("%d", &n2);
+
+  if (operacao(n1) == n2 && operacao(n2) == n1)
+    printf ("\n amigos \n");
+  else
+    printf ("\n nao Amigos \n");	  
+
+}

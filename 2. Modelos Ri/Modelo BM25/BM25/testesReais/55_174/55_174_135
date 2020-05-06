@@ -1,0 +1,35 @@
+/*
+Um inteiro positivo x é dito uma potência prima se existem dois inteiros positivos p e k, com p primo, tais que x = p^k (p elevado a k). Escreva um programa que receba um inteiro e imprima "potencia prima" caso o número seja uma potência prima. Caso contrário, imprima "nao potencia prima". Por exemplo, 16 = 2^4 é uma potência prima, mas 36 = 6^2 não é.
+Dicas:
+Verifique que "potencia prima" e "nao potencia prima" se escreve sem til e sem acentos.  
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+main()
+{
+	int num;
+
+	scanf("%d", &num);
+	if (VerificaPrimo(num)) printf("potencia prima\n");
+	else printf("nao potencia prima\n");
+}
+
+int VerificaPrimo(int a)
+{
+	int i, acc = 0, p = 0;
+	
+	for(i = 2; i <= a; i++)
+	{
+		while(!(a % i))
+		{
+			a = a / i;
+			acc++;
+		}
+		if (acc > 0) p++;
+		acc = 0;
+	}
+	if (p > 1) return 0;
+	else return 1;
+}

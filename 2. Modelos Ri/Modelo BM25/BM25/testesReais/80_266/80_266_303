@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void){
+	
+	char p[50];
+	int t;
+	
+	gets(p);
+	
+	t=strlen(p);
+	
+	while(t>-1){
+		
+		printf("%c",p[t]);
+		
+		t--;
+	}
+	
+	return 0;
+	
+}

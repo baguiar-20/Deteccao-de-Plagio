@@ -1,0 +1,43 @@
+#include<stdio.h>
+int main(){
+
+    int m[100][100];
+    int v, b, c, a, end;
+
+    scanf("%d",&v);
+
+    v =v*2;
+
+    end = v / 2;
+
+    end++;
+
+    for(a=0;a<end;a++)
+    {
+		        for(b=0+a;b<v-a;b++)
+
+{
+
+	            for(c=0+a;c<v-a;c++)
+            {
+
+		        m[b][c] = 1+a ;
+            }
+
+        }
+    }
+
+	 for(b=0;b<v;b++)
+    {
+
+	     for(c=0;c<v;c++)
+        {
+
+	         printf("%d ",m[b][c]);
+        }
+
+	     printf("\n");
+    }
+
+    getchar();
+}

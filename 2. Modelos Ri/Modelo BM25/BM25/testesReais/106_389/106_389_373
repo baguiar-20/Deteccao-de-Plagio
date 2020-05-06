@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include<stdlib.h>
+int buscaBinaria(int * v, int tam, int key){
+	int inicio = 0;
+	int fim = tam - 1;
+	int meio;	
+	while(inicio <= fim){
+		meio = (inicio+fim)/2;
+		if(key == v[meio]){
+			return meio;
+		}else if(key > v[meio]){
+			inicio = meio + 1;		
+		}else if (key < v[meio]){
+			fim = meio - 1;		
+		}	
+
+	}
+	return -1;
+}
+
+int main(){
+
+	int tam, chave,i;
+
+	scanf("%d",&tam);
+
+	int * v = (int*) malloc(tam * sizeof(int));	
+
+	for (i = 0; i < tam ; i++){
+		scanf("%d",&v[i]);
+	}	
+
+	scanf("%d",&chave);
+
+	int resultado = buscaBinaria(v,tam,chave); 	
+
+	if(resultado >= 0){
+		printf("%d",resultado);
+	}else{
+		printf("Valor não encontrado...");
+	}
+	free(v);
+	return 0;
+}

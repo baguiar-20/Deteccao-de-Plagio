@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+  
+int main(){
+ int cont = 1, num, fat = 1;
+
+ scanf("%d",&num);
+ while (cont <= num){
+    fat *= cont;
+    cont++;
+ }
+ printf("%d",fat);
+
+return 0;
+}

@@ -1,0 +1,21 @@
+#include<stdio.h>
+
+int main() {
+	int vet[1000], numero, dimensao, con;
+    con = 0;
+	scanf ("%d", &dimensao);
+	for (int i==0; i<dimensao; i++) {
+		scanf ("%d", &vet[i]);
+	}
+	scanf ("%d", &numero);
+	for (int i==0; i<dimensao; i++) {
+		if (vet[i]==numero) {
+			con++;
+		}
+	}
+	if (con==0) 
+		printf ("NAO");
+	else 
+		printf ("SIM");	
+	return 0;
+}

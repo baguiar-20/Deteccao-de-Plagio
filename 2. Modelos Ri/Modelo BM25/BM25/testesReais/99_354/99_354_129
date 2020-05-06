@@ -1,0 +1,134 @@
+/*				LABORATORIO DE PROGRAMAÇÃO B -
+		- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula: 21351819 -
+				Exercício - Atividade de 07 de janeiro 2014
+	  #######################################################################################################
+		   Neste problema queremos decidir se uma dada sequência de parênteses e colchetes está BEM FORMADA, ou seja, parênteses e colchetes são fechados na ordem inversa àquela em que foram abertos.
+
+Suponha que a sequência de parênteses e colchetes está armazenada em uma cadeia de caracteres (ou string). Desconsidere (jogue fora) qualquer outro caractere que não seja abre ou fecha parênteses e abre e fecha colchetes. Não esqueça que em C o último caractere da string é sempre o caractere nulo ('\0').
+
+Faça um programa que leia um número indeterminado de cadeias de caracteres e, para cada cadeia, retorne SIM se a cadeia estiver BEM FORMADA, ou NAO caso contrário. A última cadeia será necessariamente "END". Use PILHAS alocadas dinamicamente.
+Dicas:
+		Entrada:
+		(()[()])
+		[(A)(B)]
+		([)]
+		END
+		Saída:
+		SIM
+		SIM
+		NAO
+
+	 #######################################################################################################	
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define TAMANHO 100
+
+typedef struct tipono{
+	char valor;
+	struct tipono *prox;
+}tipono;
+
+typedef struct tipopliha{
+	struct tipono *topo;
+}tipopilha;
+
+tipopilha *criarpilha();
+tipono *empilha(tipopilha *pilha, char text);
+int vazia(tipopilha *p);
+void desempilha(tipopilha *p);
+void imprime(tipopilha *p);
+int compara(tipopilha *p, char letr);
+
+char main(){
+	tipopilha *pilha;
+	char tend[]= "END",texto[TAMANHO] ;
+	int i, tam, valor, flagg;
+	scanf("%s", texto);
+	while(strcmp(texto, tend)!=0){
+		pilha=criarpilha();
+		tam=strlen(texto);
+		flagg=0;
+	for(i=0; i<tam;i++){
+			if ((texto[i]=='[')||(texto[i]==']')||(texto[i]=='(')||(texto[i]==')')){
+				flagg=1;
+				if(compara(pilha, texto[i])){ desempilha(pilha); }
+				else pilha->topo=empilha(pilha, texto[i]);
+			}	
+		} 
+		if(vazia(pilha) && flagg==1) printf("SIM\n");
+		else if(flagg==1) printf("NAO\n");
+		free(pilha);
+		scanf("%s", texto);
+	}
+}
+
+tipopilha *criarpilha(){
+	tipopilha *p;
+	p=(tipopilha *)malloc(sizeof(tipopilha));
+	p->topo=NULL;
+	return p;
+}
+
+int vazia(tipopilha *p){
+	if (p->topo) return 0;
+	return 1;
+}
+
+tipono *empilha(tipopilha *p, char caracter){
+	tipono *no;
+	no=(tipono *)malloc(sizeof(tipono));
+	no->valor=caracter;
+	no->prox=p->topo;
+	return no;
+}
+
+void desempilha(tipopilha *p){
+	tipono *aux;
+	if (vazia(p)) return;
+	aux=p->topo;
+	p->topo=aux->prox;
+	free(aux);
+}
+
+int compara(tipopilha *p, char letr){
+	tipono *aux;
+	if (vazia(p)) return 0;
+	aux=p->topo;
+	if((aux->valor=='(' && letr==')')) return 1;
+	if((aux->valor=='[' && letr==']')) return 1;
+	return 0; 
+}
+
+void imprime(tipopilha *p){
+	tipono *aux;
+	aux=p->topo;
+	while(aux){
+		printf("%c", aux->valor);
+		aux=aux->prox;
+	} 
+	printf("\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

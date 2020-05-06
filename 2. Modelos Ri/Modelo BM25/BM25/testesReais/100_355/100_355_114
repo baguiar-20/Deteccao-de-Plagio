@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct tipoNo{
+	char valor;
+    struct tipoNo *prox;
+}tipoNo;
+
+void Troque(tipoNo **p, tipoNo **q, tipoNo *aux){
+	aux = (*q) -> prox;
+    (*q) -> prox = *p;
+    *p = *q;
+    *q = aux;
+}
+void imprimir( tipoNo *topo ){
+	if(topo){
+		imprimir( topo -> prox );
+		printf("%c", topo -> valor );
+	}
+}
+
+void AlocaMemoria(tipoNo **pilha, tipoNo *aux, char valor){
+	aux = (tipoNo *) malloc(sizeof(tipoNo));
+    aux -> valor = valor;
+    aux -> prox = *pilha;
+    *pilha = aux;
+}
+
+int main(){
+	char str[100];
+	scanf("%s", str);
+	do{
+		int i;
+		tipoNo *p = NULL;
+		tipoNo *q = NULL;
+        tipoNo *aux;
+
+        for(i=0; i<strlen(str); i++){
+            switch( str[i] ){
+                case '+':
+                case '-':
+                    while(q && (q -> valor != '(') ){
+                        Troque( &p, &q, aux);
+                    }
+                    AlocaMemoria( &q, aux, str[i]);
+                    break;
+                case '*':
+                case '/':
+                    while( q && ( q-> valor != '+' && q-> valor != '-' && q-> valor != '(' ) ){
+                        Troque( &p, &q, aux );
+                    }
+                    AlocaMemoria( &q, aux, str[i] );
+                    break;
+                case ')':
+                    while( q && ( q->valor != '(' ) ){
+                        Troque( &p, &q, aux );
+                    }
+                    if( q && q-> valor == '(' ){
+                        aux = q;
+                        q = q-> prox;
+                        free( aux );
+                    }
+                    break;
+                case '(':
+                    AlocaMemoria( &q, aux, str[i] );
+                    break;
+                default:
+                    AlocaMemoria( &p, aux, str[i] );
+                    break;
+            }
+        }
+
+        while(q){
+            AlocaMemoria( &q, aux, str[i] );
+        }
+		imprimir(p);
+		printf("\n");
+		scanf("%s", str);
+	}while(strcmp(str, "END"));
+}

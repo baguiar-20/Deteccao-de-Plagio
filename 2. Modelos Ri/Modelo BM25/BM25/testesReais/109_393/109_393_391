@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
+
+typedef struct tipoNo {
+ int valor;
+ struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoFila {
+ struct tipoNo *ini;
+ struct tipoNo *fim;
+} tipoFila;
+
+void iniciaFila(tipoFila* F){
+ F->ini = NULL;   
+ F->fim = NULL;   
+}
+
+
+void ordenaFila(tipoFila* F){
+ 
+  tipoNo *i, *j;
+  int tmp;
+  
+  i = F->fim;
+
+  while(i->prox){
+   j = F->fim;
+   while(j->prox){
+    if(j->prox->valor > j->valor){
+     tmp = j->prox->valor;
+     j->prox->valor = j->valor;
+     j->valor = tmp;                 
+    }        
+   j = j->prox;        
+   }            
+   i = i->prox;              
+  }
+
+     
+}
+
+void adicionaFila(tipoFila* F, int valor){
+ 
+ tipoNo *aux = (tipoNo*)malloc(sizeof(tipoNo));
+ 
+ aux->valor = valor;
+ aux->prox = F->fim;
+ F->fim = aux;
+ 
+ if(F->ini == NULL){
+  F->ini = aux;           
+ }
+}
+
+void removeFila(tipoFila* F){
+ 
+  if(F->ini){
+   if(F->ini == F->fim){
+    free(F->ini);
+    F->ini = NULL;
+    F->fim = NULL;
+   }else{    
+     tipoNo *aux;       
+     aux = F->fim;
+     while(aux->prox->prox){           
+      aux = aux->prox;                 
+     }
+     free(F->ini);
+     F->ini = aux;
+     F->ini->prox = NULL; 
+    }
+  }        
+}
+
+void finalizaFila(tipoFila F){
+ 
+ tipoNo* aux;
+ 
+ while(F.ini){
+  aux = F.fim;
+  while(aux->prox != F.ini && aux != F.ini){           
+   aux = aux->prox; 
+  }
+  printf("%d ",F.ini->valor);         
+  if(F.ini == F.fim)
+   F.ini = NULL;         
+  else
+   F.ini = aux;
+ }
+     
+}
+
+
+int main(){
+     
+ tipoFila F1;
+ iniciaFila(&F1); 
+      
+ int valor = 0;    
+     
+ while(valor != -1){
+          
+  scanf("%d",&valor);        
+             
+  if(valor == -1){
+   ordenaFila(&F1);
+   finalizaFila(F1);
+
+   exit(1);
+  }else
+  if(valor == 0){
+   removeFila(&F1);         
+  }else
+  if(valor > 0){
+   adicionaFila(&F1,valor);          
+  }                   
+ }
+ 
+}

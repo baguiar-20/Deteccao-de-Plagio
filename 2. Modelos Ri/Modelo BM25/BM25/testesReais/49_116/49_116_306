@@ -1,0 +1,46 @@
+#include<stdio.h>
+void main()
+{
+    int va[100],vb[100], conta,i,contb,a,b,acma,acmb;
+
+    scanf("%d",&a);
+    scanf("%d",&b);
+    conta=0;
+    contb=0;
+    acma=0;
+    acmb=0;
+    for(i=1;i<a;i++)
+    {
+        if(0==a%i)
+        {
+            va[conta]=i;
+            conta++;
+        }
+    }
+    for(i=0;i<conta;i++)
+    {
+       acma=acma+va[i];
+    }
+
+    for(i=1;i<b;i++)
+    {
+        if(0==b%i)
+        {
+            vb[contb]=i;
+            contb++;
+        }
+    }
+    for(i=0;i<contb;i++)
+    {
+       acmb=acmb+vb[i];
+    }
+    if(acma==b && acmb==a)
+    {
+            printf("amigos");
+    }
+    else
+    {
+            printf("nao amigos");
+    }
+
+}

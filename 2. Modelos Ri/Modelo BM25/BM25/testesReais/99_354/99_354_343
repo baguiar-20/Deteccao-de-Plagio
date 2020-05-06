@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
+
+#define MAX_SEQUENCE_SIZE 1000
+
+int checkSequence (char sequence[])
+
+{
+
+char *stack; int t;
+
+int  n,i;
+
+n = strlen (sequence);
+
+stack = malloc (n * sizeof (char));
+
+t = 0;
+
+for (i = 0; sequence[i] != '\0'; ++i) {
+
+
+switch (sequence[i]) {
+
+case ')': if (t != 0 && stack[t-1] == '(')
+
+--t;
+
+else {
+free(stack);
+return 0;}
+
+break;
+
+case ']': if (t != 0 && stack[t-1] == '[')
+
+--t;
+
+else {
+free(stack);
+return 0;
+}
+
+break;
+
+default: 
+if(sequence[i]=='('||sequence[i]==')'||sequence[i]=='['||sequence[i]==']'){
+stack[t++] = sequence[i];
+}
+}
+
+}
+
+free(stack);
+return t == 0;
+
+}
+
+
+
+
+
+int main(){
+
+	char end[] = "END";
+	char sequence[MAX_SEQUENCE_SIZE];
+
+
+
+	while(strcmp(sequence,end)!=0){
+
+	scanf("%s",sequence);
+
+	if(strcmp(sequence,end)==0){
+		break;		
+	}
+	
+	if(checkSequence(sequence)==1){
+		printf("SIM\n");		
+	}else{
+		printf("NAO\n");		
+
+		}
+
+
+
+   }
+
+return 0;
+}

@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct tipoNo {
+int valor;
+struct tipoNo *prox;
+} tipoNo;
+typedef struct tipoFila {
+struct tipoNo *ini;
+struct tipoNo *fim;
+} tipoFila;
+
+void iniciar(tipoFila *L){
+
+	L->ini=NULL;
+	L->fim=NULL;
+}
+
+void inserir(int num,tipoFila *L){
+
+	tipoNo *new;
+	new=malloc(sizeof(tipoNo));
+	new->valor=num;
+	if (L->ini!=NULL) {
+		L->fim->prox=new;
+		L->fim=new;
+	}else {
+		L->ini=new;
+		L->fim=new;
+	}
+}
+
+void remover(tipoFila *L){
+
+	tipoNo *aux;
+
+	aux=L->ini;
+	L->ini=L->ini->prox;
+	free(aux);
+}
+
+void troca(int *i, int *j) {
+
+  int aux;
+ 
+  aux = *i;
+  *i = *j;
+  *j = aux;
+}
+
+void bubbleLista (tipoFila *f) {
+  tipoNo *i,*j;
+  i = f->ini;
+  while (i && i->prox) {
+     j = f->ini;
+     while (j && j->prox) {
+        if(j->prox->valor < j->valor) {
+           troca(&j->prox->valor,&j->valor);
+        }
+        j = j->prox;
+     }
+     i = i->prox;
+  }
+}
+		
+
+int main(){
+
+	int entrada;
+	tipoFila L;
+	tipoNo *aux;
+	iniciar(&L);
+
+	while(1){
+	scanf("%d",&entrada);
+	
+	if (entrada > 0) inserir(entrada,&L);
+	else if (entrada== 0) remover(&L);
+	else break;
+}
+	bubbleLista(&L);
+	aux=L.ini;
+	while(aux){
+		printf("%d ",aux->valor);
+		aux=aux->prox;
+	}
+	return 0;
+}

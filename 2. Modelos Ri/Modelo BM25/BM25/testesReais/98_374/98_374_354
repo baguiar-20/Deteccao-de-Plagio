@@ -1,0 +1,71 @@
+/*
+Elabore um programa que receba como entrada dois números inteiros N e M seguido de uma matriz NxM (N e M <= 100). Seu programa deverá imprimir a posição (linha, coluna começando em zero) e o valor do menor número na matriz. Imprima uma linha nova ao final.
+
+Exemplo de Entrada (em negrito) e Saída
+
+3 5
+17 43 89 13 90
+94 20 38 97 23
+61 18 91 10 29
+2 3 10
+*/
+
+#include <stdio.h>
+
+int main(int argc, char *argv[]){
+
+//Variáveis contadoras
+  int l, c, i, j;
+
+//Variáveis de matriz
+  int n, m[100][100], me, x, y;
+
+//Inicializando a matriz
+  for(i=0; i<99; i++){
+    for(j=0; j<99; j++){
+      m[i][j]=0;
+    }
+  }
+
+
+//Entrada de dados
+  scanf("%d %d", &l, &c);
+
+  for(i=0; i<l; i++){
+    for(j=0; j<c; j++){
+      scanf("%d", &n);
+      m[i][j]=n;
+    }
+  }
+
+//Definindo um primeiro menor
+  me=m[0][0];
+
+/*Mostra os valores de uma matriz
+  for(i=0; i<l; i++){
+    printf("%d: ", i);
+    for(j=0; j<c; j++){
+      printf(" %d",m[i][j]);
+    }
+    printf("\n");
+  }
+*/
+
+
+//Substituição dos algarismos por valores
+  for(i=0; i<l; i++){
+    for(j=0; j<c; j++){
+      if(m[i][j]<me){
+        me=m[i][j];
+        x=j;
+        y=i;
+      }
+    }
+  }
+
+//Mostrando o resultado
+  printf("%d %d %d", y, x, me);
+
+  return 0;
+
+}

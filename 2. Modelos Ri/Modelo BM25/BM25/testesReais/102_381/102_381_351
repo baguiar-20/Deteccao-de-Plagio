@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    float nota[100][4],vetor[100];
+    float n1, n2, n3, n4,media,maior=0;
+    int i = 0,p,j;
+
+    while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4) == 4)
+    {
+      nota[i][0] = n1;
+      nota[i][1] = n2;
+      nota[i][2] = n3;
+      nota[i][3] = n4;
+      media = (n1+n2+n3+n4)/4 ;
+      vetor[i] = media;
+      i++;
+     }
+
+     for(j=0; j<=i;j++)
+     {
+         if (vetor[j]>maior)
+         {
+             maior = vetor[j];
+             p = j+1;
+         }
+     }
+
+     printf("%0.3f do aluno %d ",maior,p);
+
+
+
+}
+
+
+

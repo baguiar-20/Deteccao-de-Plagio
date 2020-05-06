@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct elemento{
+	char valor;
+	struct elemento *prox;
+} TElemento;
+
+typedef struct{
+	TElemento *ini;
+} TPilha;
+
+TPilha *criarpilha();
+void empilha(TPilha *pilha, int n);
+void desempilha(TPilha *pilha);
+void polon(char l[],int len);
+
+main(){
+	char l[49], h[]= "END";
+	int len;
+	int x;
+
+	scanf("%s", l);
+
+	while(strcmp(l, h) != 0){
+		len = strlen (l);
+
+		polon(l,len);
+
+		printf("\n");				
+
+		scanf("%s", l);
+	}
+}
+
+TPilha *criarpilha(){
+	TPilha *p;
+	p = (TPilha *) malloc(sizeof(TPilha));
+	p->ini = NULL;
+	return p;	
+}
+
+void empilha(TPilha *pilha, int n){
+	TElemento *elemento =  malloc(sizeof(TElemento));
+
+	elemento -> valor = n;
+	elemento -> prox = NULL;
+	
+	if(pilha->ini != NULL)
+		elemento->prox = pilha->ini;
+
+	pilha->ini = elemento;
+}
+
+void desempilha(TPilha *pilha){
+	TElemento *aux;
+	aux = pilha->ini; 
+	if(aux->valor != '(')
+		printf("%c", aux->valor);
+
+	pilha->ini = aux->prox;
+	free(aux);	
+}
+
+void polon(char l[],int len){
+	
+	TPilha *pilha;	
+	pilha = criarpilha();
+	TElemento *aux;
+
+	int i,x=0;
+
+	for(i=0;i<=len;i++){
+		if(isupper(l[i]) || isdigit(l[i])){		
+			printf("%c", l[i]);
+		}else{
+			if(l[i] == '('){	
+				empilha(pilha, l[i]);
+			}else{
+				if(l[i] == ')'){
+					while(aux->prox != NULL && x<=0){				
+						if(aux->valor == '(')
+							x++;		
+						desempilha(pilha);
+						aux = pilha->ini;	
+					}
+					x=0;
+				}else{
+					if(l[i] == '+' || l[i] == '-'){	
+						while(aux->valor != '('){
+							desempilha(pilha);
+							aux = pilha->ini;
+						}
+						empilha(pilha, l[i]);
+					}else{
+						if(l[i] == '*' || l[i] == '/'){	
+							while(aux->valor != '(' && aux->valor != '+' && aux->valor != '-'){
+								desempilha(pilha);
+								aux = pilha->ini;
+							}
+							empilha(pilha, l[i]);
+						}
+					}
+				}
+			}
+			aux = pilha->ini;
+		}
+	}	
+}

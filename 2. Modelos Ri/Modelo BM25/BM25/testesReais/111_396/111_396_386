@@ -1,0 +1,124 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+		int valor;
+		struct tipoNo* prox;
+		struct tipoNo* ant;
+} tipoNo;
+
+typedef struct tipolista{
+		struct tipoNo* ini;
+		struct tipoNo* fim;
+} tipolista;
+
+tipolista *crialistaD(){
+	tipolista *l;
+	l = (tipolista *) malloc (sizeof(tipolista));
+	l->ini = NULL;
+	l->fim = NULL;
+	return l;
+}
+
+void insereLista(int val, tipolista* l){
+	tipoNo *novo;
+	novo = (tipoNo *) malloc (sizeof(tipoNo));
+	novo-> valor = val;
+	novo-> prox = NULL;
+	novo-> ant = NULL;
+	
+	if(!l -> ini){
+		l->ini = novo;
+		l->fim = novo;
+	}
+	else {
+		l->fim->prox = novo;
+		novo->ant = l->fim;
+		l->fim = novo;
+	}
+}
+
+void insereListaInsertS(int val, tipolista* l){
+	tipoNo *aux;
+	tipoNo *novo;
+	novo = (tipoNo *) malloc (sizeof(tipoNo));
+	novo-> valor = val;
+	novo-> prox = NULL;
+	novo-> ant = NULL;
+	
+	aux = l->ini;
+	
+	if(!l -> ini){
+		l->ini = novo;
+		l->fim = novo;
+	}
+	else {
+		if(novo->valor < aux->valor){
+			novo->prox = aux;
+			l->ini = novo;
+		}
+		else {
+		
+			while(aux->prox && novo->valor > aux->prox->valor){
+				aux = aux->prox;
+			}
+		novo->ant = aux;
+		novo->prox = aux->prox;
+		aux->prox = novo;
+		if(aux == l->fim) l->fim = novo;
+		}
+	}
+}
+
+/*
+void inverteLista(tipolista* l){
+	tipoNo* caminha;
+	tipoNo* aux;
+	aux = l->ini;
+	caminha = l->ini->prox;
+	while(caminha != NULL){
+		if(aux == l->ini){
+			aux->ant = caminha;
+			aux->prox = NULL;			
+		}
+		else {
+		
+			aux->prox = aux->ant;
+			aux->ant = caminha;		
+		}
+		aux = caminha;
+		caminha = caminha->prox;
+		if(caminha == NULL){
+			aux->prox = aux->ant;
+			aux->ant = NULL;
+			break;
+		}
+	}
+
+	aux = l->fim;
+	l->fim = l->ini;
+	l->ini = aux;
+}*/
+int main(){
+	
+	int valor;
+	tipolista* Lista;
+	tipoNo* aux;
+	
+	Lista = crialistaD();
+	
+	while(1){
+		scanf("%d", &valor);
+		if(valor == -1) break;	
+		insereListaInsertS(valor, Lista);
+	}
+//	inverteLista(Lista);
+	aux = Lista->ini;
+
+	while(aux!=NULL){
+		printf("%d ", aux->valor);
+		aux = aux->prox;
+	}
+	return 0;
+}
+

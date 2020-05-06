@@ -1,0 +1,51 @@
+//Lida a posição (linha e coluna) da Peça Cavalo do Xadrez, mostrar suas possibilidades de jogadas.
+
+#include<string.h>
+#include<stdio.h>
+
+int main()
+{
+    char tab[9][9];
+    int i,j,l,c;
+
+    for(i=0;i<8;i++)
+    {
+        for(j=0;j<8;j++)
+        {
+        tab[i][j] = '*';
+        }
+    }
+
+    scanf("%d",&l);
+    scanf("%d",&c);
+
+    for(i=0;i<8;i++)
+    {
+        for(j=0;j<8;j++)
+        {
+            if (i==l && j==c) tab[i][j] = 'C';
+
+            if ((i == l-2) && ( (j == c-1) || (j == c+1) ) ) tab[i][j] = 'X';
+
+            if ((i == l-1) && ( (j == c-2) || (j == c+2) ) ) tab[i][j] = 'X';
+
+            if ((i == l+2) && ( (j == c-1) || (j == c+1) ) ) tab[i][j] = 'X';
+
+            if ((i == l+1) && ( (j == c-2) || (j == c+2) ) ) tab[i][j] = 'X';
+
+
+        }
+    }
+
+    for(i=0;i<=7;i++)
+    {
+        for(j=0;j<=7;j++)
+        {
+        printf("%c",tab[i][j]);
+        }
+        printf("\n\n");
+    }
+
+    return 0;
+
+}

@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+	//int num1, num2;
+	//int i;
+	//int arm1, arm2;
+		
+	if (amigos(220, 284)){
+	   printf("amigos\n");
+	}
+	else{
+	   printf("nao amigos\n");			
+	}
+	
+	return 0;
+} 
+
+int amigos(int num1, int num2)
+{
+	int i;
+	int arm1, arm2;
+
+	arm1=0;
+	arm2=0;
+
+	for(i=0; i<num1; i++){
+		if (num1^i==0)
+		{
+			arm1=arm1 + i;
+		} 	
+	}
+
+	for(i=0; i<num2; i++){
+		if (num2^i==0)
+		{
+			arm2=arm2 + i;
+		} 	
+	}			
+
+
+	if ((arm1=num2) && (arm2=num1)){
+		return	1;
+	} 
+	else{
+		return 0;
+	}
+
+}

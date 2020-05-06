@@ -1,0 +1,22 @@
+#include <stdio.h> 
+#include <string.h>
+
+int main(){
+  int imp=1, tam, x;
+  char nome[100];
+  
+  printf ("Nome: ");
+  fgets(nome, 100, stdin);
+  
+  tam = (strlen(nome) ) -1 ;
+  
+  printf("Inverso: ");
+  
+  while(imp<=tam ){
+    printf("%c",nome[tam-1]);
+    tam--;
+  }
+  printf("\n");
+  
+  return 0;
+}

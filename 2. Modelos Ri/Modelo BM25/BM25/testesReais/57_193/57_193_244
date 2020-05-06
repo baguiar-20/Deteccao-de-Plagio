@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main()
+{
+	char tabul[10][10];
+	int linha,coluna,i,j;
+	
+	for(i=0;i<=7;i++){
+		for(j=0;j<=7;j++){
+			tabul[i][j]='*';
+		}
+	}
+	scanf("%d",&linha);
+	scanf("%d",&coluna);
+	tabul[linha][coluna]='C';
+	
+	tabul[linha-2][coluna-1]='X';
+	tabul[linha-2][coluna+1]='X';
+	tabul[linha-1][coluna-2]='X';
+	tabul[linha-1][coluna+2]='X';
+	tabul[linha+1][coluna-2]='X';
+	tabul[linha+1][coluna+2]='X';
+	tabul[linha+2][coluna-1]='X';
+	tabul[linha+2][coluna+1]='X';
+	
+	for(i=0;i<=7;i++){
+		for(j=0;j<=7;j++){
+			printf("%c",tabul[i][j]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
+

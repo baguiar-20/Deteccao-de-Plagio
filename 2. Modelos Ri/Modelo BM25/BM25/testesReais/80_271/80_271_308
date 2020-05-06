@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<math.h>
+
+int main(){
+
+	int i;
+	float distancia;
+
+	typedef struct ponto{
+		float x;
+		float y;
+	}TipoPonto;
+
+	TipoPonto Coordenada[2];
+	
+	for(i=0; i<2; i++)
+	 {
+	   scanf("%f", &Coordenada[i].x);
+	   scanf("%f", &Coordenada[i].y);
+	 }
+
+	distancia=sqrt(pow((Coordenada[1].x - Coordenada[0].x),2) + pow((Coordenada[1].y - 
+		  						      Coordenada[0].y),2));
+	printf("%.1f", distancia);
+} 

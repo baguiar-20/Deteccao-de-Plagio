@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+	FILE *fp = fopen(argv[1], "rb");
+	int inteiros;
+
+	while (fread(&inteiros,sizeof(int),1,fp) == 1)
+	{
+		printf("%d\n", inteiros);
+	}
+
+	fclose(fp);
+
+	return 0;
+}

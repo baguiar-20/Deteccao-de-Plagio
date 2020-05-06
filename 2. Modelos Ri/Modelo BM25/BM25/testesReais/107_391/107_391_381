@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  struct tipoNo *topo;
+} tipoPilha;
+
+tipoNo* iniciarPilha(int entrada){
+
+	tipoNo *p;
+
+	p= (tipoNo*) malloc(sizeof(tipoNo));
+	p->valor = entrada;
+	p->prox=NULL;
+
+	return p;
+}
+
+void inserirPilha(tipoPilha *pilha, int entrada){
+	
+	tipoNo *p;
+	p=(tipoNo*) malloc(sizeof(tipoNo));
+	p->valor = entrada;
+	p->prox=pilha->topo;
+	pilha->topo=p;
+}
+
+void removerPilha(tipoPilha *pilha){
+
+	tipoNo *aux;
+
+	aux=pilha->topo;
+	pilha->topo= pilha->topo->prox;
+	free(aux);
+}
+
+
+int main(){
+
+	int entrada;
+	tipoNo *aux;	
+	tipoPilha pilha;
+
+	scanf("%d",&entrada);
+	pilha.topo=iniciarPilha(entrada);
+
+	while(1){
+		scanf("%d",&entrada);
+		if (entrada>0) inserirPilha(&pilha,entrada);
+		else if (entrada==0) removerPilha(&pilha);
+		else break;
+	}
+
+	aux= pilha.topo;
+	
+	while(aux){
+		printf("%d ",aux->valor);
+		aux=aux->prox;
+	}
+
+	return 0;
+}

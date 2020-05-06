@@ -1,0 +1,19 @@
+#include<stdio.h>
+int primo(x){
+int i=2, count=0;
+for(; i<=x; i++){
+    if(x%i==0)
+      ++count;}
+if(count==1)
+   return 1;
+}
+
+int main(){
+int m, n;
+scanf("%i%i", &m,&n);
+int i=m;
+for(; i<=n;i++){
+  int res=primo(i);
+     if(res==1)
+        printf("%i ", i);}
+}

@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+	int n, i, fatorial;
+	
+	scanf("%d", &n);
+	
+	fatorial = 1;
+	
+	for(i=n; i>=1; i--)
+	{
+		fatorial = fatorial*i;
+	}
+	
+	printf("%d", fatorial);
+
+
+
+
+	return 0;
+}

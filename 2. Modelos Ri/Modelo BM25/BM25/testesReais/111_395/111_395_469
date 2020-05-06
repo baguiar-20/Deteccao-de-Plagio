@@ -1,0 +1,170 @@
+/*
+ * Author: Jony de O. Ferreira Jr.
+ * Created:	Ter 01 Jun 2014 13:14:22 AMT
+ * File: main.c
+ */
+
+#include <ctype.h>
+#include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define OR ||
+#define AND &&
+#define NOT !
+
+#define MAX(x,y) x>y?x:y
+#define MIN(x,y) x<y?x:y
+
+struct info{
+	int valor; /*O ideal é ser 'void *' */
+	struct info* prox;
+	struct info* prev;
+};
+
+struct lista{
+	struct info* inicio;
+	struct info* fim;
+};
+
+void jferror(char tipo, char* local);
+void* jfmalloc(unsigned int tamanho);
+
+struct lista* nova_lista(void);
+struct info* nova_info(int valor);
+void inserir(int valor, struct lista* lista);
+void inverter(struct lista* lista);
+void imprimir(struct lista* lista);
+
+int main(int arcg, char *argv[]){
+	struct lista *lista;
+	int entrada;
+	lista = nova_lista();
+	do{
+		scanf("%d",&entrada);
+		if(entrada == -1){
+			inverter(lista);
+			imprimir(lista);
+			return EXIT_SUCCESS;
+		}
+		inserir(entrada, lista);
+		/*inserir_ordenar(entrada, lista);*/
+	}while(true);
+}
+
+void jferror(char tipo, char* local){
+	char erro[100];
+	switch(tipo){
+		case 0:
+			strcpy(erro,"[!!]ERRO FATAL em ");
+			strncat(erro, local, 81);
+			perror(erro);
+			exit(0);
+	}
+}
+
+void* jfmalloc(unsigned int tamanho){
+	void *novo;
+	novo = malloc(tamanho);
+	if(NOT novo)
+		jferror(0,"jferreirajr.jfmalloc()");
+	return novo;
+}
+
+struct lista* nova_lista(void){
+	struct lista* lista;
+	lista = jfmalloc(sizeof(struct lista));
+	lista->inicio = NULL;
+	lista->fim = NULL;
+	return lista;
+}
+
+struct info* nova_info(int valor){
+	struct info* info;
+	info = jfmalloc(sizeof(struct info));
+	info->valor = valor;
+	info->prev = NULL;
+	info->prox = NULL;
+	return info;
+}
+
+void inserir(int valor, struct lista* lista){
+	if(NOT lista)
+		lista = nova_lista();
+	else if(NOT lista->inicio){
+		lista->inicio = nova_info(valor);
+		lista->fim = lista->inicio;
+	}else{
+		lista->fim->prox = nova_info(valor);
+		lista->fim->prox->prev = lista->fim;
+		lista->fim = lista->fim->prox;
+	}
+}
+
+void inverter(struct lista* lista){
+	struct info *aux, *tmp;
+	if(NOT lista)
+		lista = nova_lista();
+	else{
+		aux = lista->inicio;
+		while(aux){
+			tmp = aux->prox;
+			aux->prox = aux->prev;
+			aux->prev = tmp;
+			aux = tmp;
+		}
+		tmp = lista->inicio;
+		lista->inicio = lista->fim;
+		lista->fim = tmp;
+	}
+}
+
+void imprimir(struct lista* lista){
+	struct info *aux;
+	if(NOT lista)
+		lista = nova_lista();
+	else{
+		aux = lista->inicio; 
+		while(aux != NULL){
+			printf("%d ", aux->valor);
+			aux = aux->prox;
+		}
+	}
+}
+
+void inserir_ordenar(int valor, struct lista* lista){
+	struct info* aux;
+	if(NOT lista){
+		lista = nova_lista();
+	}else if(NOT lista->inicio){
+		lista->inicio = nova_info(valor);
+		lista->fim = lista->inicio;
+	}else{
+		aux = lista->inicio;
+		while(aux){
+			if(aux->valor > valor){
+				if(NOT aux->prev){
+					lista->inicio = nova_info(valor);
+					aux->prev = lista->inicio;
+					lista->inicio->prox = aux;
+				}else{
+					aux->prev->prox = nova_info(valor);
+					aux->prev->prox->prev = aux->prev;
+					aux->prev->prox->prox = aux;
+					aux->prev = aux->prev->prox;
+				}
+				return;
+			}else if(NOT aux->prox){
+				aux->prox = nova_info(valor);
+				lista->fim = aux->prox;
+				aux->prox->prev = aux;
+				return;
+			}
+			aux = aux->prox;
+		}
+	}
+}

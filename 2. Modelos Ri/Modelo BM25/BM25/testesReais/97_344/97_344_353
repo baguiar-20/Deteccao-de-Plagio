@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main (int argc, char *argv[]) {
+	int i;
+	
+	FILE *fp; 
+
+	fp = fopen (argv[1], "rb");
+
+	while (fread (&i, sizeof(int), 1, fp) >= 1) {
+	
+		//fread (&i, sizeof(int), 1, fp);
+		printf ("%d\n", i);
+
+	}
+
+
+	fclose (fp); 
+
+	return 0;
+}

@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+int buscaBinaria (int tam,int *vetor, int valor) {
+   int ini = 0;
+   int mei;
+   int fim = tam-1;
+   
+   while (ini<=fim) {
+      mei = (ini+fim)/2;
+      if (vetor[mei]==valor) return mei;
+      else if (vetor[mei]<valor) ini = mei+1;
+      else fim = mei-1;
+   }
+   
+   return -1;
+}
+int main(){
+
+	int tam,i,valor,resul;
+	scanf("%d",&tam);
+	int vetor[tam];
+
+	for(i=0;i<tam;i++){
+		scanf("%d",&vetor[i]);
+	}
+	
+	scanf("%d",&valor);
+	resul=buscaBinaria(tam,vetor,valor);
+	printf("\n%d\n",resul);
+
+	return 0;
+}

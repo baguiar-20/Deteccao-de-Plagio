@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(void){
+	
+	char palavra[100],a;
+	
+	int i,cont;
+	
+	cont=0;
+	
+	gets(palavra);
+	
+	scanf("%c",&a);
+	
+	//printf("%c",palavra[3]);
+	
+	//printf("%d",strlen(palavra));
+	
+	for(i=0;i<strlen(palavra);i++){
+		
+		if(palavra[i]==a)
+			cont++;
+		
+	}
+	
+	printf("%d",cont);
+	
+	return 0;
+}

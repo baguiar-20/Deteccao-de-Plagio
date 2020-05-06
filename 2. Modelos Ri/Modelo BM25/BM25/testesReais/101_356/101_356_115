@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+int seq(char l[],int len);
+
+main(){
+	char l[49], h[]= "END";
+	int len;
+	int x;
+
+	scanf("%s", l);
+
+	while(strcmp(l, h) != 0){
+		len = strlen (l);
+
+		x= seq(l,len);				
+
+		if(x==1)
+			printf("SIM\n");
+		else{
+			if(x==0)
+				printf("NAO\n");
+		}
+		x=0;
+		scanf("%s", l);
+	}
+}
+
+int seq(char l[],int len){
+	
+	int i,x=0,operandos=0,operadores=0;
+
+	for(i=0;i<=len;i++){
+		if(isupper(l[i]))
+			operandos++;
+		else{
+			if(l[i] == '+' || l[i] == '-' ||l[i] == '*' ||l[i] == '/')
+				operadores++;
+		}
+	}
+	if(operandos == operadores+1)
+		x=1;
+	
+	return x;
+}

@@ -1,0 +1,19 @@
+#include <stdio.h>
+int main(){
+
+	int x,y,a,b,c,d;
+
+	scanf("%d %d", &x,&y);
+
+	a= x;
+	b= y;
+
+	while(b!=0){
+		c= a;
+		a= b;
+		b= c%b;
+	}
+
+	d= x*y/a;
+	printf("%d\n", d);
+}

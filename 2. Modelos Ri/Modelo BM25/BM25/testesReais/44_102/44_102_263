@@ -1,0 +1,14 @@
+#include <stdio.h>
+int main (){
+int resultado,j,num;
+	do{
+	//printf ("Entre com um numero para calcular o fatorial: ");
+	scanf ("%d",&num);
+	}while (num<0);
+	resultado=1;
+	for(j=1;j<=num;j++){
+		resultado=resultado*j;
+	}
+	printf ("%d",resultado);
+	return 0;
+} 

@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+main()
+{
+   int n,m,i,soma_n=0,soma_m=0,cont=1;
+
+   scanf("%d",&n);
+   scanf("%d",&m);
+
+   for (i = 0; i < n; i++)
+   {
+      if ((n%cont)==0)
+      {
+         if (cont!=n)
+         {
+             soma_n += cont;
+         }
+      }
+      cont++;
+   }
+   cont=1;
+   for (i = 0; i < m; i++)
+   {
+      if ((m%cont)==0)
+      {
+         if (cont!=m)
+         {
+             soma_m += cont;
+         }
+      }
+      cont++;
+   }
+
+   if ((m==soma_n) || (n ==soma_m))
+   {
+       printf("amigos");
+   }
+   else
+   {
+       printf("nao amigos");
+   }
+
+}
+
+

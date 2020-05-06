@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prev;
+	struct tipoNo *prox;
+}tipoNo;
+
+typedef struct tipoLista{
+	tipoNo *ini;
+	tipoNo *fim;
+}tipoLista;
+////////////////////////////////////////////
+tipoLista *inicializa();
+void insereLista(tipoLista *l, int valor);
+void imprimeLista(tipoLista *l);
+tipoLista *inverteLista(tipoLista *l);
+///////////////////////////////////////////
+
+int main(){
+	tipoLista *l;
+	l=inicializa();
+	
+	int valor;
+	scanf("%d", &valor);
+	while(valor != -1){
+		insereLista(l,valor);
+		scanf("%d", &valor);
+	}
+	
+	//imprimeLista(l);
+	inverteLista(l);
+	imprimeLista(l);
+
+return 0;
+}
+
+tipoLista *inicializa(){
+	tipoLista *l;
+	l = (tipoLista *) malloc(sizeof(tipoLista));
+	l->ini = NULL;
+	l->fim = NULL;
+	
+	return l;
+}
+
+void insereLista(tipoLista *l, int valor){
+	tipoNo *no;
+	no = (tipoNo *) malloc (sizeof(tipoNo));
+	
+	no->valor=valor;
+	no->prev=NULL;
+	no->prox=NULL;
+
+	if(l->ini == NULL){
+		l->ini=no;
+		l->fim = no;
+	}else{
+		l->fim->prox = no;
+		no->prev=l->fim;
+		l->fim=no;
+	}
+}
+
+void imprimeLista(tipoLista *l){
+	tipoNo *aux;
+	aux = l->ini;
+	
+	while (aux){
+		printf ("%d ", aux->valor);
+		aux = aux->prox;
+	}
+	printf ("\n");
+}
+
+tipoLista *inverteLista(tipoLista *l){
+	tipoNo *backup,*aux;
+	aux=malloc(sizeof(tipoNo));
+	
+	backup=malloc(sizeof(tipoNo));
+	 
+	if(l!=NULL){
+		aux=l->ini;
+		l->ini=l->fim;
+		l->fim=aux;
+		
+		while(aux){
+			backup=aux->prox;
+			aux->prox=aux->prev;
+			aux->prev=backup;
+			
+			aux=aux->prev;
+		}
+		
+	
+	}
+	return l;
+}
+	
+	
+
+
+

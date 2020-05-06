@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+  char string[30], strin[30], aux1;
+  int i, k, j, tam=0, tam1=0, cont=0, cont1=0;
+
+
+  scanf ("%s", string);
+
+	scanf ("%s", strin);
+
+			for (i=0; strin[i]!='\0'; i++) {
+   if (strin[i]=='a' || strin[i]=='e' || strin[i]=='i' || strin[i]=='o' || strin[i]=='u'|| strin[i]=='A' || strin[i]=='E' || strin[i]=='I' || strin[i]=='O' || strin[i]=='U') {
+
+		cont1=cont1+1;
+ 				}}
+		for (i=0; string[i]!='\0'; i++) {
+   if (string[i]=='a' || string[i]=='e' || string[i]=='i' || string[i]=='o' || string[i]=='u'|| string[i]=='A' || string[i]=='E' || string[i]=='I' || string[i]=='O' || string[i]=='U') {
+
+		cont=cont+1;
+ 				}}
+
+		if (cont1==cont) {
+
+				printf("\nSIM\n");
+}
+
+else {
+
+				printf("\nNAO\n");
+
+}
+}

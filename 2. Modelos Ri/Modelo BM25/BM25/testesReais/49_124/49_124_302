@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define max 100
+
+main()
+{
+	int n,piramide[max][max];
+	int i,j,cont,linha=0,coluna=0;
+
+	scanf("%d", &n);
+	cont = 2*n;
+
+	while(cont>(cont/2))
+	{
+		for(i=linha+1;i<=cont;i++)
+		{
+ 			for(j=coluna+1;j<=cont;j++)
+			{
+				piramide[i][j] = linha+1;
+			}		
+		}
+	linha++;
+	coluna++;
+	cont--;
+	}
+	cont = n*2;
+	for(i=1;i<=cont;i++)
+	{
+ 		for(j=1;j<=cont;j++)
+		{
+			printf("%d ",piramide[i][j]);
+		}		
+	printf("\n");
+	}	
+}
+	

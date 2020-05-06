@@ -1,0 +1,112 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#define ERROFILAVAZIA -1
+
+typedef struct tipoNo{
+	int valor;
+	struct tipoNo *prox;
+}tipoNo;
+
+typedef struct tipoFila{
+	struct tipoNo *ini;
+	struct tipoNo *fim;
+}tipoFila;
+
+tipoFila *inicializaFila();
+void enFileira(tipoFila *f, int valor);
+//int desenFileira (tipoFila *f);
+void troca(int *i, int *j);
+void bubbleLista (tipoFila *f);
+void imprimeFila (tipoFila *f);
+
+int main(void){
+			
+	tipoFila *fila;
+	fila = inicializaFila();
+		
+	int valor;	
+		
+	do{
+		scanf("%d",&valor );
+		if(valor > 0)	enFileira(fila,valor);
+		//if(valor == 0) desenFileira(fila);
+		
+	}while(valor != -1);
+	
+	bubbleLista (fila);
+	imprimeFila(fila);
+	
+return 0;	 
+}
+
+
+tipoFila *inicializaFila () {
+   tipoFila *f;
+   f = (tipoFila *) malloc (sizeof(tipoFila));
+   f->ini = NULL;
+   f->fim = NULL;   
+   return f;
+}
+
+void enFileira(tipoFila *f, int valor){
+	tipoNo *no;
+	no = (tipoNo*)malloc(sizeof(tipoNo));
+	no->valor = valor;
+	no->prox = NULL;
+	if(f->fim == NULL) f->ini = no;
+	else f->fim->prox = no;
+	f->fim = no;
+}
+
+void insercao(int *v, int tam){
+
+	int i,j,aux;
+	for(i=1; i<tam; i++){
+		j = i;
+		
+		while(j > 0 && v[j] < v[j-1]){
+			aux = v[j];
+			v[j] = v[j-1];
+			v[j-1]= aux;
+			j--;
+		}	
+				
+	}
+}
+
+void troca(int *i, int *j) {
+
+   int aux;
+   
+   aux = *i;
+   *i = *j;
+   *j = aux;
+}
+
+void bubbleLista (tipoFila *f) {
+   tipoNo *i,*j;
+   i = f->ini;
+   while (i && i->prox) {
+      j = f->ini;
+      while (j && j->prox) {
+         if(j->prox->valor < j->valor) {
+            troca(&j->prox->valor,&j->valor);
+         }
+         j = j->prox;
+      }
+      i = i->prox;
+   }
+}
+
+
+void imprimeFila (tipoFila *f) {
+   tipoNo *aux;
+   aux = f->ini;
+   //printf ("Fila: ");
+   while (aux) {
+      printf ("%d ",aux->valor);
+      aux = aux->prox;
+   }
+   printf ("\n");
+}
+

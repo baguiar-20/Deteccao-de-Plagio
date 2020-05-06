@@ -1,0 +1,26 @@
+//
+//  main.c
+//  Fatorial
+//
+//  Created by Ligia Freitas on 10/08/13.
+//  Copyright (c) 2013 Ligia Gonçalves de Freitas. All rights reserved.
+//
+
+#include <stdio.h>
+
+void main()
+{
+    int fatorial, n, f;
+    
+    scanf("%d", &n);
+    fatorial = 1;
+    
+    for (f = n; f > 0; f--)
+    {
+        fatorial = fatorial * f;
+    }
+    
+    printf("%d", fatorial);
+    
+}
+

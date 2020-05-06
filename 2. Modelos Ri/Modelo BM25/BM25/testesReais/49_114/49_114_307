@@ -1,0 +1,37 @@
+#include <stdio.h>
+int main()
+{
+	int Num,a,b=0,c,d,e=0,i,g,z;
+	 
+	scanf("%i",&Num);
+        
+	//verificar se é primo
+	for (i=1;i<=Num;i++) {
+		if(Num%i==0){
+		g++;
+		}
+	}
+	
+	if (g==2) {
+	printf("nao semiprimo",Num); }
+	else{
+	//Verificar se o numero é semiprimo
+		for(a=2;a<Num;a++) {
+			if (Num%a==0) {
+				z=Num/a; 
+				b++; 
+				d=0; 
+		for (c=1;c<=z;c++) {
+					if (z%c==0)
+					d++; }
+				if (d<=2)
+				e++;
+			}
+		}
+		if (b==e)
+		printf("semiprimo",Num);
+		else
+		printf("nao semiprimo",Num);
+	}
+	return 0;
+}

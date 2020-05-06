@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+	char vetor[80];
+	int kara, i;
+	int cont1, cont2;
+
+	scanf("%s", vetor);
+	kara = strlen(vetor);
+
+	while(strcmp(vetor, "END")){
+		kara = strlen(vetor);
+		cont1=0;
+		cont2=0;
+
+		for(i=0;i<kara;i++){
+			if((vetor[i]=='+') || (vetor[i]=='-') || (vetor[i]=='/') || (vetor[i]=='*') ){
+				cont1++;
+			}
+			else{
+				if((vetor[i]!='(') && (vetor[i]!=')') && (vetor[i]!='[') && (vetor[i]!=']') ){
+					cont2++;
+				}
+				
+			}
+		}
+
+		if(cont2==(cont1+1)){
+			printf("SIM\n");
+		} 
+		else{
+			printf("NAO\n");
+		} 
+
+		scanf("%s", vetor);
+	}
+	
+}

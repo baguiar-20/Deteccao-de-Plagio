@@ -1,0 +1,23 @@
+# include <stdio.h>
+
+int main(){
+	int num, num2, sum=0, sum2=0, i;
+	scanf("%d %d", &num, &num2);
+	for(i=1;i<=num;i++){
+		if(num%i == 0){
+			sum = sum + i;
+		}
+	}
+	for(i=1;i<=num2;i++){
+		if(num2%i == 0){
+			sum2 = sum2 + i;
+		}
+	}
+	if(sum == sum2){
+		printf("amigos");
+	}else{
+		printf("nao amigos");
+	}
+	return 0;
+}
+

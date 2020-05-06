@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+typedef struct tipoNo {
+  int valor;
+  struct tipoNo *prox;
+} tipoNo;
+
+typedef struct tipoPilha {
+  tipoNo *topo;
+} tipoPilha;
+
+
+
+void inicializa_pilha(tipoPilha *p);
+void empilha(tipoPilha *p, int valor);
+int desempilha(tipoPilha *p);
+void imprime(tipoPilha *p);
+
+int main(){
+	tipoPilha pilha;
+	int i;
+	
+	inicializa_pilha(&pilha);
+	while(i!=-1){
+		scanf("%d", &i);
+		if(i>=1){empilha(&pilha, i);}
+		else if (i==0){desempilha(&pilha);}
+	}
+	
+	
+	imprime(&pilha);
+	return 0;
+}
+
+void inicializa_pilha(tipoPilha *p){
+
+	p->topo = NULL;
+
+}
+
+void empilha(tipoPilha *p, int valor){
+	tipoNo *aux;
+	
+	aux = (tipoNo *)malloc(sizeof(tipoNo));
+	aux->valor = valor;
+	aux->prox = p->topo;
+	p->topo = aux;
+	
+}
+
+int desempilha(tipoPilha *p){
+	tipoNo *aux;
+	
+	if(p->topo){
+		aux = p->topo;
+		p->topo = p->topo->prox;
+		return aux->valor;
+		free(aux);
+	}
+	
+}
+
+void imprime(tipoPilha *p){
+	tipoNo *aux;
+	
+	if(p->topo==NULL){
+		printf("PILHA VAZIA");
+	}
+	else{
+		aux = p->topo;
+		while(aux){
+			printf("%d ", aux->valor);
+			aux = aux->prox;
+		}
+	
+	}
+}

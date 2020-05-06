@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int buscaBinariaIterativa(int *vetor, int tamvetor, int valor)
+{
+	int ini, mei, fim;
+
+	ini =  0;
+	fim = tamvetor - 1;
+	
+
+    while (ini <= fim)
+    {
+    	mei = (ini + fim) / 2;
+
+		if (vetor[mei] == valor)
+			return mei;
+		else if (vetor[mei] < valor)
+			ini = mei + 1;
+			else if (vetor[mei] > valor)
+				fim = mei - 1;
+	}
+
+	return -1;
+}
+
+int main()
+{
+	int vetor[100];
+	int tamvetor, i, valor;
+
+	scanf("%d", &tamvetor);
+
+	for (i = 0; i < tamvetor; i++)
+		scanf("%d", &vetor[i]);
+
+	scanf("%d", &valor);
+
+	printf("%d\n", buscaBinariaIterativa(vetor, tamvetor, valor));
+	
+	return 0;
+}

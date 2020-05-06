@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int buscaBinIte(int tam, int vetor[], int valor)
+{
+	int meio = 0, pri = 0, ult = tam - 1;
+	
+	while(pri <= ult)
+	{
+		meio = (pri + ult)/2;
+		if(vetor[meio] == valor)
+		{
+			return meio;
+		}
+		else if(vetor[meio] > valor)
+		{
+			ult = meio -1;
+		}
+		else
+		{
+			pri = meio + 1;
+		}
+	}
+	
+	return -1;	
+}
+
+int main()
+{
+	int n;
+	scanf("%d", &n);
+	
+	int vet[n], i;
+	for(i = 0; i < n; i ++)
+	{
+		scanf("%d", &vet[i]);
+	}
+	
+	int valor;
+	scanf("%d", &valor);
+	
+	printf("\n\n%d", buscaBinIte(n, vet, valor));
+}

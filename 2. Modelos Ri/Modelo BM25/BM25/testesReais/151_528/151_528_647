@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+main(void)
+{	
+	int a, b;
+	scanf("%d %d", &a, &b);
+	printf("\n%d", a);
+	printf("\n%d", b);
+	printf("\n");
+	printf("\n%d", b);
+	printf("\n%d", a);
+}

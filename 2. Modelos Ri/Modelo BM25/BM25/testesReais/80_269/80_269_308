@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+#define N 40
+
+int main(){
+
+	int i, cont;
+	char cadeia[N], letra;
+
+	cont=0;
+	
+	scanf("%[^\n] \n", cadeia);
+	scanf("%c", &letra); 
+
+	for(i=0; i<strlen(cadeia); i++)
+	 {
+	   if(letra==cadeia[i])
+	    {	
+	      cont++;
+	    }
+	 }
+	
+	printf("%d", cont);
+}
+

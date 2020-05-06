@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+     int a, b, i,j, cont_a = 0, cont_b = 0;
+
+     //printf("Informe número:\n");
+     scanf("%d", &a);
+     //printf("\nInforme número:\n");
+     scanf("%d", &b);
+
+     for (i = 1; i < a; i++)
+
+     {
+          if(a%i == 0)
+          {
+               cont_a = cont_a + i;
+               //printf("\tcont_a = %d\n", cont_a);
+
+          }
+     }
+
+     for(j = 1; j < b; j++)
+
+          {
+               if(b%j == 0)
+               {
+
+                    cont_b = cont_b + j;
+                    //printf("\tcont_b = %d\n\n", cont_b);
+               }
+          }
+
+//printf("\ncont_a = %d\n", cont_a);
+//printf("\ncont_b = %d\n", cont_b);
+
+if(cont_a == b && cont_b == a) printf("\namigos\n");
+else printf("\nnao amigos\n");
+
+}

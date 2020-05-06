@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main()
+{
+	char tabuleiro[8][8];
+	int i, j, linha, coluna;
+	
+	//Informa a posição desejada para o cavalo
+	scanf("%d", &linha);
+	scanf("%d", &coluna);
+	
+	//Preenche o tabuleiro com asterisco
+	for(i = 0; i < 8; i++)
+	{
+		for(j = 0; j < 8; j++)
+		    tabuleiro[i][j] = '*';;
+	}
+	
+	//Coloca o cavalo na posição desejada
+	tabuleiro[linha][coluna] = 'C';
+	
+	//Faz as posições
+	for(i = 0; i < 8; i++)
+	{
+		for(j = 0; j < 8; j++)
+		{
+			if(i == linha + 2 || i == linha - 2)
+			{
+				if(j == coluna + 1 || j == coluna - 1)
+				   tabuleiro[i][j]  = 'X';
+			}
+			
+			if(j == coluna + 2 || j ==  coluna - 2)
+			{
+				if(i == linha + 1 || i == linha - 1)
+				   tabuleiro[i][j] = 'X';
+			}
+		}
+	}
+	
+	for(i = 0; i < 8; i++)
+	{
+		for(j = 0; j < 8; j++)
+		  printf("%c", tabuleiro[i][j]);
+		printf("\n");
+	} 
+	
+	return 0;
+}
+

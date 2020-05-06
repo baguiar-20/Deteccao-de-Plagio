@@ -1,0 +1,30 @@
+﻿#include <stdio.h>
+
+int main(){
+
+	float vetor[100][4];
+	float media[100];
+	float n, n1, n2, n3, n4, maior;
+	int i = 0, indice = 0;
+	while (scanf("%f %f %f %f", &n1, &n2, &n3, &n4)==4) {
+		vetor[i][0] = n1;
+		vetor[i][1] = n2;
+		vetor[i][2] = n3;
+		vetor[i][3] = n4;
+		media[i] = (n1+n2+n3+n4)/4;
+		i++;
+		n=i;
+	}
+	getchar();
+	maior = media[0];
+
+	for (i=0;i<n;i++)
+		if (media[i]>=maior) {
+			maior=media[i];
+			indice=i;
+		}
+	
+	printf("%.3f do aluno %d ",maior,indice+1);
+	
+	return 0;
+}

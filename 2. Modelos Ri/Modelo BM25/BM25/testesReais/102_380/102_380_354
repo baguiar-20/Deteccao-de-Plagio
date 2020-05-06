@@ -1,0 +1,40 @@
+/*
+Elabore um programa que receba do teclado um nome de tamanho máximo de 100 caracteres e imprima-o de trás pra frente. Para receber o nome, use a função "fgets", ao invés do "gets", conforme questão anterior. Entretanto, o fgets inclui também o caractere de nova linha na string (diferentemente do "gets"). Por isso, você precisará substituir este penúltimo caractere da string (nova linha) pelo caractere nulo ('\0'):
+
+nome[strlen(nome)-1] = '\0';
+
+Inclua uma nova linha ao final.
+
+Exemplo de Entrada (em negrito) e Saída
+
+Nome: Fulano de Tal
+Inverso: laT ed onaluF 
+*/
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[]){
+
+  char nome[100];
+  int i;
+
+  for(i=0; i<strlen(nome); i++){nome[i]=' ';}
+
+  printf("Nome: ");
+  fgets(nome, 100, stdin);
+
+  nome[strlen(nome)-1] = '\0';
+
+
+  printf("Inverso: ");
+  for(i=(strlen(nome)-1); i>=0; i--){
+    printf("%c", nome[i]);
+  }
+
+  printf("\n");
+
+  return 0;
+
+}

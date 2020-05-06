@@ -1,0 +1,144 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct tipoCod{
+	char defeito[4];
+	char causa[4];
+	char componente[4];
+	int quant;
+	struct tipoCod *prox;
+}tipoCod;
+
+tipoCod *criarlista();
+void enfileira(tipoCod *lista,char *defeito);
+void prindef(tipoCod *lista);
+void printdef(int maior1, char *def1, int maior2, char *def2);
+void printlista(tipoCod *L);
+
+main(){
+	tipoCod *lista;
+	lista = criarlista();
+
+	tipoCod *aux;	
+
+	char defeito[4];
+
+	scanf("%s", defeito);
+
+	while(strcmp(defeito, "000") != 0){
+		enfileira(lista,defeito);
+		scanf("%s", defeito);	
+	}	
+	if(lista->prox){
+		aux = lista->prox;
+		int maior1=0, maior2=0, maior3=0, auxi; 
+		char def1[4];
+		char def2[4];
+		char def3[4];
+		char auxs[4];
+
+		maior1= aux->quant;
+		strcpy(def1,aux->defeito);
+		
+		aux= aux->prox;
+
+		strcpy(def2,aux->defeito);
+		maior2= aux->quant;
+
+		if(maior1 < maior2){
+			auxi = maior1;
+			strcpy(auxs,def1);
+			maior1 = maior2;
+			strcpy(def1,def2);
+			maior2 = auxi;
+			strcpy(def2,auxs);
+		}
+
+		aux= aux->prox;		
+
+		if(!aux)
+			printdef(maior1,def1,maior2,def2);
+		else{
+			while(aux){
+				maior3= aux->quant;
+				strcpy(def3,aux->defeito);
+	
+				if(maior3 > maior2){
+					if(maior3 > maior1){
+						maior2 = maior1;
+						strcpy(def2,def1);
+						maior1 = maior3;
+						strcpy(def1,def3);
+					}else{
+						maior2 = maior3;
+						strcpy(def2,def3);
+					}
+				}
+				maior3=0;
+				aux=aux->prox;
+			}
+			printdef(maior1,def1,maior2,def2);
+		}
+	}
+}
+
+tipoCod *criarlista(){
+	tipoCod *lista; 
+	lista = (tipoCod *)malloc(sizeof(tipoCod));
+	lista->prox = NULL;
+	
+	return lista;
+}
+
+void enfileira(tipoCod *lista,char *defeito){
+	tipoCod *codigo, *aux;
+	codigo = (tipoCod *)malloc(sizeof(tipoCod));
+
+	strcpy(codigo->defeito,defeito);
+	scanf("%s",codigo->causa);
+	scanf("%s",codigo->componente);
+	scanf("%d",&codigo->quant);
+
+	if (!lista->prox){
+		codigo->prox = NULL;   
+		lista->prox = codigo;
+		return;
+	}
+
+	aux = lista;
+
+	if(strcmp(codigo->defeito,aux->prox->defeito) == 0){
+		aux->prox->quant = codigo->quant + aux->prox->quant;
+		return;
+	}
+
+	aux = lista->prox;
+
+	while(aux->prox){
+		if(strcmp(codigo->defeito,aux->prox->defeito) == 0){
+			aux->prox->quant = codigo->quant + aux->prox->quant;
+			return;
+		}else
+			aux=aux->prox;
+	}
+
+	aux->prox = codigo;
+	codigo->prox = NULL;  
+}
+
+void printdef(int maior1, char *def1, int maior2, char *def2){
+	printf("Defeito 1: %s (%d)\n",def1,maior1);
+	printf("Defeito 2: %s (%d)\n",def2,maior2);	
+}
+
+void printlista(tipoCod *L){
+	
+	tipoCod *cam= L->prox;
+
+	while (cam != NULL){
+		printf("[%s] [%s] [%s] [%d]\n",cam->defeito, cam->causa, cam->componente, cam->quant);
+		cam = cam -> prox;		
+	}
+}
+

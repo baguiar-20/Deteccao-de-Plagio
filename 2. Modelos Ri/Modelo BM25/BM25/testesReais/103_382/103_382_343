@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
+
+
+
+struct list_item
+    {
+	char defect[4];
+	char cause[4];
+	char component[4];	
+        int count;
+        struct list_item *next;
+   }typedef ListItem;
+
+
+char defect1[4],defect2[4];
+int  countdefect1,countdefect2;
+
+
+ListItem* addItem(ListItem* first, ListItem* item){
+		if (first != NULL){
+			item->next = first->next;
+			first->next = item;			
+		}else{
+			first = item;
+		}
+
+		return first;
+
+}
+
+void print(ListItem* list){
+ListItem* q;
+for(q=list;q!=NULL;q=q->next){
+	printf("%s + (%d)\n",q->defect,q->count);
+}
+}
+
+int search(ListItem* list,int count,char defect[]){
+ListItem* q;
+for(q=list;q!=NULL;q=q->next){
+	if (!strcmp(defect,q->defect)){
+		q->count += count;		
+		return 1;}						
+}
+return 0;
+}
+
+void getfirstdefect(ListItem* list,int max){
+ListItem* q;
+for(q=list;q!=NULL;q=q->next){
+	if (q->count > max){
+		max = q->count;
+		countdefect1 = q->count;
+		strcpy(defect1,q->defect);
+	}						
+}
+}
+void getseconddefect(ListItem* list,int max,char defect[]){
+ListItem* q;
+for(q=list;q!=NULL;q=q->next){
+	if ((q->count > max) && (strcmp(q->defect,defect))){
+		max = q->count;
+		countdefect2 = q->count;
+		strcpy(defect2,q->defect);
+	}						
+}
+
+}
+
+
+int main(){
+
+	ListItem *first;
+	char defect[4];
+	char cause[4];
+	char component[4];
+	int count,i;
+
+	first = NULL;
+	
+	while(1){
+
+		ListItem *item = malloc( sizeof (ListItem));
+
+		scanf("%s",defect);
+
+		if (!strcmp(defect,"000")) break;
+
+		strcpy(item->defect,defect);
+
+		scanf("%s",cause);
+		strcpy(item->cause,cause);
+
+		scanf("%s",component);
+		strcpy(item->component,component);	
+
+		scanf("%d",&count);
+		item->count = count;
+
+
+		if (search(first,item->count,item->defect)==0) first = addItem(first,item);	
+
+
+
+		}
+
+
+getfirstdefect(first,0);
+printf("Defeito 1: %s (%d)\n",defect1,countdefect1);
+getseconddefect(first,0,defect1);
+printf("Defeito 2: %s (%d)\n",defect2,countdefect2);
+
+
+return 0;
+}

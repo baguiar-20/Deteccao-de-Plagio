@@ -1,0 +1,62 @@
+//
+//  Q_06.c
+//  Escrever um algoritmo que lê 2 vetores de tamanho 10. Crie, a seguir, um vetor S de 20 posições que contenha os elementos dos outros 2 vetores em ordem crescente.
+//
+//  Lígia Gonçalves de Freitas - 21202026
+//
+
+#include <stdio.h>
+
+int main()
+{
+    int vet1[10], vet2[10], S[20];
+    int i, j, temp, m;
+    
+//Le o vetor 1
+    for (i=0; i<10; i++)
+    {
+        scanf("%d", &vet1[i]);
+    }
+    
+//Le o vetor 2
+    for (i=0; i<10; i++)
+    {
+        scanf("%d", &vet2[i]);
+    }
+    
+//Migra para o vetor final
+    for (i=0, j=0; i<10; j++, i++)
+    {
+        S[j] = vet1[i];
+    }
+    for (i=0, j=10; i<10; j++, i++)
+    {
+        S[j] = vet2[i];
+    }
+    
+//Ordenação (por seleção)
+    for (i=0; i<20; i++)
+    {
+        m = i;
+        for (j=i+1; j<20; j++)
+        {
+            if (S[j]<S[m])
+            {
+                m = j;
+            }
+        }
+        
+        temp = S[m];
+        S[m] = S[i];
+        S[i] = temp;
+    }
+    
+//Imprime o vetor final ordenado
+    for (i=0; i<20; i++)
+    {
+        printf("%d ", S[i]);
+    }
+    
+    return 0;
+}
+

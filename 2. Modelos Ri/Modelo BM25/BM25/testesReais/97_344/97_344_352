@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+
+int main(int argc, char *argv[]) {
+
+  int i, k;
+  float p;
+
+  FILE *fp = fopen(argv[1], "rb"); // Abre arquivo
+ 
+ 
+	
+
+   while (fread(&k, sizeof(int), 1, fp) != 0) {
+	
+	
+		
+	printf("%d\n", k); 
+
+	}
+	   
+ 	
+   
+   		 
+   fclose(fp);
+	   
+
+
+
+  return 0;
+}
+

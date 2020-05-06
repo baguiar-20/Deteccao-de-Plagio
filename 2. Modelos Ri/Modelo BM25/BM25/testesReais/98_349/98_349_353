@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main (int argc, char *argv[]) {
+
+	int n;
+	
+	FILE *file = fopen (argv[1], "rb");
+	
+	while (fread (&n, sizeof (int), 1, file)>0) {
+		printf ("%d\n", n);
+	}
+
+	fclose (file);
+
+	return 0;
+}

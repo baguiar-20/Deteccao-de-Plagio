@@ -1,0 +1,138 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct elem{
+	int valor;
+	struct elem *ant;
+	struct elem *prox ;
+}TElem;
+
+typedef struct lista{
+	TElem *ini;
+	TElem *fim;
+}TLista;
+
+TElem *criaElemento(int valor){
+	TElem *Elem=malloc(sizeof(TElem));
+	Elem->ant = NULL;
+	Elem->prox=NULL;
+	Elem->valor=valor;
+	return Elem;
+}
+	
+TLista *criaLista(){
+	TLista *L= malloc(sizeof(TLista));
+	L->ini=NULL;
+	L->fim=NULL;
+	return L;
+}
+
+	
+void insereLista(TElem *Novo,TLista *L){
+	if (L->ini == NULL){
+		L->ini=Novo;
+		L->fim=Novo;
+	}
+	else{
+		Novo->ant=L->fim;
+		L->fim->prox=Novo; 
+		L->fim=Novo;
+	}
+}
+
+
+void insertionSort(TLista *L){
+	TElem *aux=malloc(sizeof(TElem));
+	TElem *amigo=malloc(sizeof(TElem));
+	TElem *marcador=malloc(sizeof(TElem));
+	int flag=0;
+	
+	marcador=L->ini;
+		while(marcador!=NULL) {
+			
+			if (flag==0){
+				marcador=marcador->prox;	//marcador delimita o limite do meu lado ordenado
+			}
+			flag=0;
+			aux=marcador;
+			if(aux!=NULL){
+			
+				if(((aux->valor)<(aux->ant->valor))  ){
+					//amigo é a variavel que guarda o numero do meu TElem
+					amigo=aux;
+					while((amigo->valor < aux->ant->valor) && (aux!=NULL)){
+						aux=aux->ant;
+						if(aux->ant ==NULL){
+							break;
+						}
+					}
+					marcador=amigo->prox;
+					flag=1;
+					if(amigo->prox!=NULL){
+						
+						amigo->prox->ant=amigo->ant;
+					}
+					amigo->ant->prox=amigo->prox;
+					if(aux->ant==NULL){
+					
+						amigo->ant=NULL;
+					}
+					else{
+						aux->ant->prox = amigo;
+					}
+
+					if(aux->ant!=NULL){
+						amigo->ant = aux->ant;
+					}
+					amigo->prox=aux;
+					aux->ant=amigo;
+					if(amigo->ant == NULL){
+						L->ini=amigo;
+					}
+						
+									
+				}
+			
+			
+			}
+		}		
+	
+}
+
+void imprime(TLista *L,int tam){
+		TElem *aux=malloc(sizeof(TElem));
+		aux=L->ini;
+		int i =0;
+		while((aux!=NULL)){
+			i++;
+			printf("%i \n",aux->valor);
+			aux=aux->prox;
+			
+		}
+}
+	
+	
+		
+int main(){
+	
+	TLista *Lista = criaLista();
+	TElem *Eg;
+	int valor,tam;
+	while(valor!=-1){
+	
+		scanf("%i",&valor);
+		Eg=criaElemento(valor);
+		if (valor!=-1){
+			
+			insereLista(Eg,Lista);
+			tam++;
+		}
+	}
+	insertionSort(Lista);
+	imprime(Lista,tam);
+	return 0;
+ }
+	
+
+	
+

@@ -1,0 +1,31 @@
+#include "stdio.h"
+
+int main()
+{
+	int n1, n2, div, aux, rest;
+	
+	scanf("%d%d", &n1, &n2);
+	
+	if(n1 < n2)
+	{
+		aux = n1;
+		n1 = n2;
+		n2 = aux;
+	}
+	
+	div = n1 / n2;
+	
+	while(n1 % n2 != 0)
+	{
+		div = n1 / n2;
+		rest = n1 % n2;
+		
+		if(n1 % n2 != 0)
+		{
+			n1 = n2;
+			n2 = rest;
+		}
+	}
+	
+	printf("%d\n", rest);
+}

@@ -1,0 +1,43 @@
+/*	- LABORATORIO DE PROGRAMAÇÃO A -
+				- Aluno: Marivaldo Rodrigues  -  Turma 02   -   Matricula 21351819 -
+					Atividade relativa a aula de 08-13 de agosto de 2013
+	#################################################################################################################
+Exercicio --> 1) Lidos dois números inteiros positivos P e Q, calcule o mmc desses numeros
+	#################################################################################################################	
+*/
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+	int i, numero1, numero2, MMC;
+ 	scanf ("%d %d", &numero1, &numero2);
+	MMC=1;
+	i = 2;
+	while ((numero1 != 1) || (numero2 != 1))				
+	{  
+		while (((numero1 % i == 0) && (numero1 != 1)) ||((numero2 % i == 0) && (numero2 != 1))) 
+		{
+			if ((numero1 % i == 0) && (numero2 % i == 0)) 
+			{ 
+				MMC *= i;			
+				numero1 = numero1/i;
+				numero2 = numero2/i;
+			} 
+			else
+			{
+				if (numero1 % i == 0)
+				{ 
+					MMC *= i;			
+					numero1=numero1/i;
+				}
+				if (numero2 % i == 0)
+				{ 
+					MMC *= i;			
+					numero2=numero2/i;
+				}
+			}
+		}
+		i++;
+	}
+	printf("%d", MMC); 
+}

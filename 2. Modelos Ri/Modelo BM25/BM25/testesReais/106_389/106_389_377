@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int buscaBin(int *vetor, int tam, int chave) {
+   int inicio = 0;
+   int meio;
+   int fim = tam-1;
+   
+   while (inicio<=fim) {
+      meio = (inicio+fim)/2;
+      if (vetor[meio]==chave) return meio;
+      else if (vetor[meio]<chave) inicio = meio+1;
+      	   else fim = meio-1;
+   }
+   
+   return -1;
+}
+
+int main(){
+	int tam,chave,i;
+	scanf("%d",&tam);
+	int vetor[tam];
+	
+	for(i=0;i<tam;i++){
+		scanf("%d",&vetor[i]);
+	}
+	scanf("%d",&chave);
+
+	printf("%d",buscaBin(vetor,tam,chave));
+
+return 0;
+}

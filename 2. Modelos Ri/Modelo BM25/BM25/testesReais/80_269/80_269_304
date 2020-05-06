@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+
+	char string[50];
+	char carac;	
+	int i;
+	int cont=0;
+	
+
+	gets(string);	
+	scanf("%c",&carac);
+	
+	for(i=strlen(string);i>=0;i--)
+	{
+
+		if(string[i]==carac)
+		{
+			cont=cont+1;
+		}
+	}
+	
+	printf("%d", cont); 
+}
