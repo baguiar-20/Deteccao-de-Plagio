@@ -78,7 +78,7 @@ def OkapiBM25(docs_colecao,cont_termos, avg_doclen, qtdDocs,termosConsulta, tam_
                 consulta = j[1] #[hdhfhdgfhdg]
                     for i,j in cont_termos.items(): # quia: 10
                         if (i in busca[1]) and (i in consulta[1]): # se o termo quia aparecer no documento de busca e de consulta bla bla
-                            idf =  mt.log((qtdDocs-j + 0.5)/(j+0.5)) # calcula essa merda aqui
+                            idf =  mt.log((qtdDocs-j + 0.5)/(j+0.5)) # calcula aqui
                             for x in termosConsulta: # x é um contador nos termos da consulta
                                 if (termosConsulta[x][2] == i): #retorna o documento de busca, documento de consulta, o termo semelhante e a quantidade de vezes que ele se repete, se o termo semelhante é igual ao termo quia
                                     a = termosConsulta[x][3] # a recebe quantidade de vezes que o termo se repete
