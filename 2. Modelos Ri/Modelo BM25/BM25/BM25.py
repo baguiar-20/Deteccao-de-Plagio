@@ -58,7 +58,6 @@ def OkapiBM251(docs_colecao,cont_termos, avg_doclen, qtdDocs,termosConsulta, tam
                         if(consulta[0] == tam_colecao[t][0]):
                             tam = tam_colecao[t][1]
                     bm += idf * ((a *(K1+1)) / (K1 * ( (1-b) + b *(tam/avg_doclen) ) + a))
-                    print(term, a, K1+1, a *(K1+1))
             okapi[cont] = [busca[0], consulta[0], bm]
             cont += 1
             bm = 0        
