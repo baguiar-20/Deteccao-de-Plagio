@@ -2,7 +2,10 @@ import numpy as np
 import math as mt
 import glob
 
-'''fórmula  para IDF tem desvantagens para termos que aparecem em mais da metade dos documentos do corpus. O IDF desses termos é negativo; portanto, para quaisquer dois documentos quase idênticos, um que contenha o termo pode ser classificado como inferior ao que não contém'''
+'''fórmula  para IDF tem desvantagens para termos que aparecem em mais da 
+metade dos documentos do corpus. 
+Se o numero de doc que contem o termo (ni) > N/2, 
+o termo negativo sera incluido no calculo '''
 
 def mediaDoc(tamLista, qtdLista):
     avg_doclen = 0
