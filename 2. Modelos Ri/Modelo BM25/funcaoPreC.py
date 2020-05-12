@@ -2,7 +2,8 @@ import glob, os, math, errno, re, fnmatch
 import numpy as np
 from os.path import isfile
 from re import sub
-from collections import defaultdict
+
+
 """
     Módulo com funções que realizam o pré processamento e 
     e a substituição dos tokens no código
@@ -21,8 +22,7 @@ def token(arquivoToken):
 
 #arquivos em c
 #troca espaços vazios por token AB e remove comentarios e numeros
-def removeSpace(texto):
-    
+def removeSpaceC(texto):
     for i in range(len(texto)):
         texto[i] = texto[i].replace("\n", "")
         texto[i] = texto[i].replace("\\n", "")
@@ -47,7 +47,7 @@ def removeSpace(texto):
 
 
 
-def tokensS(texto, tokens): # troca os simbolos por tokens
+def tokensSimbols(texto, tokens): # troca os simbolos por tokens
     x = ' '
     k = ' '
     for i in range(len(texto)):
@@ -75,7 +75,7 @@ def tokensS(texto, tokens): # troca os simbolos por tokens
     return texto
 
 #troca palavras reservadas da linguagem C para tokens (versao preguicosa)
-def tokensP(texto):
+def tokensWordsC(texto):
     for i in range(len(texto)):
         texto[i] = texto[i].replace("unsigned", "hd")
         texto[i] = texto[i].replace("register" ,"gs")
@@ -181,13 +181,11 @@ def calcNgram(listapalavras, n):#calcula as n-gramas dos tokens gerados
         vocabulario.append(auxi)
     return vocabulario
 
-def insertTERMOS(file, vocab_atual, colecao, tam, tam_doc):
+def insertTERMOS(file, vocab_atual, colecao):
     key_file = file
     vocab_file = vocab_atual
-    tam_file = tam_doc
     colecao.append({key_file: vocab_file})
-    tam.append({key_file: tam_file})
-    return colecao, tam
+    return colecao
 
 def preencheTERMOS(termos_colecao_c, list_c):#Nº de doc em q o termo ocorre na coleção
     termos_number = {}
@@ -202,15 +200,11 @@ def preencheTERMOS(termos_colecao_c, list_c):#Nº de doc em q o termo ocorre na 
                     termos_number[i] = cont
     return termos_number
 
-def removeREPEATED(vocaburepetido): #remove elementos repetidos de listas
-    final_vocabu = [] 
-    for num in vocaburepetido: 
-        if num not in final_vocabu: 
-            final_vocabu.append(num) 
-    return final_vocabu
 
-
-
-            
-
-
+def emLista(docs_colecao):
+    lista_colecao = []
+    for i in docs_colecao:
+        c = i
+        for t in c.items():
+            lista_colecao.append(t)
+    return lista_colecao
