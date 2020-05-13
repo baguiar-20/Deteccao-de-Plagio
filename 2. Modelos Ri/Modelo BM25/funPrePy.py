@@ -1,26 +1,13 @@
-import numpy as np
-from os.path import isfile
-from re import sub
 import re
 
 # passa como parametro um arquivo de tokens e o transforma em uma lista de tuplas
-def removeSpacePy(texto):
+def removeEspacoPy(texto):
     for i in range(len(texto)):
         texto[i] = texto[i].replace("\n", "")
         texto[i] = texto[i].replace("\\n", "")
         texto[i] = texto[i].replace(" ", "AB")
         texto[i] = texto[i].replace("\s", "")
         texto[i] = texto[i].replace("\t", "")
-        texto[i] = texto[i].replace("0", "")
-        texto[i] = texto[i].replace("1", "")
-        texto[i] = texto[i].replace("2", "")
-        texto[i] = texto[i].replace("3", "")
-        texto[i] = texto[i].replace("4", "")
-        texto[i] = texto[i].replace("5", "")
-        texto[i] = texto[i].replace("6", "")
-        texto[i] = texto[i].replace("7", "")
-        texto[i] = texto[i].replace("8", "")
-        texto[i] = texto[i].replace("9", "")
         
     for i in range(len(texto)):
         x = texto[i]
@@ -28,7 +15,7 @@ def removeSpacePy(texto):
     return texto
 
 
-def tokensWordsPy(texto):
+def tokensPy(texto):
     for i in range(len(texto)):
         texto[i] = texto[i].replace("staticmethod", 'fd')
 

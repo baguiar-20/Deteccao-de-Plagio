@@ -22,14 +22,19 @@ def mediaDoc(tamLista, qtdLista):
 def idf(qtdDocs,cont_termos):
     idf ={}
     for term, num in cont_termos.items():
-        t = mt.log((qtdDocs + 0.5) / (num+0.5))
+        # dessa 
+        #t = mt.log((qtdDocs-num + 0.5) / (num+0.5), 2.71828)
+        #t = mt.log(1+((qtdDocs-num + 0.5) / (num+0.5)), 2.71828)
+        #t = mt.log(qtdDocs/num, 2.71828)
+        t = mt.log( (qtdDocs + 0.5) / (num+0.5), 2.71828)
+        
         idf[term] = t
     return idf
 
 
 ########################################################################################
 
-def OkapiBM25(docs_colecao, cont_termos, avg_doclen, qtdDocs, idf,  K1 = 1.5, b = 0.75):
+def OkapiBM25(docs_colecao, cont_termos, avg_doclen, qtdDocs, idf,  K1 = 1, b = 0.75):
     tf = 0
     okapi = {}
     cont = 0
@@ -41,7 +46,7 @@ def OkapiBM25(docs_colecao, cont_termos, avg_doclen, qtdDocs, idf,  K1 = 1.5, b 
                     tf = consulta[1].count(term)
                     tam = len(consulta[1])
                     bm += idf.get(term) * ( tf *(K1+1) / (K1 * ( 1-b + b * tam/avg_doclen ) + tf) )
-            okapi[cont] = [busca[0], consulta[0], bm]
+            okapi[cont] = [busca[0],consulta[0],bm]
             cont += 1
             bm = 0        
     return okapi
