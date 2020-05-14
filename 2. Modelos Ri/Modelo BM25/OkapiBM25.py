@@ -2,6 +2,14 @@ import numpy as np
 import math as mt
 import glob
 
+def arquivo(score):
+    arquivo_score = open("scores.txt", "w")
+    for i in score.items():
+        text = str(i[1])
+        arquivo_score.write(text)
+        arquivo_score.write('\n')
+    arquivo_score.close()
+
 '''fórmula  para IDF tem desvantagens para termos que aparecem em mais da metade dos documentos 
 do corpus. O IDF desses termos é negativo; portanto, para quaisquer dois documentos 
 quase idênticos, um que contenha o termo pode ser classificado como inferior ao que não contém'''
@@ -46,7 +54,9 @@ def OkapiBM25(docs_colecao, cont_termos, avg_doclen, qtdDocs, idf,  K1 = 1, b = 
                     tf = consulta[1].count(term)
                     tam = len(consulta[1])
                     bm += idf.get(term) * ( tf *(K1+1) / (K1 * ( 1-b + b * tam/avg_doclen ) + tf) )
-            okapi[cont] = [busca[0],consulta[0],bm]
+            okapi[bm] = busca[0], consulta[0], bm
             cont += 1
             bm = 0        
     return okapi
+
+

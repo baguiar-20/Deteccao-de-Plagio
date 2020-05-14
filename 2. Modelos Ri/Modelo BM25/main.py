@@ -53,6 +53,7 @@ with os.scandir(p) as arqs:
                 termos_colecao += termos
                 docs_colecao = fpg.insereTermos(arq.name, termos, lists)
 
+
 docs_colecao = fpg.emLista(docs_colecao)
 avg_doclen = okapibm25.mediaDoc(tam_list, qtdDocs)
 cont_termos = fpg.preencheTermos(termos_colecao, lists)
@@ -60,4 +61,6 @@ cont_termos = fpg.preencheTermos(termos_colecao, lists)
 idf = okapibm25.idf(qtdDocs, cont_termos)
 
 score = okapibm25.OkapiBM25(docs_colecao, cont_termos, avg_doclen, qtdDocs, idf)
-print(score)
+
+#cria um arquivo com os score do bm25
+okapibm25.arquivo(score)
